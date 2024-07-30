@@ -1,69 +1,91 @@
 package me.dantesys.valentCity.events;
 
+import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.reliquias;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityResurrectEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 
 public class reliquiasevents implements Listener {
     @EventHandler
-    public void onRightClick(PlayerInteractEvent event) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR) {
-            if (event.getItem() != null) {
-                if (event.getItem().getItemMeta().equals(reliquias.espada.getItemMeta())) {
-                    Player player = event.getPlayer();
-                    espadaActiveEvent(player);
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        player.sendMessage("Seja bem vindo");
+    }
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent event) {
+        Entity atacante = event.getDamager();
+        Entity presa = event.getEntity();
+        if(atacante instanceof Player) {
+            Player atacantepl = (Player) atacante;
+            if (atacantepl.getInventory().getItemInMainHand().equals(reliquias.espadamd.getItemMeta())) {
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 100, 2));
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 2));
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100, 2));
+                if (presa instanceof LivingEntity) {
+                    LivingEntity lepresa = (LivingEntity) presa;
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1));
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
                 }
             }
         }
     }
     @EventHandler
-    public void onHeldItem(PlayerItemHeldEvent event) {
-        Player player = event.getPlayer();
-        int item = event.getNewSlot();
-        player.getInventory().getItem(item);
-        if (player.getInventory().getItem(item) != null) {
-            if (Objects.requireNonNull(player.getInventory().getItem(item)).getItemMeta().equals(reliquias.espada.getItemMeta())) {
-                espadaPassiveEvent(player);
+    public void getLife(EntityDeathEvent e) {
+        Entity dead = e.getEntity();
+        Player killer = e.getEntity().getKiller();
+        if (killer != null) {
+            if(dead instanceof Monster){
+                if(killer.getInventory().getItemInMainHand().equals(reliquias.enxada)){
+                    killer.setMaxHealth(killer.getMaxHealth()+1.0);
+                }
+            } else if (dead instanceof Player) {
+                Player f = (Player) dead;
+                if(f.getInventory().first(reliquias.enxada) != 0){
+                    f.setMaxHealth(20.0);
+                }
             }
         }
     }
-    public void espadaActiveEvent(@NotNull Player player){
-        Collection<PotionEffect> efeitos = List.of();
-        efeitos.add(new PotionEffect(PotionEffectType.STRENGTH,-1,5));
-        efeitos.add(new PotionEffect(PotionEffectType.SPEED,-1,1));
-        efeitos.add(new PotionEffect(PotionEffectType.MINING_FATIGUE,-1,5));
-        if(player.getActivePotionEffects().equals(efeitos)){
-            for (int i = 0; i<efeitos.size();i++){
-                player.removePotionEffect(PotionEffectType.STRENGTH);
-                player.removePotionEffect(PotionEffectType.SPEED);
-                player.removePotionEffect(PotionEffectType.MINING_FATIGUE);
+    @EventHandler(ignoreCancelled = true)
+    public void onTotem(EntityResurrectEvent e) {
+        EquipmentSlot hand = EquipmentSlot.HAND;
+        ItemStack totemItemStack = e.getEntity().getEquipment().getItem(hand); // Get the item in the main hand
+
+        if (totemItemStack == null || totemItemStack.getType() != Material.TOTEM_OF_UNDYING) { // If it's not in the main hand,
+            totemItemStack = e.getEntity().getEquipment().getItem(hand = EquipmentSlot.OFF_HAND); // Get it in the off hand
+            if (totemItemStack == null || totemItemStack.getType() != Material.TOTEM_OF_UNDYING) {
+                return; // Good to double check, just in case
             }
-            player.sendMessage("§6Você desativou a fúria do guerreiro!");
-        }else{
-            player.addPotionEffects(efeitos);
-            player.sendMessage("§6Você ativou a fúria do guerreiro!");
         }
-    }
-    public void espadaPassiveEvent(@NotNull Player player){
-        Collection<PotionEffect> efeitos = List.of();
-        efeitos.add(new PotionEffect(PotionEffectType.RESISTANCE,-1,1));
-        if(player.getActivePotionEffects().equals(efeitos)){
-            for (int i = 0; i<efeitos.size();i++){
-                player.removePotionEffect(PotionEffectType.RESISTANCE);
-            }
-        }else{
-            player.addPotionEffects(efeitos);
+
+        // You can operate on totemItemStack here now. Check if it's the one you want
+        if(totemItemStack.equals(reliquias.totem)){
+            ValentCity vc = new ValentCity();
+            Bukkit.getScheduler().runTaskLater(vc, () -> {
+                e.getEntity().addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100,5),true);
+                e.getEntity().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100,5),true);
+                e.getEntity().addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 100,5),true);
+                e.getEntity().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20,5),true);
+            },1);
+            ItemStack finalTotemItemStack = totemItemStack;
+            Bukkit.getScheduler().runTaskLater(vc, () -> {
+                finalTotemItemStack.setAmount(finalTotemItemStack.getAmount() + 1);
+            },100);
         }
     }
 }
