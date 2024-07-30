@@ -1,0 +1,6 @@
+name: ValentCity
+version: '1.0.1'
+main: me.dantesys.valentCity.ValentCity
+api-version: '1.21'
+authors: [ Dantesys ]
+description: Um plugin usando no servidor valent city
