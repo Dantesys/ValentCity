@@ -20,17 +20,20 @@ public class reliquias {
     public static ItemStack espadamd;
     public static ItemStack totem;
     public static ItemStack enxada;
+    public static ItemStack invasor;
+    public static ItemStack roubo_xp;
     /*public static ItemStack arco;
     public static ItemStack besta;
     public static ItemStack escudo;
-    public static ItemStack picareta;
-    public static ItemStack machado;
-    public static ItemStack pa;*/
+    public static ItemStack picareta;*/
     public static void init() {
         createEnxada();
         createEspadamd();
         createTotem();
-    }private static void createEnxada() {
+        createInvasor();
+        createRouboXP();
+    }
+    private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§6Relíquia do Ceifador");
@@ -79,5 +82,37 @@ public class reliquias {
         meta.addEnchant(Enchantment.INFINITY,1,true);
         item.setItemMeta(meta);
         totem = item;
+    }
+    private static void createInvasor() {
+        ItemStack item = new ItemStack(Material.INK_SAC, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Espião");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato estranho"));
+        loreitem.add(Component.text("§7capaz de alterar a"));
+        loreitem.add(Component.text("§7realidade"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.addEnchant(Enchantment.KNOCKBACK,100,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        invasor = item;
+    }
+    private static void createRouboXP() {
+        ItemStack item = new ItemStack(Material.STICK, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Graveto do XP");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um graveto estranho"));
+        loreitem.add(Component.text("§7capaz de alterar a"));
+        loreitem.add(Component.text("§7roubar xp"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.addEnchant(Enchantment.MENDING,1,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        roubo_xp = item;
     }
 }
