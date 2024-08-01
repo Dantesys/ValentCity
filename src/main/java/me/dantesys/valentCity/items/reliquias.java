@@ -15,12 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;
+import static org.bukkit.attribute.Attribute.GENERIC_ATTACK_DAMAGE;
 
 public class reliquias {
     public static ItemStack espadamd;
     public static ItemStack totem;
     public static ItemStack enxada;
-    public static ItemStack invasor;
+    public static ItemStack spy;
+    public static ItemStack tridente_modelo1;
+    public static ItemStack tridente_modelo2;
     /*public static ItemStack arco;
     public static ItemStack besta;
     public static ItemStack escudo;
@@ -29,7 +32,8 @@ public class reliquias {
         createEnxada();
         createEspadamd();
         createTotem();
-        createInvasor();;
+        createInvasor();
+        createTridente();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -92,9 +96,35 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
-        meta.addEnchant(Enchantment.KNOCKBACK,100,true);
+        meta.addEnchant(Enchantment.KNOCKBACK,1,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        invasor = item;
+        spy = item;
+    }
+    private static void createTridente() {
+        ItemStack item = new ItemStack(Material.TRIDENT, 1);
+        ItemStack item2 = item;
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Tridente");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que comanda os mares"));
+        loreitem.add(Component.text("§7Modelo 1: Tempest"));
+        loreitem.add(Component.text("§7Modelo 2: Aqua Jet"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),11, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addEnchant(Enchantment.IMPALING,20,true);
+        ItemMeta meta2 = meta;
+        meta.addEnchant(Enchantment.LOOTING,5,true);
+        meta.addEnchant(Enchantment.CHANNELING,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        tridente_modelo1 = item;
+        meta2.addEnchant(Enchantment.RIPTIDE,5,true);
+        meta2.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item2.setItemMeta(meta2);
+        tridente_modelo2 = item2;
     }
 }

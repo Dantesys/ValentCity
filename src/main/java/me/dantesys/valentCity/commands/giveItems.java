@@ -16,7 +16,8 @@ public class giveItems implements CommandExecutor {
                 player.getInventory().addItem(reliquias.espadamd);
                 player.getInventory().addItem(reliquias.totem);
                 player.getInventory().addItem(reliquias.enxada);
-                player.getInventory().addItem(reliquias.invasor);
+                player.getInventory().addItem(reliquias.spy);
+                player.getInventory().addItem(reliquias.tridente_modelo1);
             } else {
                 sender.sendMessage("Tentando madar as reliquias para: "+args[0]);
                 Player target = Bukkit.getPlayerExact(args[0]);
@@ -26,7 +27,8 @@ public class giveItems implements CommandExecutor {
                     target.getInventory().addItem(reliquias.espadamd);
                     target.getInventory().addItem(reliquias.enxada);
                     target.getInventory().addItem(reliquias.totem);
-                    target.getInventory().addItem(reliquias.invasor);
+                    target.getInventory().addItem(reliquias.spy);
+                    target.getInventory().addItem(reliquias.tridente_modelo1);
                 }
             }
         }

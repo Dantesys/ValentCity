@@ -1,4 +1,8 @@
 <h1>Plugin usado no servidor Valent City</h1>
+<h2>Mudanças - v1.4.0</h2>
+Adicionado nova reliquia tridente, com habilidade na mão se tiver impar ou par e muda o clima se tiver na outra mão
+<h2>Mudanças - v1.3.2</h2>
+Ajustes de melhoria de codigo, correções nas habilidades e verificação de itens na mão 
 <h2>Mudanças - v1.3.1</h2>
 Ajustes de melhoria de codigo e adicionado 2 crafts e 1 item supresa removidos
 <h2>Mudanças - v1.3.0</h2>

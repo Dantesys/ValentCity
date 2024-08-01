@@ -5,12 +5,16 @@ import me.dantesys.valentCity.events.reliquiasevents;
 import me.dantesys.valentCity.items.reliquias;
 import org.bukkit.ChatColor;
 
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
@@ -18,9 +22,14 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public final class ValentCity extends JavaPlugin implements Listener {
+    private static final Logger log = LoggerFactory.getLogger(ValentCity.class);
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -42,6 +51,23 @@ public final class ValentCity extends JavaPlugin implements Listener {
         // Plugin shutdown logic
         getServer().clearRecipes();
         getServer().getConsoleSender().sendMessage(ChatColor.RED + "[Valent City]: Plugin Desativado!");
+    }
+    public void viewPL(@NotNull Player player, LivingEntity entity) {
+        Location local = player.getLocation();
+        Temporizador timer = new Temporizador(ValentCity.this,10,
+            () -> {
+                player.sendMessage("Visão Ativada!");
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 10,true,false));
+                player.setGameMode(GameMode.SPECTATOR);
+                player.setSpectatorTarget(entity);
+            },() -> {
+                player.setSpectatorTarget(null);
+                player.setGameMode(GameMode.SURVIVAL);
+                player.teleport(local);
+            },(t) -> player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para desativar a visão")
+            );
+        timer.scheduleTimer();
     }
     @EventHandler
     public void onTotem(EntityResurrectEvent e) {
@@ -84,6 +110,47 @@ public final class ValentCity extends JavaPlugin implements Listener {
                         (t) -> deadEntity.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o totem")
                 );
                 timer.scheduleTimer();
+            }
+        }
+    }
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent event) {
+        Entity atacante = event.getDamager();
+        Entity presa = event.getEntity();
+        if(atacante instanceof Player) {
+            Player atacantepl = (Player) atacante;
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.espadamd)) {
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 100, 2));
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 2));
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100, 2));
+                if (presa instanceof LivingEntity) {
+                    LivingEntity lepresa = (LivingEntity) presa;
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1));
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
+                }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.enxada)) {
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
+                if (presa instanceof LivingEntity) {
+                    LivingEntity lepresa = (LivingEntity) presa;
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 40, 1));
+                }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.totem)) {
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 5));
+                if (presa instanceof LivingEntity) {
+                    LivingEntity lepresa = (LivingEntity) presa;
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
+                }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.spy)) {
+                if (presa instanceof LivingEntity) {
+                    LivingEntity lepresa = (LivingEntity) presa;
+                    viewPL(atacantepl,lepresa);
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1));
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 60, 1));
+                }
             }
         }
     }
