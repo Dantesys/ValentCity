@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.4.2</h2>
+Ajuste no evento de hotbar e mao secundária, quebrado após a mudanças v1.4.1
 <h2>Mudanças - v1.4.1</h2>
 Mudança no comando /kitrq para /reliquia alvo reliquia
 <h2>Mudanças - v1.4.0</h2>
