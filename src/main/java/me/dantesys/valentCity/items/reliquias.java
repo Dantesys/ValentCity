@@ -21,7 +21,6 @@ public class reliquias {
     public static ItemStack totem;
     public static ItemStack enxada;
     public static ItemStack invasor;
-    public static ItemStack roubo_xp;
     /*public static ItemStack arco;
     public static ItemStack besta;
     public static ItemStack escudo;
@@ -30,8 +29,7 @@ public class reliquias {
         createEnxada();
         createEspadamd();
         createTotem();
-        createInvasor();
-        createRouboXP();
+        createInvasor();;
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -98,21 +96,5 @@ public class reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         invasor = item;
-    }
-    private static void createRouboXP() {
-        ItemStack item = new ItemStack(Material.STICK, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Graveto do XP");
-        List<Component> loreitem = new ArrayList<>();
-        loreitem.add(Component.text("§7Um graveto estranho"));
-        loreitem.add(Component.text("§7capaz de alterar a"));
-        loreitem.add(Component.text("§7roubar xp"));
-        meta.lore(loreitem);
-        meta.setRarity(ItemRarity.EPIC);
-        meta.setUnbreakable(true);
-        meta.addEnchant(Enchantment.MENDING,1,true);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        item.setItemMeta(meta);
-        roubo_xp = item;
     }
 }

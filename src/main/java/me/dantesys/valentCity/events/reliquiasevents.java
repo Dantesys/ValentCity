@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerChangedMainHandEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -19,6 +20,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import static org.bukkit.Bukkit.getServer;
 
 
 public class reliquiasevents implements Listener {
@@ -70,7 +73,21 @@ public class reliquiasevents implements Listener {
     @EventHandler
     public void mao(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
-        efeitos(player);
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN +"Aqui "+player.getInventory().getItem(event.getNewSlot()).isSimilar(reliquias.espadamd));
+        if(player.getInventory().getItem(event.getNewSlot()).isSimilar(reliquias.espadamd)){
+            player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1));
+        }else if(player.getInventory().getItem(event.getNewSlot()).isSimilar(reliquias.totem)){
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, -1, 1));
+        }else if(player.getInventory().getItem(event.getNewSlot()).isSimilar(reliquias.invasor)){
+            player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.01);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
+        }else{
+            for (PotionEffect effect : player.getActivePotionEffects())
+                player.removePotionEffect(effect.getType());
+            player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(1);
+            player.setGlowing(false);
+        }
     }
     @EventHandler
     public void mudamao(PlayerSwapHandItemsEvent event) {
@@ -78,40 +95,22 @@ public class reliquiasevents implements Listener {
         efeitos(player);
     }
     public void efeitos(Player player) {
-        Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
-        Team team = board.registerNewTeam("Ceifador");
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN +"Aqui "+player.getInventory().getItemInMainHand().isSimilar(reliquias.espadamd));
         if(player.getInventory().getItemInMainHand().isSimilar(reliquias.espadamd)){
-            player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1));
-        }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.totem)){
-            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, -1, 1));
-        }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.invasor)){
-            player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.01);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
-        }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.enxada)){
-            player.setGlowing(true);
-            team.setColor(ChatColor.BLACK);
-            team.addEntry(player.getUniqueId().toString());
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
-        }else if(player.getInventory().getItemInOffHand().isSimilar(reliquias.espadamd)){
             player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 1));
-        }else if(player.getInventory().getItemInOffHand().isSimilar(reliquias.totem)){
+        }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.totem)){
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
-        }else if(player.getInventory().getItemInOffHand().isSimilar(reliquias.invasor)) {
+        }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.invasor)) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
 
-        }else if(player.getInventory().getItemInOffHand().isSimilar(reliquias.enxada)){
+        }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.enxada)){
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1));
-        }{
-            player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-            player.removePotionEffect(PotionEffectType.RESISTANCE);
-            player.removePotionEffect(PotionEffectType.REGENERATION);
-            player.removePotionEffect(PotionEffectType.SPEED);
+        }else{
+            for (PotionEffect effect : player.getActivePotionEffects())
+                player.removePotionEffect(effect.getType());
             player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(1);
             player.setGlowing(false);
-            team.removeEntity(player);
-            team.unregister();
         }
     }
     @EventHandler
