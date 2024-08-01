@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.4.1</h2>
+Mudança no comando /kitrq para /reliquia alvo reliquia
 <h2>Mudanças - v1.4.0</h2>
 Adicionado nova reliquia tridente, com habilidade na mão se tiver impar ou par e muda o clima se tiver na outra mão
 <h2>Mudanças - v1.3.2</h2>

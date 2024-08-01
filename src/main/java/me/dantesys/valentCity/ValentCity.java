@@ -23,8 +23,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public final class ValentCity extends JavaPlugin implements Listener {
@@ -32,7 +30,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         reliquias.init();
-        getCommand("kitrq").setExecutor(new giveItems());
+        getCommand("reliquia").setExecutor(new giveItems());
         getServer().getPluginManager().registerEvents(new reliquiasevents(), this);
         getServer().getPluginManager().registerEvents(this, this);
         ItemStack bundle = new ItemStack(Material.BUNDLE);

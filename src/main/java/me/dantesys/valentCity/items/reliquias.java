@@ -33,7 +33,8 @@ public class reliquias {
         createEspadamd();
         createTotem();
         createInvasor();
-        createTridente();
+        createTridente1();
+        createTridente2();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -101,30 +102,43 @@ public class reliquias {
         item.setItemMeta(meta);
         spy = item;
     }
-    private static void createTridente() {
+    private static void createTridente1() {
         ItemStack item = new ItemStack(Material.TRIDENT, 1);
-        ItemStack item2 = item;
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Tridente");
+        meta.setDisplayName("§6Relíquia do Tridente (1)");
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que comanda os mares"));
         loreitem.add(Component.text("§7Modelo 1: Tempest"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),11, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addEnchant(Enchantment.IMPALING,20,true);
+        meta.addEnchant(Enchantment.LOYALTY,5,true);
+        meta.addEnchant(Enchantment.LOOTING,3,true);
+        meta.addEnchant(Enchantment.CHANNELING,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        tridente_modelo1 = item;
+    }
+    private static void createTridente2() {
+        ItemStack item = new ItemStack(Material.TRIDENT, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Tridente (2)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que comanda os mares"));
         loreitem.add(Component.text("§7Modelo 2: Aqua Jet"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),11, AttributeModifier.Operation.ADD_NUMBER));
         meta.addEnchant(Enchantment.IMPALING,20,true);
-        ItemMeta meta2 = meta;
-        meta.addEnchant(Enchantment.LOOTING,5,true);
-        meta.addEnchant(Enchantment.CHANNELING,5,true);
+        meta.addEnchant(Enchantment.LOOTING,3,true);
+        meta.addEnchant(Enchantment.RIPTIDE,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        tridente_modelo1 = item;
-        meta2.addEnchant(Enchantment.RIPTIDE,5,true);
-        meta2.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        item2.setItemMeta(meta2);
-        tridente_modelo2 = item2;
+        tridente_modelo2 = item;
     }
 }

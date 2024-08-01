@@ -1,10 +1,10 @@
 name: ValentCity
-version: '1.4.0'
+version: '1.4.1'
 main: me.dantesys.valentCity.ValentCity
 api-version: '1.21'
 authors: [ Dantesys ]
 description: Um plugin usando no servidor valent city
 commands:
-  kitrq:
+  reliquia:
     description: Recebe as reliquias
-    usage: /<command> <target>
+    usage: /<command> <target> <reliquias (espada|spy|foice|totem|tridente|all)>
