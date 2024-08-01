@@ -28,8 +28,6 @@ import org.slf4j.LoggerFactory;
 
 
 public final class ValentCity extends JavaPlugin implements Listener {
-    private static final Logger log = LoggerFactory.getLogger(ValentCity.class);
-
     @Override
     public void onEnable() {
         // Plugin startup logic
