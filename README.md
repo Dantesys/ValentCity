@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.4.3</h2>
+Nova habilidade para reliquia do guerreiro, quando matar um mob do tipo monster aumenta o ataque
 <h2>Mudanças - v1.4.2</h2>
 Ajuste no evento de hotbar e mao secundária, quebrado após a mudanças v1.4.1
 <h2>Mudanças - v1.4.1</h2>

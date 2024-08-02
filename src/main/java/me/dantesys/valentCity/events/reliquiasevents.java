@@ -168,13 +168,16 @@ public class reliquiasevents implements Listener {
         player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(1);
     }
     @EventHandler
-    public void getLife(EntityDeathEvent e) {
+    public void getPower(EntityDeathEvent e) {
         Entity dead = e.getEntity();
         Player killer = e.getEntity().getKiller();
         if (killer != null) {
             if(dead instanceof Monster) {
                 if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
                     killer.setMaxHealth(killer.getMaxHealth() + 1.0);
+                }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
+                    double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()+1;
+                    killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
                 }
             }
         }
@@ -182,6 +185,8 @@ public class reliquiasevents implements Listener {
             Player f = (Player) dead;
             if(f.getInventory().first(reliquias.enxada) != 0){
                 f.setMaxHealth(20.0);
+            }else if(f.getInventory().first(reliquias.espadamd) != 0){
+                killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(2);
             }
         }
     }
