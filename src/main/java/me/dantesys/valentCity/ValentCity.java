@@ -32,7 +32,6 @@ public final class ValentCity extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         reliquias.init();
-        NamespacedKey key = new NamespacedKey(this,"Valente_City");
         getCommand("reliquia").setExecutor(new giveItems());
         getServer().getPluginManager().registerEvents(new reliquiasevents(), this);
         getServer().getPluginManager().registerEvents(this, this);
@@ -41,11 +40,11 @@ public final class ValentCity extends JavaPlugin implements Listener {
         ItemStack spy2 = new ItemStack(reliquias.spy_modelo2);
         ItemStack tri1 = new ItemStack(reliquias.tridente_modelo1);
         ItemStack tri2 = new ItemStack(reliquias.tridente_modelo2);
-        ShapedRecipe bundle_recipe = new ShapedRecipe(key,bundle);
-        ShapelessRecipe spy1_recipe = new ShapelessRecipe(key,spy1);
-        ShapelessRecipe spy2_recipe = new ShapelessRecipe(key,spy2);
-        ShapelessRecipe tri1_recipe = new ShapelessRecipe(key,tri1);
-        ShapelessRecipe tri2_recipe = new ShapelessRecipe(key,tri2);
+        ShapedRecipe bundle_recipe = new ShapedRecipe(bundle);
+        ShapelessRecipe spy1_recipe = new ShapelessRecipe(spy1);
+        ShapelessRecipe spy2_recipe = new ShapelessRecipe(spy2);
+        ShapelessRecipe tri1_recipe = new ShapelessRecipe(tri1);
+        ShapelessRecipe tri2_recipe = new ShapelessRecipe(tri2);
         bundle_recipe.shape("lll","cbc","ccc");
         bundle_recipe.setIngredient('l', Material.STRING);
         bundle_recipe.setIngredient('c', Material.LEATHER);
