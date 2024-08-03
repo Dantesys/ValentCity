@@ -7,8 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
-
 public class giveItems implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -24,18 +22,21 @@ public class giveItems implements CommandExecutor {
                         target.getInventory().addItem(reliquias.espadamd);
                         target.getInventory().addItem(reliquias.enxada);
                         target.getInventory().addItem(reliquias.totem);
-                        target.getInventory().addItem(reliquias.spy);
+                        target.getInventory().addItem(reliquias.spy_modelo1);
                         target.getInventory().addItem(reliquias.tridente_modelo1);
+                        target.getInventory().addItem(reliquias.vento);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(reliquias.espadamd);
                     }else if(args[1].equalsIgnoreCase("spy")){
-                        target.getInventory().addItem(reliquias.spy);
+                        target.getInventory().addItem(reliquias.spy_modelo1);
                     }else if(args[1].equalsIgnoreCase("foice")){
                         target.getInventory().addItem(reliquias.enxada);
                     }else if(args[1].equalsIgnoreCase("totem")){
                         target.getInventory().addItem(reliquias.totem);
                     }else if(args[1].equalsIgnoreCase("tridente")){
                         target.getInventory().addItem(reliquias.tridente_modelo1);
+                    }else if(args[1].equalsIgnoreCase("vento")){
+                        target.getInventory().addItem(reliquias.vento);
                     }else {
                         sender.sendMessage("Reliquia não encontrada!");
                     }

@@ -15,15 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;
-import static org.bukkit.attribute.Attribute.GENERIC_ATTACK_DAMAGE;
+import static org.bukkit.attribute.Attribute.*;
 
 public class reliquias {
     public static ItemStack espadamd;
     public static ItemStack totem;
     public static ItemStack enxada;
-    public static ItemStack spy;
+    public static ItemStack spy_modelo1;
+    public static ItemStack spy_modelo2;
     public static ItemStack tridente_modelo1;
     public static ItemStack tridente_modelo2;
+    public static ItemStack vento;
     /*public static ItemStack arco;
     public static ItemStack besta;
     public static ItemStack escudo;
@@ -32,9 +34,11 @@ public class reliquias {
         createEnxada();
         createEspadamd();
         createTotem();
-        createInvasor();
+        createSpy1();
+        createSpy2();
         createTridente1();
         createTridente2();
+        createVento();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -86,21 +90,42 @@ public class reliquias {
         item.setItemMeta(meta);
         totem = item;
     }
-    private static void createInvasor() {
-        ItemStack item = new ItemStack(Material.INK_SAC, 1);
+    private static void createSpy1() {
+        ItemStack item = new ItemStack(Material.SPYGLASS, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Espião");
+        meta.setDisplayName("§6Relíquia do Espião (1)");
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato estranho"));
         loreitem.add(Component.text("§7capaz de alterar a"));
         loreitem.add(Component.text("§7realidade"));
+        loreitem.add(Component.text("§7Modelo 1: Investigador"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
-        meta.addEnchant(Enchantment.KNOCKBACK,1,true);
+        meta.addEnchant(Enchantment.LOOTING,10,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        spy = item;
+        spy_modelo1 = item;
+    }
+    private static void createSpy2() {
+        ItemStack item = new ItemStack(Material.INK_SAC, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Espião (2)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato estranho"));
+        loreitem.add(Component.text("§7capaz de alterar a"));
+        loreitem.add(Component.text("§7realidade"));
+        loreitem.add(Component.text("§7Modelo 2: Fuga"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.addEnchant(Enchantment.KNOCKBACK,2,true);
+        meta.addAttributeModifier(GENERIC_MOVEMENT_SPEED, new AttributeModifier(GENERIC_MOVEMENT_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(PLAYER_ENTITY_INTERACTION_RANGE, new AttributeModifier(PLAYER_ENTITY_INTERACTION_RANGE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        spy_modelo2 = item;
     }
     private static void createTridente1() {
         ItemStack item = new ItemStack(Material.TRIDENT, 1);
@@ -140,5 +165,22 @@ public class reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         tridente_modelo2 = item;
+    }
+    private static void createVento() {
+        ItemStack item = new ItemStack(Material.WIND_CHARGE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Vento");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que é a propia essência"));
+        loreitem.add(Component.text("§7de um tornado"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addEnchant(Enchantment.KNOCKBACK,100,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        vento = item;
     }
 }

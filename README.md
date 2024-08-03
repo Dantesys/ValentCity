@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.5.0</h2>
+Adinionado novo modo para reliquia do espião e adicionado nova reliquia vento
 <h2>Mudanças - v1.4.3</h2>
 Nova habilidade para reliquia do guerreiro, quando matar um mob do tipo monster aumenta o ataque
 <h2>Mudanças - v1.4.2</h2>
