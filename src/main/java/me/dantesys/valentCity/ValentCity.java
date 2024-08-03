@@ -6,14 +6,14 @@ import me.dantesys.valentCity.events.reliquiasevents;
 import me.dantesys.valentCity.items.reliquias;
 import org.bukkit.*;
 
+import org.bukkit.damage.DamageSource;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EntityEquipment;
@@ -171,7 +171,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
         Action action = event.getAction();
         if(item != null && item.isSimilar(reliquias.vento)){
             if(action.isRightClick()){
-                player.getInventory().remove(reliquias.vento);
+                player.getInventory().removeItem(reliquias.vento);
                 player.setCooldown(reliquias.vento.getType(),0);
                 player.getInventory().addItem(reliquias.vento);
             }

@@ -2,15 +2,14 @@ package me.dantesys.valentCity.events;
 
 import me.dantesys.valentCity.items.reliquias;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -21,6 +20,20 @@ public class reliquiasevents implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         player.sendMessage("Seja bem vindo");
+    }
+    @EventHandler
+    public void troca(PlayerSwapHandItemsEvent event){
+        Player player = event.getPlayer();
+        ItemStack omao = event.getOffHandItem();
+        if(omao.isSimilar(reliquias.tridente_modelo2)){
+            event.setOffHandItem(reliquias.tridente_modelo1);
+            player.getInventory().setItemInOffHand(reliquias.tridente_modelo1);
+            player.updateInventory();
+        }else if(omao.isSimilar(reliquias.tridente_modelo1)){
+            event.setOffHandItem(reliquias.tridente_modelo2);
+            player.getInventory().setItemInOffHand(reliquias.tridente_modelo2);
+            player.updateInventory();
+        }
     }
     @EventHandler
     public void mao(PlayerItemHeldEvent event) {
