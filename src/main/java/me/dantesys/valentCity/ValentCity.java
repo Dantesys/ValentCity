@@ -169,6 +169,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
         ItemStack item = event.getItem();
         if(item != null && item.isSimilar(reliquias.vento)){
             player.getInventory().addItem(reliquias.vento);
+            player.setNoActionTicks(0);
         }
     }
 }

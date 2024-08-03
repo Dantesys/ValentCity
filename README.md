@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.5.4</h2>
+Ajuste no countdown da reliquia do vento
 <h2>Mudanças - v1.5.3</h2>
 Tirar modo espectador da reliquia do espião
 <h2>Mudanças - v1.5.2</h2>
