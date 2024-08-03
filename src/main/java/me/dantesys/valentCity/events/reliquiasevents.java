@@ -183,7 +183,7 @@ public class reliquiasevents implements Listener {
                     }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
                         double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()*1.5;
                         killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
-                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)+" sem a reliquia");
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue()+" sem a reliquia");
                     }
                 }else if(dead.getType() == EntityType.ENDER_DRAGON){
                     if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
@@ -191,7 +191,7 @@ public class reliquiasevents implements Listener {
                     }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
                         double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()*2;
                         killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
-                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)+" sem a reliquia");
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue()+" sem a reliquia");
                     }
                 }else{
                     if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
@@ -199,7 +199,7 @@ public class reliquiasevents implements Listener {
                     }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
                         double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()+1;
                         killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
-                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)+" sem a reliquia");
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue()+" sem a reliquia");
                     }
                 }
             }

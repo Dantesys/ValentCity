@@ -12,6 +12,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -167,9 +168,12 @@ public final class ValentCity extends JavaPlugin implements Listener {
     public void vcviu(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
+        Action action = event.getAction();
         if(item != null && item.isSimilar(reliquias.vento)){
-            player.getInventory().addItem(reliquias.vento);
-            player.setNoActionTicks(0);
+            if(action.isRightClick()){
+                player.getInventory().addItem(reliquias.vento);
+                player.setFireTicks(0);
+            }
         }
     }
 }
