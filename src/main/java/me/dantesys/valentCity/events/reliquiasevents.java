@@ -44,10 +44,11 @@ public class reliquiasevents implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.spy_modelo2)){
-                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
+                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.25);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 3,true,false));
             }else if(item.isSimilar(reliquias.tridente_modelo1)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, -1, 1));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, -1, 1));
@@ -69,13 +70,13 @@ public class reliquiasevents implements Listener {
                 }else if(omao.isSimilar(reliquias.enxada)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1));
                 }else if(omao.isSimilar(reliquias.spy_modelo1)){
-                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
+                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.25);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(omao.isSimilar(reliquias.spy_modelo2)){
-                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.75);
+                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 3,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1,true,false));
                 }else if(omao.isSimilar(reliquias.tridente_modelo1) || omao.isSimilar(reliquias.tridente_modelo2)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, -1, 1));
@@ -106,13 +107,13 @@ public class reliquiasevents implements Listener {
             }else if(omao.isSimilar(reliquias.enxada)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1));
             }else if(omao.isSimilar(reliquias.spy_modelo1)){
-                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
+                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.25);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(omao.isSimilar(reliquias.spy_modelo2)){
-                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.75);
+                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 3,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1,true,false));
             }else if(omao.isSimilar(reliquias.tridente_modelo1) || omao.isSimilar(reliquias.tridente_modelo2)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, -1, 1));
@@ -135,14 +136,15 @@ public class reliquiasevents implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.spy_modelo1)){
-                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
+                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.01);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
-                }else if(item.isSimilar(reliquias.spy_modelo2)){
-                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1,true,false));
+                }else if(item.isSimilar(reliquias.spy_modelo2)) {
+                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.25);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, true, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1, true, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1, true, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 3, true, false));
                 }else if(item.isSimilar(reliquias.tridente_modelo1)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, -1, 1));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, -1, 1));

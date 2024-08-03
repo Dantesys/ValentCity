@@ -115,7 +115,7 @@ public class reliquias {
         loreitem.add(Component.text("§7Um artefato estranho"));
         loreitem.add(Component.text("§7capaz de alterar a"));
         loreitem.add(Component.text("§7realidade"));
-        loreitem.add(Component.text("§7Modelo 2: Fuga"));
+        loreitem.add(Component.text("§7Modelo 2: Protetor"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);

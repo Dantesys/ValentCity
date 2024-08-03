@@ -1,6 +1,8 @@
 <h1>Plugin Valent City</h1>
 <h2>Mudanças - v1.5.1</h2>
-Resover bug dos crafts
+Ajuste na reliquia do espião
+<h2>Mudanças - v1.5.1</h2>
+Resolver bug dos crafts
 <h2>Mudanças - v1.5.0</h2>
 Adinionado novo modo para reliquia do espião e adicionado nova reliquia vento
 <h2>Mudanças - v1.4.3</h2>

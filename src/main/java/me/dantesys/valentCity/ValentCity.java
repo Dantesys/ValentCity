@@ -68,12 +68,11 @@ public final class ValentCity extends JavaPlugin implements Listener {
     }
     public void viewPL(@NotNull Player player, LivingEntity entity) {
         Location local = player.getLocation();
-        Temporizador timer = new Temporizador(ValentCity.this,20,
+        Temporizador timer = new Temporizador(ValentCity.this,15,
             () -> {
                 player.sendMessage("Visão Ativada!");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 10,true,false));
-                player.setGameMode(GameMode.SPECTATOR);
                 player.setSpectatorTarget(entity);
             },() -> {
                 player.setSpectatorTarget(null);
