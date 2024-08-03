@@ -66,22 +66,6 @@ public final class ValentCity extends JavaPlugin implements Listener {
         getServer().clearRecipes();
         getServer().getConsoleSender().sendMessage(ChatColor.RED + "[Valent City]: Plugin Desativado!");
     }
-    public void viewPL(@NotNull Player player, LivingEntity entity) {
-        Location local = player.getLocation();
-        Temporizador timer = new Temporizador(ValentCity.this,15,
-            () -> {
-                player.sendMessage("Visão Ativada!");
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1,true,false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 10,true,false));
-                player.setSpectatorTarget(entity);
-            },() -> {
-                player.setSpectatorTarget(null);
-                player.setGameMode(GameMode.SURVIVAL);
-                player.teleport(local);
-            },(t) -> player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para desativar a visão")
-            );
-        timer.scheduleTimer();
-    }
     @EventHandler
     public void onTotem(EntityResurrectEvent e) {
         Entity entity = e.getEntity();
@@ -183,15 +167,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
     public void vcviu(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-        if(item != null && item.isSimilar(reliquias.spy_modelo1)){
-            World world = player.getWorld();
-            List<Player> lista = world.getPlayers();
-            for(int i=0;i<lista.size();i++){
-                if(player.canSee(lista.get(i))){
-                    viewPL(player,lista.get(i));
-                }
-            }
-        }else if(item != null && item.isSimilar(reliquias.vento)){
+        if(item != null && item.isSimilar(reliquias.vento)){
             player.getInventory().addItem(reliquias.vento);
         }
     }

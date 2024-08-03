@@ -1,5 +1,7 @@
 <h1>Plugin Valent City</h1>
-<h2>Mudanças - v1.5.1</h2>
+<h2>Mudanças - v1.5.3</h2>
+Tirar modo espectador da reliquia do espião
+<h2>Mudanças - v1.5.2</h2>
 Ajuste na reliquia do espião
 <h2>Mudanças - v1.5.1</h2>
 Resolver bug dos crafts
