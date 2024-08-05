@@ -6,21 +6,26 @@ import me.dantesys.valentCity.events.reliquiasevents;
 import me.dantesys.valentCity.items.reliquias;
 import org.bukkit.*;
 
+import org.bukkit.block.Block;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.spawner.Spawner;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -145,6 +150,46 @@ public final class ValentCity extends JavaPlugin implements Listener {
         }
     }
     @EventHandler
+    public void sumonalobo(Player player) {
+        EntityEquipment equip = player.getEquipment();
+        ItemStack hand = null;
+        boolean main = true;
+        if (equip.getItemInMainHand().getType() == Material.STICK) {
+            hand = equip.getItemInMainHand();
+            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+                hand = null;
+            }
+            main = true;
+        }
+        if (equip.getItemInOffHand().getType() == Material.STICK) {
+            hand = equip.getItemInOffHand();
+            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+                hand = null;
+            }
+            main = false;
+        }
+        if (hand != null) {
+            boolean finalMain = main;
+            ItemStack finalHand = reliquias.domador;
+            Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+            wolf.setOwner(player);
+            wolf.setMaxHealth(100);
+            Temporizador timer = new Temporizador(ValentCity.this, 5,
+                () -> {
+                    player.sendMessage("Lobo Ativado!");
+                },() -> {
+                    if (finalMain) {
+                        player.getEquipment().setItemInMainHand(finalHand);
+                    } else {
+                        player.getEquipment().setItemInOffHand(finalHand);
+                    }
+                    wolf.remove();
+                },(t) -> player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o lobo")
+            );
+            timer.scheduleTimer();
+        }
+    }
+    @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
         Entity atacante = event.getDamager();
         Entity presa = event.getEntity();
@@ -160,6 +205,11 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1));
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
                 }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.domador)) {
+                sumonalobo(atacantepl);
+                sumonalobo(atacantepl);
+                sumonalobo(atacantepl);
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.enxada)) {
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
@@ -268,6 +318,43 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     w.createExplosion(l,40,false,true);
                 }
             }
+        }else if(item != null && item.isSimilar(reliquias.picareta_md2)){
+            if(action.isRightClick()){
+                if(event.getClickedBlock() instanceof CreatureSpawner){
+                    Location l = event.getClickedBlock().getLocation();
+                    World w = event.getClickedBlock().getWorld();
+                    CreatureSpawner spawner = (CreatureSpawner) event.getClickedBlock().getState();
+                    EntityType spawnedType = spawner.getSpawnedType();
+                    player.getInventory().addItem(makeSpawnerItem(spawnedType));
+                }
+            }
         }
+    }
+    private ItemStack makeSpawnerItem(EntityType entityType) {
+        final ItemStack itemStack = new ItemStack(Material.SPAWNER, 1);
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.getPersistentDataContainer().set(new NamespacedKey(this, "SPAWNER_ENTITY_TYPE"), PersistentDataType.STRING, entityType.name());
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
+    @EventHandler
+    public void onSpawnerPlace(BlockPlaceEvent event) {
+        final ItemStack hand = event.getItemInHand();
+        if (hand.getType() == Material.AIR) return;
+        ItemMeta meta = hand.getItemMeta();
+        NamespacedKey key = new NamespacedKey(this, "SPAWNER_ENTITY_TYPE");
+        if (!meta.getPersistentDataContainer().has(key, PersistentDataType.STRING)) return;
+        // probs should check if the entity type even exists
+        EntityType type = EntityType.valueOf(meta.getPersistentDataContainer().get(key, PersistentDataType.STRING));
+        // get placed block
+        final Block placedBlock = event.getBlockPlaced();
+        // set the block type to a spawner (its always a spawner in this case since the item stack material was a spawner)
+        if (placedBlock.getType() != Material.SPAWNER)
+            placedBlock.setType(Material.SPAWNER);
+        // get the creature spawner
+        CreatureSpawner creatureSpawner = (CreatureSpawner) placedBlock.getState();
+        // set the spawn type
+        creatureSpawner.setSpawnedType(type);
+        creatureSpawner.update();
     }
 }

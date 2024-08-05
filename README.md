@@ -1,5 +1,7 @@
 <h1>Plugin Valent City</h1>
-<h2>Mudanças - v1.6.0</h2>
+<h2>Mudanças - v1.8.0</h2>
+Adinionado nova reliquia domador
+<h2>Mudanças - v1.7.0</h2>
 Adinionado 2 novas reliquias do crossbow e do arco e feito ajuste na reliquia do fazendeiro
 <h2>Mudanças - v1.6.0</h2>
 Adinionado 2 novas reliquias do arco e do fazendeiro, adicionado limitador para a reliquia do guerreiro e da foice

@@ -33,6 +33,7 @@ public class reliquias {
     public static ItemStack crossbow;
     public static ItemStack picareta_md1;
     public static ItemStack picareta_md2;
+    public static ItemStack domador;
     public static void init() {
         createEnxada();
         createEspadamd();
@@ -49,6 +50,7 @@ public class reliquias {
         createCroosbow();
         createPick1();
         createPick2();
+        createDomador();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -338,5 +340,22 @@ public class reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         picareta_md2 = item;
+    }
+    private static void createDomador() {
+        ItemStack item = new ItemStack(Material.STICK, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Domador");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos anciões"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        domador = item;
     }
 }

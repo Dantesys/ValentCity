@@ -59,9 +59,11 @@ public class reliquiasevents implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.picareta_md1)){
+                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.picareta_md2)){
+                player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 9,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.arco_modelo1)){
@@ -170,9 +172,11 @@ public class reliquiasevents implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.picareta_md1)){
+                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.picareta_md2)){
+                    player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 9,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.arco_modelo1)){

@@ -49,6 +49,8 @@ public class giveItems implements CommandExecutor {
                         target.getInventory().addItem(reliquias.crossbow);
                     }else if(args[1].equalsIgnoreCase("mineiro")){
                         target.getInventory().addItem(reliquias.picareta_md1);
+                    }else if(args[1].equalsIgnoreCase("domador")){
+                        target.getInventory().addItem(reliquias.domador);
                     }else {
                         sender.sendMessage("Reliquia não encontrada!");
                     }
