@@ -1,18 +1,23 @@
 package me.dantesys.valentCity.events;
 
 import me.dantesys.valentCity.items.reliquias;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.util.Vector;
+
+import java.util.Properties;
 
 
 public class reliquiasevents implements Listener {
@@ -51,6 +56,14 @@ public class reliquiasevents implements Listener {
             }else if(item.isSimilar(reliquias.enxada)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+            }else if(item.isSimilar(reliquias.arco_modelo1)){
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+            }else if(item.isSimilar(reliquias.farm_modelo1)){
+                player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1,true,false));
+            }else if(item.isSimilar(reliquias.arco_modelo2)){
+                player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.spy_modelo1)){
                 player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.01);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
@@ -61,7 +74,7 @@ public class reliquiasevents implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1,true,false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 3,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.tridente_modelo1)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, -1, 1));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, -1, 1));
@@ -89,7 +102,7 @@ public class reliquiasevents implements Listener {
                 }else if(omao.isSimilar(reliquias.spy_modelo2)){
                     player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 3,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1,true,false));
                 }else if(omao.isSimilar(reliquias.tridente_modelo1) || omao.isSimilar(reliquias.tridente_modelo2)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, -1, 1));
@@ -148,6 +161,14 @@ public class reliquiasevents implements Listener {
                 }else if(item.isSimilar(reliquias.enxada)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                }else if(item.isSimilar(reliquias.arco_modelo1)){
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                }else if(item.isSimilar(reliquias.arco_modelo2)) {
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1, true, false));
+                }else if(item.isSimilar(reliquias.farm_modelo1)){
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 1,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.spy_modelo1)){
                     player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.01);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
@@ -192,27 +213,70 @@ public class reliquiasevents implements Listener {
             if(dead instanceof Monster) {
                 if(dead.getType() == EntityType.WITHER){
                     if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
-                        killer.setMaxHealth(killer.getMaxHealth()*1.5);
+                        if(killer.getMaxHealth()*1.5>200){
+                            killer.setMaxHealth(killer.getMaxHealth()+1);
+                        }else{
+                            killer.setMaxHealth(killer.getMaxHealth()*1.5);
+                        }
                     }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
                         double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()*1.5;
+                        if(dano>200){
+                            dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()+1;
+                        }
                         killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
-                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue()+" sem a reliquia");
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue());
                     }
                 }else if(dead.getType() == EntityType.ENDER_DRAGON){
                     if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
-                        killer.setMaxHealth(killer.getMaxHealth()*2);
+                        if(killer.getMaxHealth()*2>200){
+                            killer.setMaxHealth(killer.getMaxHealth()+1);
+                        }else{
+                            killer.setMaxHealth(killer.getMaxHealth()*2);
+                        }
                     }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
                         double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()*2;
+                        if(dano>200){
+                            dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()+1;
+                        }
                         killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
-                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue()+" sem a reliquia");
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue());
+                    }
+                }else if(dead.getType() == EntityType.WARDEN){
+                    if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
+                        if(killer.getMaxHealth()*2.5>200){
+                            killer.setMaxHealth(killer.getMaxHealth()+1);
+                        }else{
+                            killer.setMaxHealth(killer.getMaxHealth()*2.5);
+                        }
+                    }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
+                        double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()*2.5;
+                        if(dano>200){
+                            dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()+1;
+                        }
+                        killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue());
                     }
                 }else{
                     if (killer.getInventory().getItemInMainHand().equals(reliquias.enxada)) {
-                        killer.setMaxHealth(killer.getMaxHealth()+1);
+                        if(killer.getMaxHealth()+1>200){
+                            killer.sendMessage("§d Aviso");
+                            killer.sendMessage("§d Sua vida chegou ao limite para esse mobs comuns");
+                            killer.sendMessage("§d Se cotinuar sua vida vai ficar sempre a mesma");
+                            killer.setMaxHealth(200);
+                        }else{
+                            killer.setMaxHealth(killer.getMaxHealth()+1);
+                        }
                     }else if(killer.getInventory().getItemInMainHand().equals(reliquias.espadamd)){
                         double dano = killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue()+1;
-                        killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
-                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue()+" sem a reliquia");
+                        if(dano>200){
+                            killer.sendMessage("§d Aviso");
+                            killer.sendMessage("§d Sua força chegou no limite");
+                            killer.sendMessage("§d Se cotinuar ela nunca vai aumentar");
+                            killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(200);
+                        }else{
+                            killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(dano);
+                        }
+                        killer.sendMessage("Seu dano agora é "+killer.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue());
                     }
                 }
             }
@@ -221,6 +285,44 @@ public class reliquiasevents implements Listener {
             Player f = (Player) dead;
             f.setMaxHealth(20.0);
             f.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(1);
+        }
+    }
+    @EventHandler
+    public void lancarProjetil(ProjectileLaunchEvent event) {
+        Projectile projectile = event.getEntity();
+        ProjectileSource atirador = event.getEntity().getShooter();
+        if (atirador instanceof Player player){
+            if (player.getInventory().getItemInMainHand().isSimilar(reliquias.vento) || player.getInventory().getItemInOffHand().isSimilar(reliquias.vento)){
+                if (projectile instanceof WindCharge windCharge) {
+                    windCharge.setAcceleration(windCharge.getAcceleration().multiply(100));
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onEntityBow(EntityShootBowEvent event){
+        if(event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+            if (player.getInventory().getItemInMainHand().isSimilar(reliquias.arco_modelo1)){
+                Arrow arrow = (Arrow) event.getProjectile();
+                arrow.setCritical(true);
+                arrow.setGlowing(true);
+                arrow.setColor(Color.YELLOW);
+                Vector vec = player.getLocation().getDirection();
+                arrow.setVelocity(vec.multiply(10));
+            }
+        }
+    }
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void kaboom(EntityExplodeEvent event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof WindCharge vento) {
+            ProjectileSource atirador = vento.getShooter();
+            if (atirador instanceof Player player){
+                if (player.getInventory().getItemInMainHand().isSimilar(reliquias.vento) || player.getInventory().getItemInOffHand().isSimilar(reliquias.vento)){
+                    event.setYield(10);
+                }
+            }
         }
     }
 }

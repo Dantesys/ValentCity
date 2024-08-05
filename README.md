@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.6.0</h2>
+Adinionado 2 novas reliquias do arco e do fazendeiro, adicionado limitador para a reliquia do guerreiro e da foice
 <h2>Mudanças - v1.5.4</h2>
 Ajuste no countdown da reliquia do vento
 <h2>Mudanças - v1.5.3</h2>

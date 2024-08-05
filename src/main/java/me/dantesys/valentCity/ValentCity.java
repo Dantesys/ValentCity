@@ -16,10 +16,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -41,11 +39,19 @@ public final class ValentCity extends JavaPlugin implements Listener {
         ItemStack spy2 = new ItemStack(reliquias.spy_modelo2);
         ItemStack tri1 = new ItemStack(reliquias.tridente_modelo1);
         ItemStack tri2 = new ItemStack(reliquias.tridente_modelo2);
+        ItemStack arco1 = new ItemStack(reliquias.arco_modelo1);
+        ItemStack arco2 = new ItemStack(reliquias.arco_modelo2);
+        ItemStack farm1 = new ItemStack(reliquias.farm_modelo1);
+        ItemStack farm2 = new ItemStack(reliquias.farm_modelo2);
         ShapedRecipe bundle_recipe = new ShapedRecipe(bundle);
         ShapelessRecipe spy1_recipe = new ShapelessRecipe(spy1);
         ShapelessRecipe spy2_recipe = new ShapelessRecipe(spy2);
         ShapelessRecipe tri1_recipe = new ShapelessRecipe(tri1);
         ShapelessRecipe tri2_recipe = new ShapelessRecipe(tri2);
+        ShapelessRecipe arco1_recipe = new ShapelessRecipe(arco1);
+        ShapelessRecipe arco2_recipe = new ShapelessRecipe(arco2);
+        ShapelessRecipe farm1_recipe = new ShapelessRecipe(farm1);
+        ShapelessRecipe farm2_recipe = new ShapelessRecipe(farm2);
         bundle_recipe.shape("lll","cbc","ccc");
         bundle_recipe.setIngredient('l', Material.STRING);
         bundle_recipe.setIngredient('c', Material.LEATHER);
@@ -54,10 +60,18 @@ public final class ValentCity extends JavaPlugin implements Listener {
         spy2_recipe.addIngredient(reliquias.spy_modelo1);
         tri1_recipe.addIngredient(reliquias.tridente_modelo2);
         tri2_recipe.addIngredient(reliquias.tridente_modelo1);
+        arco1_recipe.addIngredient(reliquias.arco_modelo2);
+        arco2_recipe.addIngredient(reliquias.arco_modelo1);
+        farm1_recipe.addIngredient(reliquias.farm_modelo2);
+        farm2_recipe.addIngredient(reliquias.farm_modelo1);
         getServer().addRecipe(spy1_recipe);
         getServer().addRecipe(spy2_recipe);
         getServer().addRecipe(tri1_recipe);
         getServer().addRecipe(tri2_recipe);
+        getServer().addRecipe(arco1_recipe);
+        getServer().addRecipe(arco2_recipe);
+        getServer().addRecipe(farm1_recipe);
+        getServer().addRecipe(farm2_recipe);
         getServer().addRecipe(bundle_recipe);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Valent City]: Plugin Ativado!");
     }
@@ -162,6 +176,42 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
                 }
             }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.farm_modelo2)) {
+                if (presa instanceof Player) {
+                    atacantepl.sendMessage("Você não pode pegar jogadores!");
+                }else if(atacantepl.hasCooldown(reliquias.farm_modelo2.getType())){
+                    atacantepl.sendMessage("Está e cooldown aguarde "+atacantepl.getCooldown(reliquias.farm_modelo2.getType()));
+                }else if (presa instanceof LivingEntity) {
+                    LivingEntity lepresa = (LivingEntity) presa;
+                    ItemStack item = new ItemStack(MobsList.getEggType(lepresa).getMaterial());
+                    String nome = lepresa.getName();
+                    if (nome != null) {
+                        ItemMeta meta = item.getItemMeta();
+                        meta.setDisplayName(nome);
+                        item.setItemMeta(meta);
+                    }
+                    if(lepresa instanceof Pig) {
+                        if(((Pig)lepresa).hasSaddle()) {
+                            lepresa.getWorld().dropItem(lepresa.getLocation(), new ItemStack(Material.SADDLE, 1));
+                        }
+                    }
+                    if(lepresa instanceof Horse) {
+                        if(((Horse) lepresa).isCarryingChest()){
+                            lepresa.getWorld().dropItemNaturally(lepresa.getLocation(), new ItemStack(Material.CHEST));
+                        }
+                    }
+                    if((lepresa instanceof Villager) || (!(lepresa instanceof Villager) && lepresa instanceof InventoryHolder)) {
+                        ItemStack[] items = ((InventoryHolder) lepresa).getInventory().getContents();
+                        for(ItemStack itemStack : items) {
+                            if(itemStack!=null){
+                                lepresa.getWorld().dropItemNaturally(lepresa.getLocation(), itemStack);
+                            }
+                        }
+                    }
+                    lepresa.getWorld().dropItem(lepresa.getLocation(), item);
+                    atacantepl.setCooldown(reliquias.vento.getType(),10);
+                }
+            }
         }
     }
     @EventHandler
@@ -174,6 +224,13 @@ public final class ValentCity extends JavaPlugin implements Listener {
                 player.getInventory().removeItem(reliquias.vento);
                 player.setCooldown(reliquias.vento.getType(),0);
                 player.getInventory().addItem(reliquias.vento);
+            }
+        }else if(item != null && item.isSimilar(reliquias.arco_modelo2)){
+            event.setCancelled(true);
+            player.launchProjectile(Arrow.class);
+        }else if(item != null && item.isSimilar(reliquias.farm_modelo1)){
+            if(action.isRightClick()){
+                event.getClickedBlock().applyBoneMeal(event.getBlockFace());
             }
         }
     }

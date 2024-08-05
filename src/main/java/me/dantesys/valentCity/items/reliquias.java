@@ -26,8 +26,11 @@ public class reliquias {
     public static ItemStack tridente_modelo1;
     public static ItemStack tridente_modelo2;
     public static ItemStack vento;
-    /*public static ItemStack arco;
-    public static ItemStack besta;
+    public static ItemStack arco_modelo1;
+    public static ItemStack arco_modelo2;
+    public static ItemStack farm_modelo1;
+    public static ItemStack farm_modelo2;
+    /*public static ItemStack besta;
     public static ItemStack escudo;
     public static ItemStack picareta;*/
     public static void init() {
@@ -39,6 +42,10 @@ public class reliquias {
         createTridente1();
         createTridente2();
         createVento();
+        createArco1();
+        createArco2();
+        createFarm1();
+        createFarm2();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -51,6 +58,7 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
+        meta.setFireResistant(true);
         meta.addEnchant(Enchantment.SHARPNESS,15,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
@@ -66,6 +74,7 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
+        meta.setFireResistant(true);
         meta.addEnchant(Enchantment.BANE_OF_ARTHROPODS,5,true);
         meta.addEnchant(Enchantment.FIRE_ASPECT,2,true);
         meta.addEnchant(Enchantment.LOOTING,3,true);
@@ -84,6 +93,7 @@ public class reliquias {
         loreitem.add(Component.text("§7O totem supremo"));
         loreitem.add(Component.text("§7usado pela rainha Elizabeth II"));
         meta.lore(loreitem);
+        meta.setFireResistant(true);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.addEnchant(Enchantment.INFINITY,1,true);
@@ -102,6 +112,7 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
+        meta.setFireResistant(true);
         meta.addEnchant(Enchantment.LOOTING,10,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
@@ -119,6 +130,8 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.setFireResistant(true);
         meta.addEnchant(Enchantment.KNOCKBACK,2,true);
         meta.addAttributeModifier(PLAYER_ENTITY_INTERACTION_RANGE, new AttributeModifier(PLAYER_ENTITY_INTERACTION_RANGE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
@@ -137,7 +150,8 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
-        meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),11, AttributeModifier.Operation.ADD_NUMBER));
+        meta.setFireResistant(true);
+        meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),10, AttributeModifier.Operation.ADD_NUMBER));
         meta.addEnchant(Enchantment.IMPALING,20,true);
         meta.addEnchant(Enchantment.LOYALTY,5,true);
         meta.addEnchant(Enchantment.LOOTING,3,true);
@@ -157,7 +171,8 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
-        meta.addAttributeModifier(GENERIC_ATTACK_DAMAGE, new AttributeModifier(GENERIC_ATTACK_DAMAGE.getKey(),11, AttributeModifier.Operation.ADD_NUMBER));
+        meta.setFireResistant(true);
+        meta.addAttributeModifier(GENERIC_MOVEMENT_SPEED, new AttributeModifier(GENERIC_MOVEMENT_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
         meta.addEnchant(Enchantment.IMPALING,20,true);
         meta.addEnchant(Enchantment.LOOTING,3,true);
         meta.addEnchant(Enchantment.RIPTIDE,5,true);
@@ -176,11 +191,90 @@ public class reliquias {
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
+        meta.setFireResistant(true);
         meta.addAttributeModifier(GENERIC_ATTACK_KNOCKBACK, new AttributeModifier(GENERIC_ATTACK_KNOCKBACK.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(GENERIC_ATTACK_SPEED, new AttributeModifier(GENERIC_ATTACK_SPEED.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
         meta.addEnchant(Enchantment.KNOCKBACK,10000,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         vento = item;
+    }
+    private static void createArco1() {
+        ItemStack item = new ItemStack(Material.BOW, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Arco (1)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que dispara uma flecha"));
+        loreitem.add(Component.text("§7com força incoparavel"));
+        loreitem.add(Component.text("§7Modelo: Sniper"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
+        meta.addEnchant(Enchantment.POWER,20,true);
+        meta.addAttributeModifier(PLAYER_SNEAKING_SPEED, new AttributeModifier(PLAYER_SNEAKING_SPEED.getKey(),10, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        arco_modelo1 = item;
+    }
+    private static void createArco2() {
+        ItemStack item = new ItemStack(Material.BOW, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Arco (2)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que dispara uma rajada"));
+        loreitem.add(Component.text("§7de flechas"));
+        loreitem.add(Component.text("§7Modelo: Minigun"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.FLAME,1,true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
+        meta.addEnchant(Enchantment.POWER,3,true);
+        meta.addAttributeModifier(GENERIC_MOVEMENT_SPEED, new AttributeModifier(GENERIC_MOVEMENT_SPEED.getKey(),-2, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        arco_modelo2 = item;
+    }
+    private static void createFarm1() {
+        ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Fazendeiro (1)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que fazer crescer"));
+        loreitem.add(Component.text("§7suas plantações"));
+        loreitem.add(Component.text("§7Modelo: Agro"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.FORTUNE,3,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        farm_modelo1 = item;
+    }
+    private static void createFarm2() {
+        ItemStack item = new ItemStack(Material.LEAD, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Fazendeiro (2)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato antigo"));
+        loreitem.add(Component.text("§7que controla"));
+        loreitem.add(Component.text("§7seu animais"));
+        loreitem.add(Component.text("§7Modelo: Pecuário"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        farm_modelo2 = item;
     }
 }
