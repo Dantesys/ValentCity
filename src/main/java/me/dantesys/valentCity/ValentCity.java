@@ -149,7 +149,6 @@ public final class ValentCity extends JavaPlugin implements Listener {
             }
         }
     }
-    @EventHandler
     public void sumonalobo(Player player) {
         EntityEquipment equip = player.getEquipment();
         ItemStack hand = null;
