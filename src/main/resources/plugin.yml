@@ -7,4 +7,4 @@ description: Um plugin usando no servidor valent city
 commands:
   reliquia:
     description: Recebe as reliquias
-    usage: /<command> <target> <reliquias (espada|spy|foice|totem|tridente|all)>
+    usage: /<command> <target> <reliquias (espada|spy|foice|totem|tridente|vento|arco|fazendeiro|crossbow|mineiro|all)>
