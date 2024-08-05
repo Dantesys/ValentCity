@@ -34,24 +34,39 @@ public final class ValentCity extends JavaPlugin implements Listener {
         getCommand("reliquia").setExecutor(new giveItems());
         getServer().getPluginManager().registerEvents(new reliquiasevents(), this);
         getServer().getPluginManager().registerEvents(this, this);
+        NamespacedKey key_bunble = new NamespacedKey(this, "BOLSA");
         ItemStack bundle = new ItemStack(Material.BUNDLE);
+        NamespacedKey key_spy1 = new NamespacedKey(this, "SPY1");
         ItemStack spy1 = new ItemStack(reliquias.spy_modelo1);
+        NamespacedKey key_spy2 = new NamespacedKey(this, "SPY2");
         ItemStack spy2 = new ItemStack(reliquias.spy_modelo2);
+        NamespacedKey key_tri1 = new NamespacedKey(this, "TRI1");
         ItemStack tri1 = new ItemStack(reliquias.tridente_modelo1);
+        NamespacedKey key_tri2 = new NamespacedKey(this, "TRI2");
         ItemStack tri2 = new ItemStack(reliquias.tridente_modelo2);
+        NamespacedKey key_arc1 = new NamespacedKey(this, "ARC1");
         ItemStack arco1 = new ItemStack(reliquias.arco_modelo1);
+        NamespacedKey key_arc2 = new NamespacedKey(this, "ARC2");
         ItemStack arco2 = new ItemStack(reliquias.arco_modelo2);
+        NamespacedKey key_far1 = new NamespacedKey(this, "FAR1");
         ItemStack farm1 = new ItemStack(reliquias.farm_modelo1);
+        NamespacedKey key_far2 = new NamespacedKey(this, "FAR2");
         ItemStack farm2 = new ItemStack(reliquias.farm_modelo2);
-        ShapedRecipe bundle_recipe = new ShapedRecipe(bundle);
-        ShapelessRecipe spy1_recipe = new ShapelessRecipe(spy1);
-        ShapelessRecipe spy2_recipe = new ShapelessRecipe(spy2);
-        ShapelessRecipe tri1_recipe = new ShapelessRecipe(tri1);
-        ShapelessRecipe tri2_recipe = new ShapelessRecipe(tri2);
-        ShapelessRecipe arco1_recipe = new ShapelessRecipe(arco1);
-        ShapelessRecipe arco2_recipe = new ShapelessRecipe(arco2);
-        ShapelessRecipe farm1_recipe = new ShapelessRecipe(farm1);
-        ShapelessRecipe farm2_recipe = new ShapelessRecipe(farm2);
+        NamespacedKey key_pic1 = new NamespacedKey(this, "PIC1");
+        ItemStack pick1 = new ItemStack(reliquias.picareta_md1);
+        NamespacedKey key_pic2 = new NamespacedKey(this, "PIC2");
+        ItemStack pick2 = new ItemStack(reliquias.picareta_md2);
+        ShapedRecipe bundle_recipe = new ShapedRecipe(key_bunble,bundle);
+        ShapelessRecipe spy1_recipe = new ShapelessRecipe(key_spy1,spy1);
+        ShapelessRecipe spy2_recipe = new ShapelessRecipe(key_spy2,spy2);
+        ShapelessRecipe tri1_recipe = new ShapelessRecipe(key_tri1,tri1);
+        ShapelessRecipe tri2_recipe = new ShapelessRecipe(key_tri2,tri2);
+        ShapelessRecipe arco1_recipe = new ShapelessRecipe(key_arc1,arco1);
+        ShapelessRecipe arco2_recipe = new ShapelessRecipe(key_arc2,arco2);
+        ShapelessRecipe farm1_recipe = new ShapelessRecipe(key_far1,farm1);
+        ShapelessRecipe farm2_recipe = new ShapelessRecipe(key_far2,farm2);
+        ShapelessRecipe pick1_recipe = new ShapelessRecipe(key_pic1,pick1);
+        ShapelessRecipe pick2_recipe = new ShapelessRecipe(key_pic2,pick2);
         bundle_recipe.shape("lll","cbc","ccc");
         bundle_recipe.setIngredient('l', Material.STRING);
         bundle_recipe.setIngredient('c', Material.LEATHER);
@@ -64,6 +79,8 @@ public final class ValentCity extends JavaPlugin implements Listener {
         arco2_recipe.addIngredient(reliquias.arco_modelo1);
         farm1_recipe.addIngredient(reliquias.farm_modelo2);
         farm2_recipe.addIngredient(reliquias.farm_modelo1);
+        pick1_recipe.addIngredient(reliquias.picareta_md2);
+        pick2_recipe.addIngredient(reliquias.picareta_md1);
         getServer().addRecipe(spy1_recipe);
         getServer().addRecipe(spy2_recipe);
         getServer().addRecipe(tri1_recipe);
@@ -72,6 +89,8 @@ public final class ValentCity extends JavaPlugin implements Listener {
         getServer().addRecipe(arco2_recipe);
         getServer().addRecipe(farm1_recipe);
         getServer().addRecipe(farm2_recipe);
+        getServer().addRecipe(pick1_recipe);
+        getServer().addRecipe(pick2_recipe);
         getServer().addRecipe(bundle_recipe);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Valent City]: Plugin Ativado!");
     }
@@ -183,6 +202,14 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     atacantepl.sendMessage("Está e cooldown aguarde "+atacantepl.getCooldown(reliquias.farm_modelo2.getType()));
                 }else if (presa instanceof LivingEntity) {
                     LivingEntity lepresa = (LivingEntity) presa;
+                    if (lepresa instanceof Tameable domado){
+                        if(domado.isTamed()){
+                            if(!domado.getOwner().equals(atacantepl)){
+                                atacantepl.sendMessage("Você não pode pegar pet de outros jogadores!");
+                                return;
+                            }
+                        }
+                    }
                     ItemStack item = new ItemStack(MobsList.getEggType(lepresa).getMaterial());
                     String nome = lepresa.getName();
                     if (nome != null) {
@@ -208,8 +235,9 @@ public final class ValentCity extends JavaPlugin implements Listener {
                             }
                         }
                     }
+                    lepresa.remove();
                     lepresa.getWorld().dropItem(lepresa.getLocation(), item);
-                    atacantepl.setCooldown(reliquias.vento.getType(),10);
+                    atacantepl.setCooldown(reliquias.farm_modelo2.getType(),10);
                 }
             }
         }
@@ -229,8 +257,16 @@ public final class ValentCity extends JavaPlugin implements Listener {
             event.setCancelled(true);
             player.launchProjectile(Arrow.class);
         }else if(item != null && item.isSimilar(reliquias.farm_modelo1)){
-            if(action.isRightClick()){
+            if(action.isLeftClick()){
                 event.getClickedBlock().applyBoneMeal(event.getBlockFace());
+            }
+        }else if(item != null && item.isSimilar(reliquias.picareta_md2)){
+            if(action.isRightClick()){
+                if(event.getClickedBlock().breakNaturally(reliquias.picareta_md2)){
+                    Location l = event.getClickedBlock().getLocation();
+                    World w = event.getClickedBlock().getWorld();
+                    w.createExplosion(l,40,false,true);
+                }
             }
         }
     }

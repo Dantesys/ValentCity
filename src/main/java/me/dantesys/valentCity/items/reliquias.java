@@ -30,9 +30,9 @@ public class reliquias {
     public static ItemStack arco_modelo2;
     public static ItemStack farm_modelo1;
     public static ItemStack farm_modelo2;
-    /*public static ItemStack besta;
-    public static ItemStack escudo;
-    public static ItemStack picareta;*/
+    public static ItemStack crossbow;
+    public static ItemStack picareta_md1;
+    public static ItemStack picareta_md2;
     public static void init() {
         createEnxada();
         createEspadamd();
@@ -46,6 +46,9 @@ public class reliquias {
         createArco2();
         createFarm1();
         createFarm2();
+        createCroosbow();
+        createPick1();
+        createPick2();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -276,5 +279,64 @@ public class reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         farm_modelo2 = item;
+    }
+    private static void createCroosbow() {
+        ItemStack item = new ItemStack(Material.CROSSBOW, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Crossbow");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato misterioso"));
+        loreitem.add(Component.text("§7capaz de disparar"));
+        loreitem.add(Component.text("§7flechas misteriosas"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.MULTISHOT,100,true);
+        meta.addEnchant(Enchantment.PIERCING,10,true);
+        meta.addEnchant(Enchantment.QUICK_CHARGE,3,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        crossbow = item;
+    }
+    private static void createPick1() {
+        ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Mineiro (1)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos anões capaz de"));
+        loreitem.add(Component.text("§7derrubar montanhas"));
+        loreitem.add(Component.text("§7Modelo: Sortudo!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.FORTUNE,3,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        picareta_md1 = item;
+    }
+    private static void createPick2() {
+        ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Relíquia do Mineiro (2)");
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos anões capaz de"));
+        loreitem.add(Component.text("§7derrubar montanhas"));
+        loreitem.add(Component.text("§7Modelo: Destruidor!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        picareta_md2 = item;
     }
 }

@@ -27,6 +27,8 @@ public class giveItems implements CommandExecutor {
                         target.getInventory().addItem(reliquias.vento);
                         target.getInventory().addItem(reliquias.arco_modelo1);
                         target.getInventory().addItem(reliquias.farm_modelo1);
+                        target.getInventory().addItem(reliquias.picareta_md1);
+                        target.getInventory().addItem(reliquias.crossbow);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(reliquias.espadamd);
                     }else if(args[1].equalsIgnoreCase("spy")){
@@ -43,6 +45,10 @@ public class giveItems implements CommandExecutor {
                         target.getInventory().addItem(reliquias.arco_modelo1);
                     }else if(args[1].equalsIgnoreCase("fazendeiro")){
                         target.getInventory().addItem(reliquias.farm_modelo1);
+                    }else if(args[1].equalsIgnoreCase("crossbow")){
+                        target.getInventory().addItem(reliquias.crossbow);
+                    }else if(args[1].equalsIgnoreCase("mineiro")){
+                        target.getInventory().addItem(reliquias.picareta_md1);
                     }else {
                         sender.sendMessage("Reliquia não encontrada!");
                     }

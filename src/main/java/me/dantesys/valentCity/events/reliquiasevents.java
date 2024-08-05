@@ -12,12 +12,14 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import java.util.Properties;
+import java.util.Random;
 
 
 public class reliquiasevents implements Listener {
@@ -55,6 +57,12 @@ public class reliquiasevents implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, -1, 1));
             }else if(item.isSimilar(reliquias.enxada)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+            }else if(item.isSimilar(reliquias.picareta_md1)){
+                player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+            }else if(item.isSimilar(reliquias.picareta_md2)){
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 9,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.arco_modelo1)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
@@ -160,6 +168,12 @@ public class reliquiasevents implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, -1, 1));
                 }else if(item.isSimilar(reliquias.enxada)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                }else if(item.isSimilar(reliquias.picareta_md1)){
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                }else if(item.isSimilar(reliquias.picareta_md2)){
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 9,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.arco_modelo1)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
@@ -297,6 +311,14 @@ public class reliquiasevents implements Listener {
                     windCharge.setAcceleration(windCharge.getAcceleration().multiply(100));
                 }
             }
+            if (player.getInventory().getItemInMainHand().isSimilar(reliquias.arco_modelo1)){
+                Arrow arrow = (Arrow) event.getEntity();
+                arrow.setCritical(true);
+                arrow.setGlowing(true);
+                arrow.setColor(Color.YELLOW);
+                Vector vec = player.getLocation().getDirection();
+                arrow.setVelocity(vec.multiply(100));
+            }
         }
     }
     @EventHandler
@@ -309,7 +331,37 @@ public class reliquiasevents implements Listener {
                 arrow.setGlowing(true);
                 arrow.setColor(Color.YELLOW);
                 Vector vec = player.getLocation().getDirection();
-                arrow.setVelocity(vec.multiply(10));
+                arrow.setVelocity(vec.multiply(100));
+            }else if (player.getInventory().getItemInMainHand().isSimilar(reliquias.crossbow)){
+                Arrow arrow = (Arrow) event.getProjectile();
+                Random rd = new Random();
+                int ver = rd.nextInt(0,100);
+                arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING,200,2),true);
+                if(ver>=50){
+                    if (ver<=55){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.SLOWNESS,200,2),true);
+                    }else if(ver<=60){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,200,2),true);
+                    }else if(ver<=65){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.DARKNESS,200,2),true);
+                    }else if(ver<=70){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.LEVITATION,200,2),true);
+                    }else if(ver<=75){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,200,2),true);
+                    }else if(ver<=80){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.NAUSEA,200,2),true);
+                    }else if(ver<=85){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.HUNGER,200,2),true);
+                    }else if(ver<=90){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON,200,2),true);
+                    }else if(ver<=95){
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.WEAKNESS,200,2),true);
+                    }else{
+                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.WITHER,200,2),true);
+                    }
+                }
+                arrow.setVelocity(player.getLocation().getDirection().multiply(100));
+                event.setProjectile(arrow);
             }
         }
     }
@@ -322,6 +374,32 @@ public class reliquiasevents implements Listener {
                 if (player.getInventory().getItemInMainHand().isSimilar(reliquias.vento) || player.getInventory().getItemInOffHand().isSimilar(reliquias.vento)){
                     event.setYield(10);
                 }
+            }
+        }
+    }
+    @EventHandler
+    public void acertou(ProjectileHitEvent event){
+        Player player = (Player) event.getEntity().getShooter();
+        if (player.getInventory().getItemInMainHand().isSimilar(reliquias.crossbow)){
+            Arrow arrow = (Arrow) event.getEntity();
+            Random rd = new Random();
+            int ver = rd.nextInt(0,100);
+            if(ver>=50){
+                Location location = event.getEntity().getLocation();
+                World world = arrow.getWorld();
+                world.spawn(location, Firework.class);
+                Firework fw = (Firework) arrow.getWorld().spawn(
+                        arrow.getLocation(), Firework.class);
+                FireworkMeta fm = fw.getFireworkMeta();
+                fm.addEffect(FireworkEffect.builder()
+                        .flicker(false)
+                        .trail(true)
+                        .with(FireworkEffect.Type.BALL_LARGE)
+                        .withColor(Color.RED)
+                        .withFade(Color.BLACK)
+                        .build());
+                fm.setPower(5);
+                fw.setFireworkMeta(fm);
             }
         }
     }
