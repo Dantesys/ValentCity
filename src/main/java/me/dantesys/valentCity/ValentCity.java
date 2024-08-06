@@ -6,8 +6,10 @@ import me.dantesys.valentCity.events.reliquiasevents;
 import me.dantesys.valentCity.items.reliquias;
 import org.bukkit.*;
 
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
+import org.bukkit.block.spawner.SpawnerEntry;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -149,7 +151,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
             }
         }
     }
-    public void sumonalobo(Player player) {
+    public void sumonalobo(Player player,Entity entity) {
         EntityEquipment equip = player.getEquipment();
         ItemStack hand = null;
         boolean main = true;
@@ -173,9 +175,19 @@ public final class ValentCity extends JavaPlugin implements Listener {
             Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
             wolf.setOwner(player);
             wolf.setMaxHealth(100);
-            Temporizador timer = new Temporizador(ValentCity.this, 5,
+            wolf.attack(entity);
+            Wolf wolf2 = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+            wolf2.setOwner(player);
+            wolf2.setMaxHealth(100);
+            wolf2.attack(entity);
+            Wolf wolf3 = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+            wolf3.setOwner(player);
+            wolf3.setMaxHealth(100);
+            wolf3.attack(entity);
+            Temporizador timer = new Temporizador(ValentCity.this, 30,
                 () -> {
                     player.sendMessage("Lobo Ativado!");
+                    player.getEquipment().setItemInMainHand(null);
                 },() -> {
                     if (finalMain) {
                         player.getEquipment().setItemInMainHand(finalHand);
@@ -206,9 +218,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                 }
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.domador)) {
-                sumonalobo(atacantepl);
-                sumonalobo(atacantepl);
-                sumonalobo(atacantepl);
+                sumonalobo(atacantepl,presa);
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.enxada)) {
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
@@ -317,14 +327,19 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     w.createExplosion(l,40,false,true);
                 }
             }
-        }else if(item != null && item.isSimilar(reliquias.picareta_md2)){
+        }else if(item != null && item.isSimilar(reliquias.domador)){
             if(action.isRightClick()){
-                if(event.getClickedBlock() instanceof CreatureSpawner){
+                if(event.getClickedBlock().getType().equals(Material.SPAWNER)){
                     Location l = event.getClickedBlock().getLocation();
                     World w = event.getClickedBlock().getWorld();
+                    player.sendMessage("Aqui: "+event.getClickedBlock());
+                    player.sendMessage("Aqui: "+event.getClickedBlock().getState());
                     CreatureSpawner spawner = (CreatureSpawner) event.getClickedBlock().getState();
+                    spawner.setType(Material.SPAWNER);
+                    player.sendMessage("Aqui: "+spawner);
                     EntityType spawnedType = spawner.getSpawnedType();
                     player.getInventory().addItem(makeSpawnerItem(spawnedType));
+                    player.breakBlock(event.getClickedBlock());
                 }
             }
         }

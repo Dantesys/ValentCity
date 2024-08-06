@@ -29,6 +29,7 @@ public class giveItems implements CommandExecutor {
                         target.getInventory().addItem(reliquias.farm_modelo1);
                         target.getInventory().addItem(reliquias.picareta_md1);
                         target.getInventory().addItem(reliquias.crossbow);
+                        target.getInventory().addItem(reliquias.domador);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(reliquias.espadamd);
                     }else if(args[1].equalsIgnoreCase("spy")){

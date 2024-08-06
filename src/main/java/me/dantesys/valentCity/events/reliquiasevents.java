@@ -61,11 +61,9 @@ public class reliquiasevents implements Listener {
             }else if(item.isSimilar(reliquias.picareta_md1)){
                 player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.picareta_md2)){
                 player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 9,true,false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item.isSimilar(reliquias.arco_modelo1)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
@@ -174,11 +172,9 @@ public class reliquiasevents implements Listener {
                 }else if(item.isSimilar(reliquias.picareta_md1)){
                     player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.picareta_md2)){
                     player.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.5);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 9,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item.isSimilar(reliquias.arco_modelo1)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
@@ -312,7 +308,7 @@ public class reliquiasevents implements Listener {
         if (atirador instanceof Player player){
             if (player.getInventory().getItemInMainHand().isSimilar(reliquias.vento) || player.getInventory().getItemInOffHand().isSimilar(reliquias.vento)){
                 if (projectile instanceof WindCharge windCharge) {
-                    windCharge.setAcceleration(windCharge.getAcceleration().multiply(100));
+                    windCharge.setAcceleration(windCharge.getAcceleration().multiply(5));
                 }
             }
             if (player.getInventory().getItemInMainHand().isSimilar(reliquias.arco_modelo1)){
@@ -340,7 +336,7 @@ public class reliquiasevents implements Listener {
                 Arrow arrow = (Arrow) event.getProjectile();
                 Random rd = new Random();
                 int ver = rd.nextInt(0,100);
-                arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING,200,2),true);
+                arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING,1000,2),true);
                 if(ver>=50){
                     if (ver<=55){
                         arrow.addCustomEffect(new PotionEffect(PotionEffectType.SLOWNESS,200,2),true);
@@ -364,7 +360,7 @@ public class reliquiasevents implements Listener {
                         arrow.addCustomEffect(new PotionEffect(PotionEffectType.WITHER,200,2),true);
                     }
                 }
-                arrow.setVelocity(player.getLocation().getDirection().multiply(100));
+                arrow.setVelocity(player.getLocation().getDirection().multiply(5));
                 event.setProjectile(arrow);
             }
         }
@@ -383,27 +379,51 @@ public class reliquiasevents implements Listener {
     }
     @EventHandler
     public void acertou(ProjectileHitEvent event){
-        Player player = (Player) event.getEntity().getShooter();
-        if (player.getInventory().getItemInMainHand().isSimilar(reliquias.crossbow)){
-            Arrow arrow = (Arrow) event.getEntity();
-            Random rd = new Random();
-            int ver = rd.nextInt(0,100);
-            if(ver>=50){
-                Location location = event.getEntity().getLocation();
-                World world = arrow.getWorld();
-                world.spawn(location, Firework.class);
-                Firework fw = (Firework) arrow.getWorld().spawn(
-                        arrow.getLocation(), Firework.class);
-                FireworkMeta fm = fw.getFireworkMeta();
-                fm.addEffect(FireworkEffect.builder()
-                        .flicker(false)
-                        .trail(true)
-                        .with(FireworkEffect.Type.BALL_LARGE)
-                        .withColor(Color.RED)
-                        .withFade(Color.BLACK)
-                        .build());
-                fm.setPower(5);
-                fw.setFireworkMeta(fm);
+        if(event.getEntity().getShooter() instanceof Player) {
+            Player player = (Player) event.getEntity().getShooter();
+            if (player.getInventory().getItemInMainHand().isSimilar(reliquias.crossbow)) {
+                Arrow arrow = (Arrow) event.getEntity();
+                Random rd = new Random();
+                int ver = rd.nextInt(0, 100);
+                if (ver >= 0 && ver <= 50) {
+                    Location location = event.getEntity().getLocation();
+                    World world = arrow.getWorld();
+                    world.spawn(location, Firework.class);
+                    Firework fw = (Firework) arrow.getWorld().spawn(
+                            arrow.getLocation(), Firework.class);
+                    FireworkMeta fm = fw.getFireworkMeta();
+                    fm.addEffect(FireworkEffect.builder()
+                            .flicker(false)
+                            .trail(false)
+                            .with(FireworkEffect.Type.BALL)
+                            .withColor(Color.RED)
+                            .withFade(Color.BLACK)
+                            .build());
+                    fm.setPower(5);
+                    fw.setFireworkMeta(fm);
+                    fw.setTicksToDetonate(0);
+                }else if (ver >= 75 && ver <= 99) {
+                    Location location = event.getEntity().getLocation();
+                    World world = arrow.getWorld();
+                    world.spawn(location, Firework.class);
+                    Firework fw = (Firework) arrow.getWorld().spawn(
+                            arrow.getLocation(), Firework.class);
+                    FireworkMeta fm = fw.getFireworkMeta();
+                    fm.addEffect(FireworkEffect.builder()
+                            .flicker(false)
+                            .trail(false)
+                            .with(FireworkEffect.Type.BALL_LARGE)
+                            .withColor(Color.RED)
+                            .withFade(Color.BLACK)
+                            .build());
+                    fm.setPower(10);
+                    fw.setFireworkMeta(fm);
+                    fw.setTicksToDetonate(0);
+                }else{
+                    Location location = event.getEntity().getLocation();
+                    World world = arrow.getWorld();
+                    world.createExplosion(location,10,false,false);
+                }
             }
         }
     }

@@ -314,7 +314,7 @@ public class reliquias {
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.setFireResistant(true);
-        meta.addEnchant(Enchantment.FORTUNE,3,true);
+        meta.addEnchant(Enchantment.FORTUNE,5,true);
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
