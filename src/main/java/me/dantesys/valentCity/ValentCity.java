@@ -7,6 +7,7 @@ import me.dantesys.valentCity.items.reliquias;
 import org.bukkit.*;
 
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.block.spawner.SpawnerEntry;
@@ -16,13 +17,16 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Crops;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
@@ -31,6 +35,7 @@ import org.bukkit.spawner.Spawner;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Random;
 
 
 public final class ValentCity extends JavaPlugin implements Listener {
@@ -145,10 +150,85 @@ public final class ValentCity extends JavaPlugin implements Listener {
                                 deadEntity.getEquipment().setItemInOffHand(finalHand);
                             }
                         },
-                        (t) -> deadEntity.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o totem")
+                        (t) -> deadEntity.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar")
                 );
                 timer.scheduleTimer();
             }
+        }
+    }
+    public void sumonarapoza(Player player,Entity entity) {
+        EntityEquipment equip = player.getEquipment();
+        ItemStack hand = null;
+        boolean main = true;
+        if (equip.getItemInMainHand().getType() == Material.STICK) {
+            hand = equip.getItemInMainHand();
+            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+                hand = null;
+            }
+            main = true;
+        }
+        if (equip.getItemInOffHand().getType() == Material.STICK) {
+            hand = equip.getItemInOffHand();
+            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+                hand = null;
+            }
+            main = false;
+        }
+        if (hand != null) {
+            boolean finalMain = main;
+            ItemStack finalHand = reliquias.domador;
+            ItemStack espada = new ItemStack(Material.NETHERITE_SWORD);
+            ItemMeta meta = espada.getItemMeta();
+            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,new AttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE.getKey(),9, AttributeModifier.Operation.ADD_NUMBER));
+            meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,new AttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+            meta.addEnchant(Enchantment.SHARPNESS,10,true);
+            meta.addEnchant(Enchantment.FIRE_ASPECT,10,true);
+            espada.setItemMeta(meta);
+            Fox wolf = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
+            wolf.setFirstTrustedPlayer(player);
+            wolf.setMaxHealth(200);
+            wolf.attack(entity);
+            wolf.setTarget((LivingEntity) entity);
+            wolf.getEquipment().setItemInMainHand(espada);
+            Fox wolf2 = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
+            wolf2.setFirstTrustedPlayer(player);
+            wolf2.setMaxHealth(100);
+            wolf2.attack(entity);
+            wolf2.setTarget((LivingEntity) entity);
+            wolf2.getEquipment().setItemInMainHand(espada);
+            Fox wolf3 = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
+            wolf3.setFirstTrustedPlayer(player);
+            wolf3.setMaxHealth(100);
+            wolf3.attack(entity);
+            wolf3.setTarget((LivingEntity) entity);
+            wolf3.getEquipment().setItemInMainHand(espada);
+            Temporizador timer = new Temporizador(ValentCity.this, 30,
+                    () -> {
+                        player.sendMessage("Repoza Ativado!");
+                        player.getEquipment().setItemInMainHand(null);
+                        wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1),true);
+                        wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1),true);
+                        wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1),true);
+                    },() -> {
+                if (finalMain) {
+                    player.getEquipment().setItemInMainHand(finalHand);
+                } else {
+                    player.getEquipment().setItemInOffHand(finalHand);
+                }
+                wolf.remove();
+                wolf2.remove();
+                wolf3.remove();
+            },(t) -> {
+                wolf.setCustomName("Lider ("+(t.getSecondsLeft())+"s)");
+                wolf2.setCustomName("Soldado ("+(t.getSecondsLeft())+"s)");
+                wolf3.setCustomName("Soldado ("+(t.getSecondsLeft())+"s)");
+                wolf.setCustomNameVisible(true);
+                wolf2.setCustomNameVisible(true);
+                wolf3.setCustomNameVisible(true);
+                player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar");
+            }
+            );
+            timer.scheduleTimer();
         }
     }
     public void sumonalobo(Player player,Entity entity) {
@@ -172,22 +252,36 @@ public final class ValentCity extends JavaPlugin implements Listener {
         if (hand != null) {
             boolean finalMain = main;
             ItemStack finalHand = reliquias.domador;
-            Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+            ItemStack armadura = new ItemStack(Material.WOLF_ARMOR);
+            ItemMeta meta = armadura.getItemMeta();
+            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,new AttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE.getKey(),9, AttributeModifier.Operation.ADD_NUMBER));
+            meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,new AttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+            armadura.setItemMeta(meta);
+            Wolf wolf = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
             wolf.setOwner(player);
-            wolf.setMaxHealth(100);
+            wolf.setMaxHealth(200);
             wolf.attack(entity);
-            Wolf wolf2 = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+            wolf.setTamed(true);
+            wolf.getEquipment().setChestplate(armadura);
+            Wolf wolf2 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
             wolf2.setOwner(player);
             wolf2.setMaxHealth(100);
             wolf2.attack(entity);
-            Wolf wolf3 = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+            wolf2.setTamed(true);
+            wolf2.getEquipment().setChestplate(armadura);
+            Wolf wolf3 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
             wolf3.setOwner(player);
             wolf3.setMaxHealth(100);
             wolf3.attack(entity);
+            wolf3.setTamed(true);
+            wolf3.getEquipment().setChestplate(armadura);
             Temporizador timer = new Temporizador(ValentCity.this, 30,
                 () -> {
                     player.sendMessage("Lobo Ativado!");
                     player.getEquipment().setItemInMainHand(null);
+                    wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1),true);
+                    wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1),true);
+                    wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1),true);
                 },() -> {
                     if (finalMain) {
                         player.getEquipment().setItemInMainHand(finalHand);
@@ -195,7 +289,17 @@ public final class ValentCity extends JavaPlugin implements Listener {
                         player.getEquipment().setItemInOffHand(finalHand);
                     }
                     wolf.remove();
-                },(t) -> player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o lobo")
+                    wolf2.remove();
+                    wolf3.remove();
+                },(t) -> {
+                    wolf.setCustomName("Lider ("+(t.getSecondsLeft())+"s)");
+                    wolf2.setCustomName("Soldado ("+(t.getSecondsLeft())+"s)");
+                    wolf3.setCustomName("Soldado ("+(t.getSecondsLeft())+"s)");
+                    wolf.setCustomNameVisible(true);
+                    wolf2.setCustomNameVisible(true);
+                    wolf3.setCustomNameVisible(true);
+                    player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o lobo");
+                }
             );
             timer.scheduleTimer();
         }
@@ -209,16 +313,21 @@ public final class ValentCity extends JavaPlugin implements Listener {
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.espadamd)) {
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 100, 2));
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 2));
-                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100, 2));
                 if (presa instanceof LivingEntity) {
                     LivingEntity lepresa = (LivingEntity) presa;
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
-                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1));
+                    lepresa.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300, 1));
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
                 }
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.domador)) {
-                sumonalobo(atacantepl,presa);
+                Random rd = new Random();
+                int ver = rd.nextInt(0,100);
+                if(ver<=50){
+                    sumonalobo(atacantepl,presa);
+                }else{
+                    sumonarapoza(atacantepl,presa);
+                }
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.enxada)) {
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
@@ -252,6 +361,40 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 100, 5));
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
+                }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.farm_modelo1)) {
+                Random rd = new Random();
+                int ver = rd.nextInt(0,100);
+                Location l = presa.getLocation();
+                World w = presa.getWorld();
+                if(presa instanceof Player){
+                    atacantepl.sendMessage("Você não pode plantar jogadores!");
+                }else{
+                    if(presa instanceof LivingEntity vivo){
+                        if(vivo.getHealth()>(vivo.getMaxHealth()/2)){
+                            atacantepl.sendMessage("Você ainda não pode plantar ele!");
+                            atacantepl.sendMessage("Ele tem muita vida ("+((int) vivo.getHealth())+"), deixe ele");
+                            atacantepl.sendMessage("com "+((int) (vivo.getMaxHealth()/2))+" de vida");
+                            return;
+                        }
+                        presa.remove();
+                        atacantepl.sendMessage("Agora ele está plantado!");
+                        Location l2 = l.add(0,1,0);
+                        if(ver<=25){
+                            w.getBlockAt(l).setType(Material.FARMLAND);
+                            w.getBlockAt(l2).setType(Material.WHEAT);
+                        }else if(ver<=50){
+                            w.getBlockAt(l).setType(Material.FARMLAND);
+                            w.getBlockAt(l2).setType(Material.BEETROOTS);
+                        }else if(ver<=75){
+                            w.getBlockAt(l).setType(Material.FARMLAND);
+                            w.getBlockAt(l2).setType(Material.POTATOES);
+                        }else{
+                            w.getBlockAt(l).setType(Material.FARMLAND);
+                            w.getBlockAt(l2).setType(Material.CARROTS);
+                        }
+                    }
                 }
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.farm_modelo2)) {
@@ -299,6 +442,83 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     atacantepl.setCooldown(reliquias.farm_modelo2.getType(),10);
                 }
             }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.picareta_md1)) {
+                Random rd = new Random();
+                int ver = rd.nextInt(0,100);
+                int qtd = rd.nextInt(1,2);
+                Location l = presa.getLocation();
+                World w = presa.getWorld();
+                if(presa instanceof Player){
+                    atacantepl.sendMessage("Você não pode minerar jogadores!");
+                }else{
+                    if(presa instanceof LivingEntity vivo){
+                        if(vivo.getHealth()>(vivo.getMaxHealth()/2)){
+                            atacantepl.sendMessage("Você ainda não pode minerar!");
+                            atacantepl.sendMessage("Ele tem muita vida ("+((int) vivo.getHealth())+"), deixe ele");
+                            atacantepl.sendMessage("com "+((int) (vivo.getMaxHealth()/2))+" de vida");
+                            return;
+                        }
+                        vivo.remove();
+                        atacantepl.sendMessage("Agora você pode minerar ele!");
+                        if(ver<=25){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.COAL_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_COAL_ORE);
+                            }
+                        }else if(ver<=45){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.COPPER_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_COPPER_ORE);
+                            }
+                        }else if(ver<=65){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.IRON_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_IRON_ORE);
+                            }
+                        }else if(ver<=80){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.GOLD_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_GOLD_ORE);
+                            }
+                        }else if(ver<=90){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.LAPIS_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_LAPIS_ORE);
+                            }
+                        }else if(ver<=95){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.REDSTONE_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_REDSTONE_ORE);
+                            }
+                        }else if(ver<=99){
+                            if(qtd<=1){
+                                w.getBlockAt(l).setType(Material.DIAMOND_ORE);
+                            }else{
+                                w.getBlockAt(l).setType(Material.DEEPSLATE_DIAMOND_ORE);
+                            }
+                        }else{
+                            w.getBlockAt(l).setType(Material.ANCIENT_DEBRIS);
+                        }
+                    }
+                }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.picareta_md2)) {
+                if(presa instanceof Player){
+                    atacantepl.sendMessage("Você não pode destruir jogadores!");
+                }else{
+                    Location l = presa.getLocation();
+                    World w = presa.getWorld();
+                    atacantepl.sendMessage(presa.getName()+" destruido!");
+                    presa.remove();
+                    w.createExplosion(l,4,false,false);
+                }
+            }
         }
     }
     @EventHandler
@@ -316,7 +536,10 @@ public final class ValentCity extends JavaPlugin implements Listener {
             event.setCancelled(true);
             player.launchProjectile(Arrow.class);
         }else if(item != null && item.isSimilar(reliquias.farm_modelo1)){
-            if(action.isLeftClick()){
+            if(event.getClickedBlock() != null){
+                if(event.getClickedBlock().isBuildable()){ return; }
+                Material mat = event.getClickedBlock().getType();
+                if (!isPlanta(mat)) { return; }
                 event.getClickedBlock().applyBoneMeal(event.getBlockFace());
             }
         }else if(item != null && item.isSimilar(reliquias.picareta_md2)){
@@ -324,24 +547,31 @@ public final class ValentCity extends JavaPlugin implements Listener {
                 if(event.getClickedBlock().breakNaturally(reliquias.picareta_md2)){
                     Location l = event.getClickedBlock().getLocation();
                     World w = event.getClickedBlock().getWorld();
-                    w.createExplosion(l,40,false,true);
+                    mina(w,l,player);
                 }
             }
         }else if(item != null && item.isSimilar(reliquias.domador)){
             if(action.isRightClick()){
                 if(event.getClickedBlock().getType().equals(Material.SPAWNER)){
-                    Location l = event.getClickedBlock().getLocation();
-                    World w = event.getClickedBlock().getWorld();
-                    player.sendMessage("Aqui: "+event.getClickedBlock());
-                    player.sendMessage("Aqui: "+event.getClickedBlock().getState());
                     CreatureSpawner spawner = (CreatureSpawner) event.getClickedBlock().getState();
                     spawner.setType(Material.SPAWNER);
-                    player.sendMessage("Aqui: "+spawner);
                     EntityType spawnedType = spawner.getSpawnedType();
                     player.getInventory().addItem(makeSpawnerItem(spawnedType));
                     player.breakBlock(event.getClickedBlock());
                 }
             }
+        }
+    }
+    private boolean isPlanta(Material material) {
+        switch (material) {
+            case WHEAT:
+            case CARROTS:
+            case POTATOES:
+            case BEETROOTS:
+            case NETHER_WART:
+                return true;
+            default:
+                return false;
         }
     }
     private ItemStack makeSpawnerItem(EntityType entityType) {
@@ -358,17 +588,54 @@ public final class ValentCity extends JavaPlugin implements Listener {
         ItemMeta meta = hand.getItemMeta();
         NamespacedKey key = new NamespacedKey(this, "SPAWNER_ENTITY_TYPE");
         if (!meta.getPersistentDataContainer().has(key, PersistentDataType.STRING)) return;
-        // probs should check if the entity type even exists
         EntityType type = EntityType.valueOf(meta.getPersistentDataContainer().get(key, PersistentDataType.STRING));
-        // get placed block
         final Block placedBlock = event.getBlockPlaced();
-        // set the block type to a spawner (its always a spawner in this case since the item stack material was a spawner)
         if (placedBlock.getType() != Material.SPAWNER)
             placedBlock.setType(Material.SPAWNER);
-        // get the creature spawner
         CreatureSpawner creatureSpawner = (CreatureSpawner) placedBlock.getState();
-        // set the spawn type
         creatureSpawner.setSpawnedType(type);
         creatureSpawner.update();
+    }
+    public void mina(World w,Location l, Player player) {
+        EntityEquipment equip = player.getEquipment();
+        ItemStack hand = null;
+        boolean main = true;
+        if (equip.getItemInMainHand().getType() == Material.NETHERITE_PICKAXE) {
+            hand = equip.getItemInMainHand();
+            if (!hand.getEnchantments().containsKey(Enchantment.INFINITY)) {
+                hand = null;
+            }
+            main = true;
+        }
+        if (equip.getItemInOffHand().getType() == Material.NETHERITE_PICKAXE) {
+            hand = equip.getItemInOffHand();
+            if (!hand.getEnchantments().containsKey(Enchantment.INFINITY)) {
+                hand = null;
+            }
+            main = false;
+        }
+        if (hand != null) {
+            TNTPrimed tnt = w.spawn(l, TNTPrimed.class);
+            tnt.setFuseTicks(500);
+            boolean finalMain = main;
+            ItemStack finalHand = reliquias.picareta_md2;
+            Temporizador timer = new Temporizador(ValentCity.this,10,
+                () -> player.sendMessage("Dinamite ativada!"),
+                () -> {
+                    if (finalMain) {
+                        player.getEquipment().setItemInMainHand(finalHand);
+                    } else {
+                        player.getEquipment().setItemInOffHand(finalHand);
+                    }
+                    tnt.remove();
+                    w.createExplosion(l,40,false,true);
+                },(t) -> {
+                    player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para explosão");
+                    tnt.setCustomName((t.getSecondsLeft())+"s");
+                    tnt.setCustomNameVisible(true);
+                }
+            );
+            timer.scheduleTimer();
+        }
     }
 }

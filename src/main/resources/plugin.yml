@@ -8,3 +8,22 @@ commands:
   reliquia:
     description: Recebe as reliquias
     usage: /<command> <target> <reliquias (espada|spy|foice|totem|tridente|vento|arco|fazendeiro|crossbow|mineiro|domador|all)>
+    permission: reliquias.use
+    permission-message: Você não tem permissão
+  livro:
+    description: Recebe o livro
+    usage: /<command> <target>
+    permission: reliquias.livro
+    permission-message: Você não tem permissão
+permissions:
+  relics.livro:
+    description: Permiter pegar o livro
+    default: true
+  relics.use:
+    description: Permiter pegar as reliquias
+    default: op
+  relics.*:
+    description: Valent City Permissões
+    default: op
+    children:
+      relics.use: true

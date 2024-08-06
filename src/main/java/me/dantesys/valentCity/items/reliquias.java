@@ -1,6 +1,7 @@
 package me.dantesys.valentCity.items;
 
 import net.kyori.adventure.text.Component;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -9,6 +10,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class reliquias {
     public static ItemStack picareta_md1;
     public static ItemStack picareta_md2;
     public static ItemStack domador;
+    public static ItemStack livro;
     public static void init() {
         createEnxada();
         createEspadamd();
@@ -51,6 +54,7 @@ public class reliquias {
         createPick1();
         createPick2();
         createDomador();
+        createLivro();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -333,6 +337,7 @@ public class reliquias {
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
         meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
         meta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
@@ -357,5 +362,21 @@ public class reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         domador = item;
+    }
+    private static void createLivro() {
+        ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
+        BookMeta meta = (BookMeta) item.getItemMeta();
+        meta.setAuthor("O Explorador");
+        meta.setDisplayName("§l§6Manual das reliquias");
+        List<Component> pages = new ArrayList<>();
+        pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Descrição:\nUma foice sinistra capaz de roubar a vida dos monstros!\nEfeitos:\nNa mão: Visão Noturna e Invisibilidade\nNa outra mão: Velocidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster aumenta a vida máxima do usuario em meio coração"));
+        pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Descrição:\nA espada mais poderosa de todo o passado do Minecraft!\nEfeitos:\nNa mão: Resistência\nNa outra mão: Sorte\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster aumenta o ataque do usuario em 1"));
+        pages.add(Component.text("§l§6Relíquia da infinidade\n§r§0Descrição:\nO totem supremo usado pela rainha Elizabeth II\nEfeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
+        meta.pages(pages);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        item.setItemMeta(meta);
+        livro = item;
     }
 }

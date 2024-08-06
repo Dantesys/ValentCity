@@ -57,6 +57,17 @@ public class giveItems implements CommandExecutor {
                     }
                 }
             }
+        }else if (label.equalsIgnoreCase("livro")){
+            if (args.length == 0) {
+                sender.sendMessage("Recebedor ou alvo não definido");
+            } else {
+                Player target = Bukkit.getPlayerExact(args[0]);
+                if (target == null) {
+                    sender.sendMessage("Apenas jogadores podem receber reliquias!");
+                } else {
+                    target.getInventory().addItem(reliquias.livro);
+                }
+            }
         }
         return true;
     }
