@@ -1,8 +1,8 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.8.1</h2>
+Ajuste na reliquia do mineiro, crossbow, fazendeiro e domador e finalizado o livros das reliquias
 <h2>Mudanças - v1.8.0</h2>
-Adinionado nova reliquia domador
-<h2>Mudanças - v1.8.0</h2>
-Adicionado o livro
+Adinionado nova reliquia domador e um livro
 <h2>Mudanças - v1.7.0</h2>
 Adinionado 2 novas reliquias do crossbow e do arco e feito ajuste na reliquia do fazendeiro
 <h2>Mudanças - v1.6.0</h2>
@@ -20,7 +20,7 @@ Adinionado novo modo para reliquia do espião e adicionado nova reliquia vento
 <h2>Mudanças - v1.4.3</h2>
 Nova habilidade para reliquia do guerreiro, quando matar um mob do tipo monster aumenta o ataque
 <h2>Mudanças - v1.4.2</h2>
-Ajuste no evento de hotbar e mao secundária, quebrado após a mudanças v1.4.1
+Ajuste no evento de hot-bar e mão secundária, quebrado após a mudanças v1.4.1
 <h2>Mudanças - v1.4.1</h2>
 Mudança no comando /kitrq para /reliquia alvo reliquia
 <h2>Mudanças - v1.4.0</h2>

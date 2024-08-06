@@ -1,5 +1,6 @@
 package me.dantesys.valentCity;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -66,7 +67,7 @@ public enum MobsList {
     WARDEN(EntityType.WARDEN, "WanderingTrader", Material.WARDEN_SPAWN_EGG),
     ALLAY(EntityType.ALLAY, "WanderingTrader", Material.ALLAY_SPAWN_EGG);
     private final EntityType entityType;
-    private final String friendlyName;
+    private String friendlyName;
     private final Material material;
 
     MobsList(EntityType entityType, String friendlyName, Material material) {
@@ -89,8 +90,16 @@ public enum MobsList {
 
     public static MobsList getEggType(Entity entity) {
         for (MobsList eggType : MobsList.values()) {
-            if (!eggType.getCreatureType().getEntityClass().isInstance(entity)) {
+            if (eggType.getCreatureType().getEntityClass() != null && !eggType.getCreatureType().getEntityClass().isInstance(entity)) {
                 continue;
+            }
+            Component component = entity.customName();
+            if(component==null){
+                return eggType;
+            }
+            eggType.friendlyName = component.examinableName();
+            if(!component.examinableName().equals(eggType.getFriendlyName())){
+                return eggType;
             }
             return eggType;
         }

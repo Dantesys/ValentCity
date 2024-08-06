@@ -1,10 +1,8 @@
 package me.dantesys.valentCity.items;
 
+import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
-import net.md_5.bungee.api.chat.BaseComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -50,7 +48,7 @@ public class reliquias {
         createArco2();
         createFarm1();
         createFarm2();
-        createCroosbow();
+        createCrossbow();
         createPick1();
         createPick2();
         createDomador();
@@ -59,7 +57,7 @@ public class reliquias {
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Ceifador");
+        meta.displayName(Component.text("§6Relíquia do Ceifador"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Uma foice sinistra"));
         loreitem.add(Component.text("§7capaz de roubar a vida"));
@@ -76,7 +74,7 @@ public class reliquias {
     private static void createEspadamd() {
         ItemStack item = new ItemStack(Material.NETHERITE_SWORD, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Guerreiro");
+        meta.displayName(Component.text("§6Relíquia do Guerreiro"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7A espada mais poderosa de"));
         loreitem.add(Component.text("§7todo o passado do Minecraft!"));
@@ -97,7 +95,7 @@ public class reliquias {
     private static void createTotem() {
         ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia da infinidade");
+        meta.displayName(Component.text("§6Relíquia da infinidade"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7O totem supremo"));
         loreitem.add(Component.text("§7usado pela rainha Elizabeth II"));
@@ -112,11 +110,12 @@ public class reliquias {
     private static void createSpy1() {
         ItemStack item = new ItemStack(Material.SPYGLASS, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Espião (1)");
+        meta.displayName(Component.text("§6Relíquia do Espião (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato estranho"));
         loreitem.add(Component.text("§7capaz de alterar a"));
-        loreitem.add(Component.text("§7realidade"));
+        loreitem.add(Component.text("§7realidade e descobrir"));
+        loreitem.add(Component.text("§7segredos"));
         loreitem.add(Component.text("§7Modelo 1: Investigador"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
@@ -130,11 +129,12 @@ public class reliquias {
     private static void createSpy2() {
         ItemStack item = new ItemStack(Material.INK_SAC, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Espião (2)");
+        meta.displayName(Component.text("§6Relíquia do Espião (2)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato estranho"));
         loreitem.add(Component.text("§7capaz de alterar a"));
-        loreitem.add(Component.text("§7realidade"));
+        loreitem.add(Component.text("§7realidade e descobrir"));
+        loreitem.add(Component.text("§7segredos"));
         loreitem.add(Component.text("§7Modelo 2: Protetor"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
@@ -151,7 +151,7 @@ public class reliquias {
     private static void createTridente1() {
         ItemStack item = new ItemStack(Material.TRIDENT, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Tridente (1)");
+        meta.displayName(Component.text("§6Relíquia do Tridente (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que comanda os mares"));
@@ -172,7 +172,7 @@ public class reliquias {
     private static void createTridente2() {
         ItemStack item = new ItemStack(Material.TRIDENT, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Tridente (2)");
+        meta.displayName(Component.text("§6Relíquia do Tridente (2)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que comanda os mares"));
@@ -192,10 +192,10 @@ public class reliquias {
     private static void createVento() {
         ItemStack item = new ItemStack(Material.WIND_CHARGE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Vento");
+        meta.displayName(Component.text("§6Relíquia do Vento"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
-        loreitem.add(Component.text("§7que é a propia essência"));
+        loreitem.add(Component.text("§7que é a própia essência"));
         loreitem.add(Component.text("§7de um tornado"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
@@ -211,7 +211,7 @@ public class reliquias {
     private static void createArco1() {
         ItemStack item = new ItemStack(Material.BOW, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Arco (1)");
+        meta.displayName(Component.text("§6Relíquia do Arco (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que dispara uma flecha"));
@@ -231,7 +231,7 @@ public class reliquias {
     private static void createArco2() {
         ItemStack item = new ItemStack(Material.BOW, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Arco (2)");
+        meta.displayName(Component.text("§6Relíquia do Arco (2)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que dispara uma rajada"));
@@ -252,7 +252,7 @@ public class reliquias {
     private static void createFarm1() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Fazendeiro (1)");
+        meta.displayName(Component.text("§6Relíquia do Fazendeiro (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que fazer crescer"));
@@ -271,7 +271,7 @@ public class reliquias {
     private static void createFarm2() {
         ItemStack item = new ItemStack(Material.LEAD, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Fazendeiro (2)");
+        meta.displayName(Component.text("§6Relíquia do Fazendeiro (2)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato antigo"));
         loreitem.add(Component.text("§7que controla"));
@@ -286,10 +286,10 @@ public class reliquias {
         item.setItemMeta(meta);
         farm_modelo2 = item;
     }
-    private static void createCroosbow() {
+    private static void createCrossbow() {
         ItemStack item = new ItemStack(Material.CROSSBOW, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Crossbow");
+        meta.displayName(Component.text("§6Relíquia do Crossbow"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato misterioso"));
         loreitem.add(Component.text("§7capaz de disparar"));
@@ -308,7 +308,7 @@ public class reliquias {
     private static void createPick1() {
         ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Mineiro (1)");
+        meta.displayName(Component.text("§6Relíquia do Mineiro (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato feito"));
         loreitem.add(Component.text("§7pelos anões capaz de"));
@@ -327,7 +327,7 @@ public class reliquias {
     private static void createPick2() {
         ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Mineiro (2)");
+        meta.displayName(Component.text("§6Relíquia do Mineiro (2)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato feito"));
         loreitem.add(Component.text("§7pelos anões capaz de"));
@@ -349,7 +349,7 @@ public class reliquias {
     private static void createDomador() {
         ItemStack item = new ItemStack(Material.STICK, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§6Relíquia do Domador");
+        meta.displayName(Component.text("§6Relíquia do Domador"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato feito"));
         loreitem.add(Component.text("§7pelos anciões"));
@@ -367,12 +367,28 @@ public class reliquias {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
         meta.setAuthor("O Explorador");
-        meta.setDisplayName("§l§6Manual das reliquias");
+        meta.displayName(Component.text("§6Manual das reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Descrição:\nUma foice sinistra capaz de roubar a vida dos monstros!\nEfeitos:\nNa mão: Visão Noturna e Invisibilidade\nNa outra mão: Velocidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster aumenta a vida máxima do usuario em meio coração"));
+        pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Descrição:\nUma foice sinistra capaz de roubar a vida dos monstros!\nEfeitos:\nNa mão: Visão Noturna e Invisibilidade\nNa outra mão: Velocidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster aumenta a vida máxima do usuário em meio coração"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Descrição:\nA espada mais poderosa de todo o passado do Minecraft!\nEfeitos:\nNa mão: Resistência\nNa outra mão: Sorte\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster aumenta o ataque do usuario em 1"));
         pages.add(Component.text("§l§6Relíquia da infinidade\n§r§0Descrição:\nO totem supremo usado pela rainha Elizabeth II\nEfeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
-        meta.pages(pages);
+        pages.add(Component.text("§l§6Relíquia do Espião - Investigador\n§r§0Descrição:\nUm artefato estranho capaz de alterar a realidade e descobrir segredos\nEfeitos:\nNa mão: Visão noturna, velocidade, invisibilidade e encolhimento\nNa outra mão: Visão noturna, invisibilidade e encolhimento\nNo ataque: O alvo fica com escuridão\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Espião - Protetor\n§r§0Descrição:\nUm artefato estranho capaz de alterar a realidade e descobrir segredos\nEfeitos:\nNa mão: Visão noturna, velocidade, resistência e encolhimento\nNa outra mão: Visão noturna, resistência e encolhimento\nNo ataque: O alvo fica com escuridão, naúsea e lentidão\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Tridente - Tempest\n§r§0Descrição:\nUm artefato antigo que comanda os mares\nEfeitos:\nNa mão: Respiração aquática, Conduit Power e Graça dos golfinhos\nNa outra mão: Respiração aquática, Conduit Power, Graça dos golfinhos e inicia uma tempestade de raios\nNo ataque: O alvo fica sem oxigênio\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Tridente - Aqua Jet\n§r§0Descrição:\nUm artefato antigo que comanda os mares\nEfeitos:\nNa mão: Respiração aquática, Conduit Power, Graça dos golfinhos e velocidade\nNa outra mão: Respiração aquática, Conduit Power, Graça dos golfinhos, velocidade e inicia uma chuva\nNo ataque: O alvo fica sem oxigênio\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Vento\n§r§0Descrição:\nUm artefato antigo que é a própia essência de um tornado\nEfeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: O alvo é jogado para longe\nHabilidade: É infinito, nunca acaba"));
+        pages.add(Component.text("§l§6Relíquia do Arco - Sniper\n§r§0Descrição:\nUm artefato antigo que dispara uma flecha com força incoparavel\nEfeitos:\nNa mão: Visão noturna e invisibilidade\nNa outra mão: -Sem efeito-\nNo ataque: A velocidade da flecha 100 vezes mais rápida\nHabilidade: Não precisa de flechas"));
+        pages.add(Component.text("§l§6Relíquia do Arco - Minigun\n§r§0Descrição:\nUm artefato antigo que dispara uma rajada de flechas\nEfeitos:\nNa mão: Brilhante e lentidão\nNa outra mão: lentidão\nNo ataque: A velocidade de atirar outra flecha é nula\nHabilidade: Não precisa de flechas"));
+        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Descrição:\nUm artefato antigo que fazer crescer suas plantações\nEfeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Pode transformar o alvo em uma plantação\nHabilidade: Aplica farinha de osso nas plantações"));
+        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Descrição:\nUm artefato antigo que controla seus animais\nEfeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
+        pages.add(Component.text("§l§6Relíquia do Crossbow\n§r§0Descrição:\nUm artefato misterioso capaz de disparar flechas misteriosas\nEfeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Dispara uma rajada de flechas especiais\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo!\n§r§0Descrição:\nUm artefato feito pelos anões capaz de derrubar montanhas\nEfeitos:\nNa mão: Sorte e tamanho de anão\nNa outra mão: -Sem efeito-\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor!\n§r§0Descrição:\nUm artefato feito pelos anões capaz de derrubar montanhas\nEfeitos:\nNa mão: Resistência e tamanho de anão\nNa outra mão: -Sem efeito-\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
+        pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Descrição:\nUm artefato feito pelos anciões\nEfeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
+        Book bk = meta.pages(pages);
+        if(bk.author().examinableName().equals(meta.getAuthor())){
+            getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
+        }
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.setFireResistant(true);
