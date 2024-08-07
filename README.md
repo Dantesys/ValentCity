@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.9.0</h2>
+Nova reliquia mago, um livro que dispara feitiços e mágias, ajuste no cooldown da dinamite e na descrição do comando das reliquias
 <h2>Mudanças - v1.8.1</h2>
 Ajuste na reliquia do mineiro, crossbow, fazendeiro e domador e finalizado o livros das reliquias
 <h2>Mudanças - v1.8.0</h2>

@@ -21,14 +21,18 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 
 public final class ValentCity extends JavaPlugin implements Listener {
@@ -325,6 +329,11 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
                 }
             }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.tridente_modelo1)) {
+                if (presa instanceof LivingEntity lepresa) {
+                    lepresa.getWorld().strikeLightning(lepresa.getLocation());
+                }
+            }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.tridente_modelo1) || atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.tridente_modelo2)) {
                 if (presa instanceof LivingEntity lepresa) {
                     lepresa.setRemainingAir(0);
@@ -375,6 +384,41 @@ public final class ValentCity extends JavaPlugin implements Listener {
                             w.getBlockAt(l).setType(Material.FARMLAND);
                             w.getBlockAt(l2).setType(Material.CARROTS);
                         }
+                    }
+                }
+            }
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(reliquias.mago)) {
+                if(presa instanceof LivingEntity toma){
+                    Random rd = new Random();
+                    int ver = rd.nextInt(0,100);
+                    int tempo = rd.nextInt(1,60);
+                    int power = rd.nextInt(1,4);
+                    tempo = tempo*20;
+                    if(ver<=8) toma.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,tempo,power));
+                    else if(ver<=16) toma.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,tempo,power));
+                    else if(ver<=24) toma.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,tempo,power));
+                    else if(ver<=32) toma.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA,tempo,power));
+                    else if(ver<=40) toma.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,tempo,power));
+                    else if(ver<=48) toma.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,tempo,power));
+                    else if(ver<=56) toma.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,tempo,power));
+                    else if(ver<=64) toma.addPotionEffect(new PotionEffect(PotionEffectType.POISON,tempo,power));
+                    else if(ver<=72) toma.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,tempo,power));
+                    else if(ver<=80) toma.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power));
+                    else if(ver<=88) toma.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power));
+                    else if(ver<=96) toma.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power));
+                    else{
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.POISON,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power));
+                        toma.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power));
                     }
                 }
             }
@@ -536,23 +580,26 @@ public final class ValentCity extends JavaPlugin implements Listener {
             if(event.getClickedBlock() != null){
                 if(event.getClickedBlock().isBuildable()){ return; }
                 Material mat = event.getClickedBlock().getType();
-                if (plantavel(mat)) { return; }
-                event.getClickedBlock().applyBoneMeal(event.getBlockFace());
+                if (plantavel(mat)) {
+                    event.getClickedBlock().applyBoneMeal(event.getBlockFace());
+                }
+
             }
         }else if(item != null && item.isSimilar(reliquias.farm_modelo2)){
             if(action.isRightClick()){
                 if(event.getClickedBlock() != null){
                     if(event.getClickedBlock().isBuildable()){ return; }
                     Material mat = event.getClickedBlock().getType();
-                    if (plantavel(mat)) { return; }
-                    event.getClickedBlock().applyBoneMeal(event.getBlockFace());
+                    if (plantavel(mat)) {
+                        event.getClickedBlock().applyBoneMeal(event.getBlockFace());
+                    }
                 }
             }
         }else if(item != null && item.isSimilar(reliquias.picareta_md2)){
             if(action.isRightClick()){
                 if(event.getClickedBlock() != null){
                     Block block = event.getClickedBlock();
-                    if(block.getType() == Material.DEEPSLATE){
+                    if(block.getType() == Material.DEEPSLATE && player.hasCooldown(reliquias.picareta_md2.getType())){
                         Location l = event.getClickedBlock().getLocation();
                         World w = event.getClickedBlock().getWorld();
                         mina(w,l,player);
@@ -576,10 +623,125 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     }
                 }
             }
+        }else if(item != null && item.isSimilar(reliquias.mago)){
+            if(action == Action.RIGHT_CLICK_AIR && player.hasCooldown(reliquias.mago.getType())){
+                event.setCancelled(true);
+                Vector vec = player.getEyeLocation().getDirection();
+                Random rd = new Random();
+                int ver = rd.nextInt(0, 100);
+                if(ver<=15){
+                    player.sendMessage("Mahō no ya");
+                    Arrow arrow = player.launchProjectile(Arrow.class);
+                    arrow.setGlowing(true);
+                    arrow.setMetadata("magic",new FixedMetadataValue(ValentCity.this,(double) 10));
+                    arrow.setVelocity(vec.multiply(50));
+                    player.setCooldown(reliquias.mago.getType(),100);
+                }else if(ver<=30){
+                    player.sendMessage("Hinotama");
+                    Fireball fire = player.launchProjectile(Fireball.class);
+                    fire.setGlowing(true);
+                    fire.setDirection(vec.multiply(2));
+                    fire.setVelocity(vec.multiply(2));
+                    fire.setYield(4);
+                    player.setCooldown(reliquias.mago.getType(),400);
+                }else if(ver<=45){
+                    player.sendMessage("Yukidaruma");
+                    Snowball bola = player.launchProjectile(Snowball.class);
+                    bola.setGlowing(true);
+                    bola.setVelocity(vec.multiply(2));
+                    bola.setMetadata("freeze",new FixedMetadataValue(ValentCity.this, 10));
+                    player.setCooldown(reliquias.mago.getType(),200);
+                }else if(ver<=60){
+                    player.sendMessage("Bakuhatsu-on");
+                    int range = 40;
+                    int damage = 150;
+                    final int finalRange = range;
+                    final int finalDamage = damage;
+                    (new BukkitRunnable() {
+                        double t = 0.0;
+                        final Location location = player.getLocation();
+                        Boolean isPassableBlock = true;
+                        final Vector direction;
+                        {
+                            this.direction = this.location.getDirection().normalize();
+                        }
+                        public void run() {
+                            this.t += 3.2;
+                            double x = this.direction.getX() * this.t;
+                            double y = this.direction.getY() * this.t + 1.4;
+                            double z = this.direction.getZ() * this.t;
+                            this.location.add(x, y, z);
+                            this.location.getWorld().spawnParticle(Particle.SONIC_BOOM, this.location, 1, 0.0, 0.0, 0.0, 0.0);
+                            if (!this.location.getBlock().isPassable()) {
+                                this.isPassableBlock = false;
+                            }
+                            this.location.getWorld().playSound(this.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 0.5F, 0.7F);
+                            Collection<Entity> entities = this.location.getWorld().getNearbyEntities(this.location, 2.0, 2.0, 2.0);
+                            while(entities.iterator().hasNext()){
+                                Entity atigido = entities.iterator().next();
+                                if(atigido instanceof LivingEntity vivo){
+                                    vivo.damage(finalDamage);
+                                }
+                            }
+                            this.location.subtract(x, y, z);
+                            if (this.t > (double)finalRange || !this.isPassableBlock) {
+                                this.cancel();
+                            }
+                        }
+                    }).runTaskTimer(ValentCity.this, 0L, 1L);
+                    player.setCooldown(reliquias.mago.getType(),1200);
+                }else if(ver<=75){
+                    player.sendMessage("Furainguheddo");
+                    WitherSkull wither = player.launchProjectile(WitherSkull.class);
+                    wither.setGlowing(true);
+                    wither.setDirection(vec.multiply(2));
+                    wither.setVelocity(vec.multiply(2));
+                    wither.setCharged(true);
+                    player.setCooldown(reliquias.mago.getType(),600);
+                }else if(ver<=90){
+                    player.sendMessage("Hanabi");
+                    Firework fw = player.launchProjectile(Firework.class);
+                    fw.setGlowing(true);
+                    fw.setShotAtAngle(true);
+                    fw.setVelocity(vec.multiply(2));
+                    FireworkMeta fm = fw.getFireworkMeta();
+                    fm.setPower(1);
+                    fm.addEffect(FireworkEffect.builder()
+                            .flicker(false)
+                            .trail(true)
+                            .with(FireworkEffect.Type.BALL_LARGE)
+                            .withColor(Color.PURPLE)
+                            .withFade(Color.BLACK)
+                            .build());
+                    fw.setFireworkMeta(fm);
+                    player.setCooldown(reliquias.mago.getType(),400);
+                }else{
+                    player.sendMessage("Pōshonmikkusu");
+                    ThrownPotion tp = player.launchProjectile(ThrownPotion.class);
+                    PotionMeta pm = tp.getPotionMeta();
+                    int tempo = 600;
+                    int power = 1;
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.SLOWNESS,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.NAUSEA,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.BLINDNESS,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.HUNGER,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.WEAKNESS,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.POISON,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.WITHER,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power),true);
+                    pm.addCustomEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power),true);
+                    tp.setPotionMeta(pm);
+                    tp.setVelocity(vec.multiply(2));
+                    player.setCooldown(reliquias.mago.getType(),600);
+                }
+            }
         }
     }
     private boolean plantavel(Material material) {
-        return !switch (material) {
+        return switch (material) {
             case WHEAT, CARROTS, POTATOES, BEETROOTS, NETHER_WART -> true;
             default -> false;
         };

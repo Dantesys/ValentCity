@@ -1,5 +1,5 @@
 name: ValentCity
-version: '1.8.1'
+version: '1.9.0'
 main: me.dantesys.valentCity.ValentCity
 api-version: '1.21'
 authors: [ Dantesys ]
@@ -7,7 +7,7 @@ description: Um plugin usando no servidor valent city
 commands:
   reliquia:
     description: Recebe as reliquias
-    usage: /<command> <target> <reliquias (espada|spy|foice|totem|tridente|vento|arco|fazendeiro|crossbow|mineiro|domador|all)>
+    usage: /<command> <target> <reliquias> \n espada \n spy \n foice \n totem \n tridente \n vento \n arco \n fazendeiro \n crossbow \n mineiro \n domador \n mago \n all (para todas)
     permission: reliquias.use
     permission-message: Você não tem permissão
   livro:
