@@ -629,7 +629,8 @@ public final class ValentCity extends JavaPlugin implements Listener {
                 }
             }
         }else if(item != null && item.isSimilar(reliquias.mago)){
-            if(action == Action.RIGHT_CLICK_AIR && player.hasCooldown(reliquias.mago.getType())){
+            event.setCancelled(true);
+            if(player.hasCooldown(reliquias.mago.getType())){
                 event.setCancelled(true);
                 Vector vec = player.getEyeLocation().getDirection();
                 Random rd = new Random();

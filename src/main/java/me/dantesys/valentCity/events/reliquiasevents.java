@@ -45,6 +45,10 @@ public class reliquiasevents implements Listener {
         ItemStack is = event.getItem();
         if(is.isSimilar(reliquias.power)){
             double dano = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).getValue();
+            if(dano+1>100){
+                player.sendMessage("Sem efeito, você atingiu o limite");
+                return;
+            }
             double armor = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR)).getValue();
             double armortoug = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)).getValue();
             Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).setBaseValue(dano+1);
@@ -52,6 +56,10 @@ public class reliquiasevents implements Listener {
             Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)).setBaseValue(armortoug+1);
         }else if(is.isSimilar(reliquias.life)){
             double vida = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
+            if(vida+1>200){
+                player.sendMessage("Sem efeito, você atingiu o limite");
+                return;
+            }
             double abs = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_ABSORPTION)).getValue();
             double oxy = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_OXYGEN_BONUS)).getValue();
             Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(vida+1);
