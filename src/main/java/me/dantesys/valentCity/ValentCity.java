@@ -64,6 +64,8 @@ public final class ValentCity extends JavaPlugin implements Listener {
         ItemStack pick1 = new ItemStack(reliquias.picareta_md1);
         NamespacedKey key_pic2 = new NamespacedKey(this, "PIC2");
         ItemStack pick2 = new ItemStack(reliquias.picareta_md2);
+        NamespacedKey key_bk = new NamespacedKey(this, "BKINFO");
+        ItemStack bk = new ItemStack(reliquias.livro);
         ShapelessRecipe spy1_recipe = new ShapelessRecipe(key_spy1,spy1);
         ShapelessRecipe spy2_recipe = new ShapelessRecipe(key_spy2,spy2);
         ShapelessRecipe tri1_recipe = new ShapelessRecipe(key_tri1,tri1);
@@ -74,6 +76,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
         ShapelessRecipe farm2_recipe = new ShapelessRecipe(key_far2,farm2);
         ShapelessRecipe pick1_recipe = new ShapelessRecipe(key_pic1,pick1);
         ShapelessRecipe pick2_recipe = new ShapelessRecipe(key_pic2,pick2);
+        ShapelessRecipe bk_recipe = new ShapelessRecipe(key_bk,bk);
         spy1_recipe.addIngredient(reliquias.spy_modelo2);
         spy2_recipe.addIngredient(reliquias.spy_modelo1);
         tri1_recipe.addIngredient(reliquias.tridente_modelo2);
@@ -84,6 +87,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
         farm2_recipe.addIngredient(reliquias.farm_modelo1);
         pick1_recipe.addIngredient(reliquias.picareta_md2);
         pick2_recipe.addIngredient(reliquias.picareta_md1);
+        bk_recipe.addIngredient(Material.BOOK);
         getServer().addRecipe(spy1_recipe);
         getServer().addRecipe(spy2_recipe);
         getServer().addRecipe(tri1_recipe);
@@ -94,6 +98,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
         getServer().addRecipe(farm2_recipe);
         getServer().addRecipe(pick1_recipe);
         getServer().addRecipe(pick2_recipe);
+        getServer().addRecipe(bk_recipe);
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
     }
     @Override
