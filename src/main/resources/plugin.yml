@@ -1,5 +1,5 @@
 name: ValentCity
-version: '1.9.3'
+version: '1.9.4'
 main: me.dantesys.valentCity.ValentCity
 api-version: '1.21'
 authors: [ Dantesys ]

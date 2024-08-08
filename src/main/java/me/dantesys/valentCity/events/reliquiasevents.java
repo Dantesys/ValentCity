@@ -18,6 +18,8 @@ import org.bukkit.util.Vector;
 import java.util.Objects;
 import java.util.Random;
 
+import static org.bukkit.Bukkit.getServer;
+
 
 public class reliquiasevents implements Listener {
     @EventHandler
@@ -329,7 +331,7 @@ public class reliquiasevents implements Listener {
     }
     public void limparEfeito(Player player){
         for (PotionEffect effect : player.getActivePotionEffects()){
-            if(effect.getDuration()>=32767 || effect.getDuration()<=-1){
+            if(effect.getDuration()<=-1){
                 player.removePotionEffect(effect.getType());
             }
         }
@@ -486,21 +488,35 @@ public class reliquiasevents implements Listener {
             }
         }
         if(event.getEntity() instanceof Fireball bola){
-            int fogo = bola.getMetadata("fire").getFirst().asInt();
-            if(fogo>0 && event.getHitBlock() != null){
-                event.getHitBlock().setType(Material.MAGMA_BLOCK);
+            if(event.getEntity() instanceof WindCharge vento){
+                int forca = vento.getMetadata("vento").getFirst().asInt();
+                if(forca>0 && event.getHitBlock() != null){
+                    vento.setYield(10);
+                    vento.explode();
+                }
+            }else if(bola.getMetadata("fire").getFirst()!=null){
+                int fogo = bola.getMetadata("fire").getFirst().asInt();
+                if(fogo>0 && event.getHitBlock() != null){
+                    event.getHitBlock().setType(Material.MAGMA_BLOCK);
+                    event.getEntity().remove();
+                }
             }
         }
         if(event.getEntity() instanceof Arrow flecha){
             int magic = flecha.getMetadata("magic").getFirst().asInt();
             if(magic>0 && event.getHitBlock() != null){
                 event.getHitBlock().setType(Material.AMETHYST_CLUSTER);
+                event.getEntity().remove();
             }
         }
         if(event.getEntity() instanceof WindCharge vento){
+            getServer().getConsoleSender().sendMessage("§2Aqui"+vento);
             int forca = vento.getMetadata("vento").getFirst().asInt();
+            getServer().getConsoleSender().sendMessage("§2Aqui");
             if(forca>0 && event.getHitBlock() != null){
-               vento.explode();
+                getServer().getConsoleSender().sendMessage("§2Aqui");
+                vento.setYield(50);
+                vento.explode();
             }
         }
         if(event.getEntity().getShooter() instanceof Player player) {

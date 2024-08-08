@@ -42,8 +42,11 @@ public class Temporizador implements Runnable {
     public int getSecondsLeft() {
         return secondsLeft;
     }
-    public void scheduleTimer() {
-        this.assignedTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, this, 0L, 20L);
+    public void scheduleTimer(Long periodo) {
+        this.assignedTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, this, 0L, periodo);
+    }
+    public void stop(){
+        this.assignedTaskId = null;
     }
 
 }

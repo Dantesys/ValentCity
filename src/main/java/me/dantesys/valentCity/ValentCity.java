@@ -143,7 +143,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     },
                     (t) -> deadEntity.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar")
             );
-            timer.scheduleTimer();
+            timer.scheduleTimer(20L);
         }
     }
     public void sumonarapoza(Player player,Entity entity) {
@@ -223,7 +223,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                 player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar");
             }
             );
-            timer.scheduleTimer();
+            timer.scheduleTimer(20L);
         }
     }
     public void sumonalobo(Player player,Entity entity) {
@@ -273,32 +273,32 @@ public final class ValentCity extends JavaPlugin implements Listener {
             wolf3.setTamed(true);
             wolf3.getEquipment().setChestplate(armadura);
             Temporizador timer = new Temporizador(ValentCity.this, 30,
-                () -> {
-                    player.sendMessage("Lobo Ativado!");
-                    player.getEquipment().setItemInMainHand(null);
-                    wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                    wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                    wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                },() -> {
-                    if (finalMain) {
-                        player.getEquipment().setItemInMainHand(finalHand);
-                    } else {
-                        player.getEquipment().setItemInOffHand(finalHand);
-                    }
-                    wolf.remove();
-                    wolf2.remove();
-                    wolf3.remove();
-                },(t) -> {
-                    wolf.customName(Component.text("Lider ("+(t.getSecondsLeft())+"s)"));
-                    wolf2.customName(Component.text("Soldado ("+(t.getSecondsLeft())+"s)"));
-                    wolf3.customName(Component.text("Soldado ("+(t.getSecondsLeft())+"s)"));
-                    wolf.setCustomNameVisible(true);
-                    wolf2.setCustomNameVisible(true);
-                    wolf3.setCustomNameVisible(true);
-                    player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o lobo");
+                    () -> {
+                        player.sendMessage("Lobo Ativado!");
+                        player.getEquipment().setItemInMainHand(null);
+                        wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                        wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                        wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                    },() -> {
+                if (finalMain) {
+                    player.getEquipment().setItemInMainHand(finalHand);
+                } else {
+                    player.getEquipment().setItemInOffHand(finalHand);
                 }
+                wolf.remove();
+                wolf2.remove();
+                wolf3.remove();
+            },(t) -> {
+                wolf.customName(Component.text("Lider ("+(t.getSecondsLeft())+"s)"));
+                wolf2.customName(Component.text("Soldado ("+(t.getSecondsLeft())+"s)"));
+                wolf3.customName(Component.text("Soldado ("+(t.getSecondsLeft())+"s)"));
+                wolf.setCustomNameVisible(true);
+                wolf2.setCustomNameVisible(true);
+                wolf3.setCustomNameVisible(true);
+                player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para reativar o lobo");
+            }
             );
-            timer.scheduleTimer();
+            timer.scheduleTimer(20L);
         }
     }
     @EventHandler
@@ -578,11 +578,12 @@ public final class ValentCity extends JavaPlugin implements Listener {
             if(action.isRightClick()){
                 Vector vec = player.getEyeLocation().getDirection();
                 event.setCancelled(true);
+                int slot = player.getInventory().getHeldItemSlot();
                 player.getInventory().removeItem(reliquias.vento);
                 player.setCooldown(reliquias.vento.getType(),0);
-                player.getInventory().addItem(reliquias.vento);
+                player.getInventory().setItem(slot,reliquias.vento);
                 WindCharge wc = player.launchProjectile(WindCharge.class);
-                wc.setYield(10);
+                wc.setYield(50);
                 wc.setAcceleration(vec.multiply(10));
                 wc.setDirection(vec.multiply(10));
                 wc.setGlowing(true);
@@ -617,6 +618,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     if(block.getType() == Material.DEEPSLATE && !player.hasCooldown(reliquias.picareta_md2.getType())){
                         Location l = event.getClickedBlock().getLocation();
                         World w = event.getClickedBlock().getWorld();
+                        player.setCooldown(reliquias.picareta_md2.getType(),1200);
                         mina(w,l,player);
                     }else if(!player.hasCooldown(reliquias.picareta_md2.getType())){
                         player.sendMessage("Só pode colocar dinamite na deepslate");
@@ -662,48 +664,52 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     fire.setDirection(vec.multiply(2));
                     fire.setVelocity(vec.multiply(2));
                     fire.setYield(4);
-                    player.setCooldown(reliquias.mago.getType(),400);
+                    player.setCooldown(reliquias.mago.getType(),200);
                 }else if(ver<=45){
                     player.sendMessage("Yukidaruma");
                     Snowball bola = player.launchProjectile(Snowball.class);
                     bola.setGlowing(true);
                     bola.setVelocity(vec.multiply(2));
                     bola.setMetadata("freeze",new FixedMetadataValue(ValentCity.this, 10));
-                    player.setCooldown(reliquias.mago.getType(),200);
+                    player.setCooldown(reliquias.mago.getType(),100);
                 }else if(ver<=60){
                     player.sendMessage("Bakuhatsu-on");
-                    int range = 20;
+                    int range = 50;
                     int damage = 150;
                     final int finalRange = range;
                     final int finalDamage = damage;
                     final Location location = player.getLocation();
                     final boolean[] passa = {true};
                     final Vector direction = location.getDirection().normalize();
-                    Temporizador timer = new Temporizador(ValentCity.this, 5,
+                    final double[] tp = {0};
+                    Temporizador timer = new Temporizador(ValentCity.this, 10,
                             ()->{
                             },()->{},(t)->{
-                        t.setSecondsLeft(t.getSecondsLeft()+3);
-                        double x = direction.getX()*t.getSecondsLeft();
-                        double y = direction.getY()*t.getSecondsLeft()+1.4;
-                        double z = direction.getZ()*t.getSecondsLeft();
+                        tp[0] = tp[0]+3.4;
+                        double x = direction.getX()*tp[0];
+                        double y = direction.getY()*tp[0]+1.4;
+                        double z = direction.getZ()*tp[0];
                         location.add(x,y,z);
                         location.getWorld().spawnParticle(Particle.SONIC_BOOM,location,1,0,0,0,0);
                         passa[0] = location.getBlock().isPassable();
                         location.getWorld().playSound(location,Sound.ENTITY_WARDEN_SONIC_BOOM,0.5f,0.7f);
                         Collection<Entity> atigidos = location.getWorld().getNearbyEntities(location,2,2,2);
-                        while(atigidos.iterator().hasNext()){
-                            Entity surdo = atigidos.iterator().next();
+                        Collection<Entity> pressd = atigidos;
+                        while(pressd.iterator().hasNext()){
+                            Entity surdo = pressd.iterator().next();
                             if(surdo instanceof LivingEntity vivo){
                                 vivo.damage(finalDamage);
                             }
+                            pressd.remove(surdo);
                         }
                         location.subtract(x,y,z);
                         if(t.getSecondsLeft()>finalRange || !passa[0]){
-                            t.setSecondsLeft(0);
+                            t.stop();
+                            location.getWorld().createExplosion(location,10,false,false);
                         }
                     });
-                    timer.scheduleTimer();
-                    player.setCooldown(reliquias.mago.getType(),1200);
+                    timer.scheduleTimer(10L);
+                    player.setCooldown(reliquias.mago.getType(),600);
                 }else if(ver<=75){
                     player.sendMessage("Furainguheddo");
                     WitherSkull wither = player.launchProjectile(WitherSkull.class);
@@ -711,7 +717,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     wither.setDirection(vec.multiply(2));
                     wither.setVelocity(vec.multiply(2));
                     wither.setCharged(true);
-                    player.setCooldown(reliquias.mago.getType(),600);
+                    player.setCooldown(reliquias.mago.getType(),300);
                 }else if(ver<=90){
                     player.sendMessage("Hanabi");
                     Firework fw = player.launchProjectile(Firework.class);
@@ -728,7 +734,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                             .withFade(Color.BLACK)
                             .build());
                     fw.setFireworkMeta(fm);
-                    player.setCooldown(reliquias.mago.getType(),400);
+                    player.setCooldown(reliquias.mago.getType(),200);
                 }else{
                     player.sendMessage("Pōshonmikkusu");
                     ThrownPotion tp = player.launchProjectile(ThrownPotion.class);
@@ -749,7 +755,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     pm.addCustomEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power),true);
                     tp.setPotionMeta(pm);
                     tp.setVelocity(vec.multiply(2));
-                    player.setCooldown(reliquias.mago.getType(),600);
+                    player.setCooldown(reliquias.mago.getType(),300);
                 }
             }
         }
@@ -805,22 +811,22 @@ public final class ValentCity extends JavaPlugin implements Listener {
             boolean finalMain = main;
             ItemStack finalHand = reliquias.picareta_md2;
             Temporizador timer = new Temporizador(ValentCity.this,10,
-                () -> player.sendMessage("Dinamite ativada!"),
-                () -> {
-                    if (finalMain) {
-                        player.getEquipment().setItemInMainHand(finalHand);
-                    } else {
-                        player.getEquipment().setItemInOffHand(finalHand);
-                    }
-                    tnt.remove();
-                    w.createExplosion(l,40,false,true);
-                },(t) -> {
-                    player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para explosão!");
-                    tnt.customName(Component.text((t.getSecondsLeft())+"s"));
-                    tnt.setCustomNameVisible(true);
-                }
+                    () -> player.sendMessage("Dinamite ativada!"),
+                    () -> {
+                        if (finalMain) {
+                            player.getEquipment().setItemInMainHand(finalHand);
+                        } else {
+                            player.getEquipment().setItemInOffHand(finalHand);
+                        }
+                        tnt.remove();
+                        w.createExplosion(l,40,false,true);
+                    },(t) -> {
+                player.sendMessage("Falta "+ (t.getSecondsLeft()) + " Segundo para explosão!");
+                tnt.customName(Component.text((t.getSecondsLeft())+"s"));
+                tnt.setCustomNameVisible(true);
+            }
             );
-            timer.scheduleTimer();
+            timer.scheduleTimer(20L);
         }
     }
 }
