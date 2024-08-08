@@ -36,6 +36,9 @@ public class Temporizador implements Runnable {
         everySecond.accept(this);
         secondsLeft--;
     }
+    public void setSecondsLeft(int i) {
+        secondsLeft+=i;
+    }
     public int getSecondsLeft() {
         return secondsLeft;
     }

@@ -328,8 +328,11 @@ public class reliquiasevents implements Listener {
         }
     }
     public void limparEfeito(Player player){
-        for (PotionEffect effect : player.getActivePotionEffects())
-            player.removePotionEffect(effect.getType());
+        for (PotionEffect effect : player.getActivePotionEffects()){
+            if(effect.getDuration()>=32767 || effect.getDuration()<=-1){
+                player.removePotionEffect(effect.getType());
+            }
+        }
         Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(1);
     }
     @EventHandler
@@ -388,22 +391,16 @@ public class reliquiasevents implements Listener {
         if (dead instanceof Player pressf) {
             Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
             Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).setBaseValue(1);
-            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(1);
-            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)).setBaseValue(1);
-            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_MAX_ABSORPTION)).setBaseValue(1);
-            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_OXYGEN_BONUS)).setBaseValue(1);
+            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(0);
+            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)).setBaseValue(0);
+            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_MAX_ABSORPTION)).setBaseValue(0);
+            Objects.requireNonNull(pressf.getAttribute(Attribute.GENERIC_OXYGEN_BONUS)).setBaseValue(0);
         }
     }
     @EventHandler
     public void lancarProjetil(ProjectileLaunchEvent event) {
-        Projectile projectile = event.getEntity();
         ProjectileSource atirador = event.getEntity().getShooter();
         if (atirador instanceof Player player){
-            if (player.getInventory().getItemInMainHand().isSimilar(reliquias.vento) || player.getInventory().getItemInOffHand().isSimilar(reliquias.vento)){
-                if (projectile instanceof WindCharge windCharge) {
-                    windCharge.setAcceleration(windCharge.getAcceleration().multiply(5));
-                }
-            }
             if (player.getInventory().getItemInMainHand().isSimilar(reliquias.arco_modelo1)){
                 Arrow arrow = (Arrow) event.getEntity();
                 arrow.setCritical(true);
@@ -471,9 +468,41 @@ public class reliquiasevents implements Listener {
                 event.getEntity().setFreezeTicks(event.getEntity().getMaxFreezeTicks()*gelo);
             }
         }
+        if(event.getDamager() instanceof WindCharge vento){
+            if(vento.hasMetadata("vento")) {
+                int voar = vento.getMetadata("vento").getFirst().asInt();
+                if(event.getEntity() instanceof LivingEntity vivo){
+                    vivo.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,voar*20,voar/2));
+                }
+            }
+        }
     }
     @EventHandler
     public void acertou(ProjectileHitEvent event){
+        if(event.getEntity() instanceof Snowball bola){
+            int gelo = bola.getMetadata("freeze").getFirst().asInt();
+            if(gelo>0 && event.getHitBlock() != null){
+                event.getHitBlock().setType(Material.BLUE_ICE);
+            }
+        }
+        if(event.getEntity() instanceof Fireball bola){
+            int fogo = bola.getMetadata("fire").getFirst().asInt();
+            if(fogo>0 && event.getHitBlock() != null){
+                event.getHitBlock().setType(Material.MAGMA_BLOCK);
+            }
+        }
+        if(event.getEntity() instanceof Arrow flecha){
+            int magic = flecha.getMetadata("magic").getFirst().asInt();
+            if(magic>0 && event.getHitBlock() != null){
+                event.getHitBlock().setType(Material.AMETHYST_CLUSTER);
+            }
+        }
+        if(event.getEntity() instanceof WindCharge vento){
+            int forca = vento.getMetadata("vento").getFirst().asInt();
+            if(forca>0 && event.getHitBlock() != null){
+               vento.explode();
+            }
+        }
         if(event.getEntity().getShooter() instanceof Player player) {
             if (player.getInventory().getItemInMainHand().isSimilar(reliquias.crossbow)) {
                 Arrow arrow = (Arrow) event.getEntity();
@@ -523,10 +552,6 @@ public class reliquiasevents implements Listener {
                     World world = arrow.getWorld();
                     world.createExplosion(location,10,false,false);
                 }
-            }else if(player.getInventory().getItemInMainHand().isSimilar(reliquias.vento)){
-                WindCharge vento = (WindCharge) event.getEntity();
-                vento.setYield(10);
-                vento.explode();
             }
         }
     }
@@ -535,6 +560,7 @@ public class reliquiasevents implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getActiveItem();
         if(item.isSimilar(reliquias.domador)){
+            event.setCancelled(true);
             Entity entity = event.getRightClicked();
             if(entity instanceof Tameable doma){
                 if(doma.isTamed()){

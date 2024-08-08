@@ -375,8 +375,7 @@ public class reliquias {
         meta.setAuthor("§kGandalf");
         meta.displayName(Component.text("§6Relíquia do Mago"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§lMágia Final"));
-        pages.add(Component.text("§kLorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt gravida tempus. Aliquot at nib nec dolor posuere efficient sit amet non tells. Interdum et dalesman fames ac ante ipsum."));
+        pages.add(Component.text("§lMágia Final\n§kLorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt gravida tempus. Aliquot at nib nec dolor posuere efficient sit amet non tells. Interdum et dalesman fames ac ante ipsum."));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
@@ -400,7 +399,7 @@ public class reliquias {
         power = item;
     }
     private static void createLife() {
-        ItemStack item = new ItemStack(Material.APPLE, 1);
+        ItemStack item = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1);
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("§6Life"));
         meta.setRarity(ItemRarity.UNCOMMON);

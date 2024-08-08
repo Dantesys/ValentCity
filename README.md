@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.9.3</h2>
+Ajuste nas mágias reliquias mago, nos efeitos e na reliquia do vento
 <h2>Mudanças - v1.9.2</h2>
 Ajuste nas reliquias do guerreiro, foice e mago
 <h2>Mudanças - v1.9.1</h2>

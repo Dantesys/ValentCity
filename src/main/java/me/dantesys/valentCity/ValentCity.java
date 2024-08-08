@@ -29,7 +29,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.*;
@@ -181,6 +180,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
             wolf.attack(entity);
             wolf.setTarget((LivingEntity) entity);
             wolf.getEquipment().setItemInMainHand(espada);
+            wolf.setCanPickupItems(false);
             Fox wolf2 = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
             wolf2.setFirstTrustedPlayer(player);
             wolf2.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
@@ -188,6 +188,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
             wolf2.attack(entity);
             wolf2.setTarget((LivingEntity) entity);
             wolf2.getEquipment().setItemInMainHand(espada);
+            wolf2.setCanPickupItems(false);
             Fox wolf3 = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
             wolf3.setFirstTrustedPlayer(player);
             wolf3.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
@@ -195,6 +196,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
             wolf3.attack(entity);
             wolf3.setTarget((LivingEntity) entity);
             wolf3.getEquipment().setItemInMainHand(espada);
+            wolf3.setCanPickupItems(false);
             Temporizador timer = new Temporizador(ValentCity.this, 30,
                     () -> {
                         player.sendMessage("Rapoza Ativado!");
@@ -574,9 +576,17 @@ public final class ValentCity extends JavaPlugin implements Listener {
         Action action = event.getAction();
         if(item != null && item.isSimilar(reliquias.vento)){
             if(action.isRightClick()){
+                Vector vec = player.getEyeLocation().getDirection();
+                event.setCancelled(true);
                 player.getInventory().removeItem(reliquias.vento);
                 player.setCooldown(reliquias.vento.getType(),0);
                 player.getInventory().addItem(reliquias.vento);
+                WindCharge wc = player.launchProjectile(WindCharge.class);
+                wc.setYield(10);
+                wc.setAcceleration(vec.multiply(10));
+                wc.setDirection(vec.multiply(10));
+                wc.setGlowing(true);
+                wc.setMetadata("vento",new FixedMetadataValue(ValentCity.this,(double) 10));
             }
         }else if(item != null && item.isSimilar(reliquias.arco_modelo2)){
             event.setCancelled(true);
@@ -604,12 +614,14 @@ public final class ValentCity extends JavaPlugin implements Listener {
             if(action.isRightClick()){
                 if(event.getClickedBlock() != null){
                     Block block = event.getClickedBlock();
-                    if(block.getType() == Material.DEEPSLATE && player.hasCooldown(reliquias.picareta_md2.getType())){
+                    if(block.getType() == Material.DEEPSLATE && !player.hasCooldown(reliquias.picareta_md2.getType())){
                         Location l = event.getClickedBlock().getLocation();
                         World w = event.getClickedBlock().getWorld();
                         mina(w,l,player);
-                    }else{
+                    }else if(!player.hasCooldown(reliquias.picareta_md2.getType())){
                         player.sendMessage("Só pode colocar dinamite na deepslate");
+                    }else{
+                        player.sendMessage("Aguarde a dinamite explodir");
                     }
                 }
             }
@@ -630,7 +642,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
             }
         }else if(item != null && item.isSimilar(reliquias.mago)){
             event.setCancelled(true);
-            if(player.hasCooldown(reliquias.mago.getType())){
+            if(!player.hasCooldown(reliquias.mago.getType())){
                 event.setCancelled(true);
                 Vector vec = player.getEyeLocation().getDirection();
                 Random rd = new Random();
@@ -646,6 +658,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     player.sendMessage("Hinotama");
                     Fireball fire = player.launchProjectile(Fireball.class);
                     fire.setGlowing(true);
+                    fire.setMetadata("fire",new FixedMetadataValue(ValentCity.this,(double) 10));
                     fire.setDirection(vec.multiply(2));
                     fire.setVelocity(vec.multiply(2));
                     fire.setYield(4);
@@ -659,42 +672,37 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     player.setCooldown(reliquias.mago.getType(),200);
                 }else if(ver<=60){
                     player.sendMessage("Bakuhatsu-on");
-                    int range = 40;
+                    int range = 20;
                     int damage = 150;
                     final int finalRange = range;
                     final int finalDamage = damage;
-                    (new BukkitRunnable() {
-                        double t = 0.0;
-                        final Location location = player.getLocation();
-                        Boolean isPassableBlock = true;
-                        final Vector direction;
-                        {
-                            this.direction = this.location.getDirection().normalize();
-                        }
-                        public void run() {
-                            this.t += 3.2;
-                            double x = this.direction.getX() * this.t;
-                            double y = this.direction.getY() * this.t + 1.4;
-                            double z = this.direction.getZ() * this.t;
-                            this.location.add(x, y, z);
-                            this.location.getWorld().spawnParticle(Particle.SONIC_BOOM, this.location, 1, 0.0, 0.0, 0.0, 0.0);
-                            if (!this.location.getBlock().isPassable()) {
-                                this.isPassableBlock = false;
-                            }
-                            this.location.getWorld().playSound(this.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 0.5F, 0.7F);
-                            Collection<Entity> entities = this.location.getWorld().getNearbyEntities(this.location, 2.0, 2.0, 2.0);
-                            while(entities.iterator().hasNext()){
-                                Entity atigido = entities.iterator().next();
-                                if(atigido instanceof LivingEntity vivo){
-                                    vivo.damage(finalDamage);
-                                }
-                            }
-                            this.location.subtract(x, y, z);
-                            if (this.t > (double)finalRange || !this.isPassableBlock) {
-                                this.cancel();
+                    final Location location = player.getLocation();
+                    final boolean[] passa = {true};
+                    final Vector direction = location.getDirection().normalize();
+                    Temporizador timer = new Temporizador(ValentCity.this, 5,
+                            ()->{
+                            },()->{},(t)->{
+                        t.setSecondsLeft(t.getSecondsLeft()+3);
+                        double x = direction.getX()*t.getSecondsLeft();
+                        double y = direction.getY()*t.getSecondsLeft()+1.4;
+                        double z = direction.getZ()*t.getSecondsLeft();
+                        location.add(x,y,z);
+                        location.getWorld().spawnParticle(Particle.SONIC_BOOM,location,1,0,0,0,0);
+                        passa[0] = location.getBlock().isPassable();
+                        location.getWorld().playSound(location,Sound.ENTITY_WARDEN_SONIC_BOOM,0.5f,0.7f);
+                        Collection<Entity> atigidos = location.getWorld().getNearbyEntities(location,2,2,2);
+                        while(atigidos.iterator().hasNext()){
+                            Entity surdo = atigidos.iterator().next();
+                            if(surdo instanceof LivingEntity vivo){
+                                vivo.damage(finalDamage);
                             }
                         }
-                    }).runTaskTimer(ValentCity.this, 0L, 1L);
+                        location.subtract(x,y,z);
+                        if(t.getSecondsLeft()>finalRange || !passa[0]){
+                            t.setSecondsLeft(0);
+                        }
+                    });
+                    timer.scheduleTimer();
                     player.setCooldown(reliquias.mago.getType(),1200);
                 }else if(ver<=75){
                     player.sendMessage("Furainguheddo");
@@ -711,7 +719,7 @@ public final class ValentCity extends JavaPlugin implements Listener {
                     fw.setShotAtAngle(true);
                     fw.setVelocity(vec.multiply(2));
                     FireworkMeta fm = fw.getFireworkMeta();
-                    fm.setPower(1);
+                    fm.setPower(20);
                     fm.addEffect(FireworkEffect.builder()
                             .flicker(false)
                             .trail(true)
