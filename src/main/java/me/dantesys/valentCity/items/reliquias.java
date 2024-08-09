@@ -95,6 +95,7 @@ public class reliquias {
         meta.addEnchant(Enchantment.SMITE,5,true);
         meta.addEnchant(Enchantment.SWEEPING_EDGE,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addAttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO, new AttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         item.setItemMeta(meta);
         espadamd = item;
     }
@@ -129,6 +130,7 @@ public class reliquias {
         meta.setFireResistant(true);
         meta.addEnchant(Enchantment.LOOTING,10,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addAttributeModifier(PLAYER_SNEAKING_SPEED, new AttributeModifier(PLAYER_SNEAKING_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
         item.setItemMeta(meta);
         spy_modelo1 = item;
     }
@@ -250,7 +252,6 @@ public class reliquias {
         meta.addEnchant(Enchantment.FLAME,1,true);
         meta.addEnchant(Enchantment.INFINITY,1,true);
         meta.addEnchant(Enchantment.POWER,3,true);
-        meta.addAttributeModifier(GENERIC_MOVEMENT_SPEED, new AttributeModifier(GENERIC_MOVEMENT_SPEED.getKey(),-2, AttributeModifier.Operation.ADD_NUMBER));
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         arco_modelo2 = item;
@@ -326,6 +327,7 @@ public class reliquias {
         meta.setFireResistant(true);
         meta.addEnchant(Enchantment.FORTUNE,5,true);
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addAttributeModifier(GENERIC_LUCK, new AttributeModifier(GENERIC_LUCK.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         picareta_md1 = item;
@@ -346,6 +348,9 @@ public class reliquias {
         meta.addEnchant(Enchantment.INFINITY,1,true);
         meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addAttributeModifier(PLAYER_BLOCK_BREAK_SPEED, new AttributeModifier(PLAYER_BLOCK_BREAK_SPEED.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(PLAYER_MINING_EFFICIENCY, new AttributeModifier(PLAYER_MINING_EFFICIENCY.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(PLAYER_BLOCK_INTERACTION_RANGE, new AttributeModifier(PLAYER_BLOCK_INTERACTION_RANGE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -416,23 +421,23 @@ public class reliquias {
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNa outra mão: Velocidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
-        pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNa outra mão: Sorte\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã encantada que aumenta o ataque"));
+        pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
+        pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia da infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
-        pages.add(Component.text("§l§6Relíquia do Espião - Investigador\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, invisibilidade e encolhimento\nNa outra mão: Visão noturna, invisibilidade e encolhimento\nNo ataque: O alvo fica com escuridão\nHabilidade: -Não possui habilidade especial-"));
-        pages.add(Component.text("§l§6Relíquia do Espião - Protetor\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, resistência e encolhimento\nNa outra mão: Visão noturna, resistência e encolhimento\nNo ataque: O alvo fica com escuridão, naúsea e lentidão\nHabilidade: -Não possui habilidade especial-"));
-        pages.add(Component.text("§l§6Relíquia do Tridente - Tempest\n§r§0Efeitos:\nNa mão: Respiração aquática, Conduit Power e Graça dos golfinhos\nNa outra mão: Respiração aquática, Conduit Power, Graça dos golfinhos e inicia uma tempestade de raios\nNo ataque: O alvo fica sem oxigênio\nHabilidade: -Não possui habilidade especial-"));
-        pages.add(Component.text("§l§6Relíquia do Tridente - Aqua Jet\n§r§0Efeitos:\nNa mão: Respiração aquática, Conduit Power, Graça dos golfinhos e velocidade\nNa outra mão: Respiração aquática, Conduit Power, Graça dos golfinhos, velocidade e inicia uma chuva\nNo ataque: O alvo fica sem oxigênio\nHabilidade: -Não possui habilidade especial-"));
-        pages.add(Component.text("§l§6Relíquia do Vento\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: O alvo é jogado para longe\nHabilidade: É infinito, nunca acaba"));
-        pages.add(Component.text("§l§6Relíquia do Arco - Sniper\n§r§0Efeitos:\nNa mão: Visão noturna e invisibilidade\nNa outra mão: -Sem efeito-\nNo ataque: A velocidade da flecha 100 vezes mais rápida\nHabilidade: Não precisa de flechas"));
-        pages.add(Component.text("§l§6Relíquia do Arco - Minigun\n§r§0Efeitos:\nNa mão: Brilhante e lentidão\nNa outra mão: lentidão\nNo ataque: A velocidade de atirar outra flecha é nula\nHabilidade: Não precisa de flechas"));
-        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Pode transformar o alvo em uma plantação\nHabilidade: Aplica farinha de osso nas plantações"));
-        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
-        pages.add(Component.text("§l§6Relíquia do Crossbow\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Dispara uma rajada de flechas especiais\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo!\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNa outra mão: -Sem efeito-\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor!\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNa outra mão: -Sem efeito-\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
-        pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNa outra mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
-        pages.add(Component.text("§l§6Relíquia do Mago\n§r§0Efeitos:\nNa mão: Aleatório\nNa outra mão: -Sem efeito-\nNo ataque: Aleatório\nHabilidade: Pode disparar feitiços"));
+        pages.add(Component.text("§l§6Relíquia do Espião - Investigador\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, invisibilidade e encolhimento\nNo ataque: O alvo fica com escuridão\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Espião - Protetor\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, resistência e encolhimento\nNo ataque: O alvo fica com escuridão, naúsea e lentidão\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Tridente - Tempest\n§r§0Efeitos:\nNa mão: Respiração aquática, Conduit Power e Graça dos golfinhos\nNo ataque: O alvo fica sem oxigênio\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Tridente - Aqua Jet\n§r§0Efeitos:\nNa mão: Respiração aquática, Conduit Power, Graça dos golfinhos e velocidade\nHabilidade: -Não possui habilidade especial-"));
+        pages.add(Component.text("§l§6Relíquia do Vento\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: O alvo é jogado para longe\nHabilidade: É infinito, nunca acaba"));
+        pages.add(Component.text("§l§6Relíquia do Arco - Sniper\n§r§0Efeitos:\nNa mão: Visão noturna e invisibilidade\nNo ataque: A velocidade da flecha 100 vezes mais rápida\nHabilidade: Não precisa de flechas"));
+        pages.add(Component.text("§l§6Relíquia do Arco - Minigun\n§r§0Efeitos:\nNa mão: Brilhante e lentidão\nNo ataque: A velocidade de atirar outra flecha é nula\nHabilidade: Não precisa de flechas"));
+        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode transformar o alvo em uma plantação\nHabilidade: Aplica farinha de osso nas plantações"));
+        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
+        pages.add(Component.text("§l§6Relíquia do Crossbow\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Dispara uma rajada de flechas especiais\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo!\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor!\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
+        pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
+        pages.add(Component.text("§l§6Relíquia do Mago\n§r§0Efeitos:\nNa mão: Aleatório\nNo ataque: Aleatório\nHabilidade: Pode disparar feitiços"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
