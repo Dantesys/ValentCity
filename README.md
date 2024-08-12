@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.10.0</h2>
+Adicionado nova reliquia pisante e grandes mudanças de código
 <h2>Mudanças - v1.9.6</h2>
 Ajuste na reliquia da picareta
 <h2>Mudanças - v1.9.5</h2>

@@ -17,7 +17,7 @@ import java.util.List;
 import static org.bukkit.Bukkit.getServer;
 import static org.bukkit.attribute.Attribute.*;
 
-public class reliquias {
+public class Reliquias {
     public static ItemStack espadamd;
     public static ItemStack totem;
     public static ItemStack enxada;
@@ -35,6 +35,8 @@ public class reliquias {
     public static ItemStack picareta_md2;
     public static ItemStack domador;
     public static ItemStack mago;
+    public static ItemStack pisante_md1;
+    public static ItemStack pisante_md2;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -58,6 +60,8 @@ public class reliquias {
         createMago();
         createPower();
         createLife();
+        createPis1();
+        createPis2();
         createLivro();
     }
     private static void createEnxada() {
@@ -415,6 +419,56 @@ public class reliquias {
         item.setItemMeta(meta);
         life = item;
     }
+    private static void createPis1() {
+        ItemStack item = new ItemStack(Material.NETHERITE_BOOTS, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia do Pisante (1)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos anciões"));
+        loreitem.add(Component.text("§7Modelo: Flash!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.PROTECTION,4,true);
+        meta.addEnchant(Enchantment.FIRE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.PROJECTILE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.BLAST_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.DEPTH_STRIDER,3,true);
+        meta.addEnchant(Enchantment.FEATHER_FALLING,4,true);
+        meta.addEnchant(Enchantment.SOUL_SPEED,3,true);
+        meta.addEnchant(Enchantment.FROST_WALKER,2,true);
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        pisante_md1 = item;
+    }
+    private static void createPis2() {
+        ItemStack item = new ItemStack(Material.NETHERITE_BOOTS, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia do Pisante (2)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos anciões"));
+        loreitem.add(Component.text("§7Modelo: Rocket!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.PROTECTION,4,true);
+        meta.addEnchant(Enchantment.FIRE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.PROJECTILE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.BLAST_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.DEPTH_STRIDER,3,true);
+        meta.addEnchant(Enchantment.FEATHER_FALLING,20,true);
+        meta.addEnchant(Enchantment.SOUL_SPEED,3,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addAttributeModifier(GENERIC_GRAVITY, new AttributeModifier(GENERIC_GRAVITY.getKey(),-1, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        item.setItemMeta(meta);
+        pisante_md2 = item;
+    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
@@ -438,6 +492,8 @@ public class reliquias {
         pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor!\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
         pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
         pages.add(Component.text("§l§6Relíquia do Mago\n§r§0Efeitos:\nNa mão: Aleatório\nNo ataque: Aleatório\nHabilidade: Pode disparar feitiços"));
+        pages.add(Component.text("§l§6Relíquia do Pisante - Flash\n§r§0Efeitos:\nVelocidade\nHabilidade: Criar campo de desaceleração"));
+        pages.add(Component.text("§l§6Relíquia do Pisante - Rocket\n§r§0Efeitos:\nJump Bost e Levitação\nHabilidade: Durante a queda, ganha efeito de queda lente"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
