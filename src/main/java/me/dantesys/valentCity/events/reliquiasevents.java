@@ -16,6 +16,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
@@ -32,9 +33,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class reliquiasevents implements Listener {
     @EventHandler
@@ -851,7 +850,7 @@ public class reliquiasevents implements Listener {
         }
     }
     @EventHandler
-    public void vcviu(PlayerInteractEvent event) {
+    public void vcinteragiu(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         Action action = event.getAction();
@@ -1054,6 +1053,141 @@ public class reliquiasevents implements Listener {
         CreatureSpawner creatureSpawner = (CreatureSpawner) placedBlock.getState();
         creatureSpawner.setSpawnedType(type);
         creatureSpawner.update();
+    }
+    @EventHandler
+    public void radar(BlockBreakEvent event){
+        Player player = event.getPlayer();
+        if(player.getInventory().getItemInMainHand().isSimilar(reliquias.picareta_md1) && !player.hasCooldown(reliquias.picareta_md1.getType())){
+            List<Block> ferro = new ArrayList<>();
+            List<Block> ouro = new ArrayList<>();
+            List<Block> carvao = new ArrayList<>();
+            List<Block> diamante = new ArrayList<>();
+            List<Block> esmeralda = new ArrayList<>();
+            List<Block> quartzos = new ArrayList<>();
+            List<Block> cobre = new ArrayList<>();
+            List<Block> redstone = new ArrayList<>();
+            List<Block> lapis = new ArrayList<>();
+            List<Block> netheritas = new ArrayList<>();
+            Location loc = event.getBlock().getLocation();
+            World world = event.getBlock().getWorld();
+            double base_x = loc.getX();
+            double base_y = loc.getY();
+            double base_z = loc.getZ();
+            int raio = 10;
+            for (int x = ((int) base_x - raio); x <= base_x + raio; x++) {
+                for (int y = ((int) base_y - raio); y <= base_y + raio; y++) {
+                    for (int z = ((int) base_z - raio); z <= raio + raio; z++) {
+                        double distance = ((base_x - x) * (base_x - x) + (base_z - z) * (base_z - z) + (base_y - y) * (base_y - y));
+                        if (distance < raio * raio && (distance < (raio - 1) * (raio - 1))) {
+                            Block bloco = new Location(world, x, y, z).getBlock();
+                            Material mat = bloco.getType();
+                            if(mat.equals(Material.IRON_ORE) || mat.equals(Material.DEEPSLATE_IRON_ORE)){
+                                ferro.add(bloco);
+                            }else if(mat.equals(Material.GOLD_ORE) || mat.equals(Material.DEEPSLATE_GOLD_ORE) || mat.equals(Material.NETHER_GOLD_ORE)){
+                                ouro.add(bloco);
+                            }else if(mat.equals(Material.COAL_ORE) || mat.equals(Material.DEEPSLATE_COAL_ORE)){
+                                carvao.add(bloco);
+                            }else if(mat.equals(Material.DIAMOND_ORE) || mat.equals(Material.DEEPSLATE_DIAMOND_ORE)){
+                                diamante.add(bloco);
+                            }else if(mat.equals(Material.EMERALD_ORE) || mat.equals(Material.DEEPSLATE_EMERALD_ORE)){
+                                esmeralda.add(bloco);
+                            }else if(mat.equals(Material.NETHER_QUARTZ_ORE)){
+                                quartzos.add(bloco);
+                            }else if(mat.equals(Material.COPPER_ORE) || mat.equals(Material.DEEPSLATE_COPPER_ORE)){
+                                cobre.add(bloco);
+                            }else if(mat.equals(Material.REDSTONE_ORE) || mat.equals(Material.DEEPSLATE_REDSTONE_ORE)){
+                                redstone.add(bloco);
+                            }else if(mat.equals(Material.LAPIS_ORE) || mat.equals(Material.DEEPSLATE_LAPIS_ORE)){
+                                lapis.add(bloco);
+                            }else if(mat.equals(Material.ANCIENT_DEBRIS)){
+                                netheritas.add(bloco);
+                            }
+                        }
+                    }
+                }
+            }
+            if(!carvao.isEmpty()){
+                player.sendMessage("===Carvão===");
+                for(int i = 0; i<=carvao.size();i++){
+                    Block bloco = carvao.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!cobre.isEmpty()){
+                player.sendMessage("===Cobre===");
+                for(int i = 0; i<=cobre.size();i++){
+                    Block bloco = cobre.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!ferro.isEmpty()){
+                player.sendMessage("===Ferro===");
+                for(int i = 0; i<=ferro.size();i++){
+                    Block bloco = ferro.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!ouro.isEmpty()){
+                player.sendMessage("===Ouro===");
+                for(int i = 0; i<=ouro.size();i++){
+                    Block bloco = ouro.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!redstone.isEmpty()){
+                player.sendMessage("===Redstone===");
+                for(int i = 0; i<=redstone.size();i++){
+                    Block bloco = redstone.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!lapis.isEmpty()){
+                player.sendMessage("===Lapis Lazuli===");
+                for(int i = 0; i<=lapis.size();i++){
+                    Block bloco = lapis.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!esmeralda.isEmpty()){
+                player.sendMessage("===Esmeralda===");
+                for(int i = 0; i<=esmeralda.size();i++){
+                    Block bloco = esmeralda.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!diamante.isEmpty()){
+                player.sendMessage("===Diamante===");
+                for(int i = 0; i<=diamante.size();i++){
+                    Block bloco = diamante.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!quartzos.isEmpty()){
+                player.sendMessage("===Quartzo===");
+                for(int i = 0; i<=quartzos.size();i++){
+                    Block bloco = quartzos.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            if(!netheritas.isEmpty()){
+                player.sendMessage("===Netherita===");
+                for(int i = 0; i<=netheritas.size();i++){
+                    Block bloco = netheritas.get(i);
+                    Location local = bloco.getLocation();
+                    player.sendMessage("X: "+local.getX()+" Y: "+local.getY()+" Z:"+local.getZ());
+                }
+            }
+            player.setCooldown(reliquias.picareta_md1.getType(),2400);
+        }
     }
     public void mina(World w,Location l, Player player) {
         EntityEquipment equip = player.getEquipment();

@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.9.6</h2>
+Ajuste na reliquia da picareta
 <h2>Mudanças - v1.9.5</h2>
 Ajuste nas mágias reliquias mago e na reliquia do crossbow e mudanças no código
 <h2>Mudanças - v1.9.4</h2>
