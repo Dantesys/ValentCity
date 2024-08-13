@@ -80,13 +80,16 @@ public class ReliquiasEvent implements Listener {
     @EventHandler
     public void acertou(ProjectileHitEvent event){
         if(event.getEntity() instanceof Snowball bola){
-            int gelo = bola.getMetadata("freeze").getFirst().asInt();
-            if(gelo>0 && event.getHitBlock() != null){
-                event.getHitBlock().setType(Material.BLUE_ICE);
+            if(bola.hasMetadata("freeze")){
+                int gelo = bola.getMetadata("freeze").getFirst().asInt();
+                if(gelo>0 && event.getHitBlock() != null){
+                    event.getHitBlock().setType(Material.BLUE_ICE);
+                }
             }
         }
         if(event.getEntity() instanceof Fireball bola){
-            if(bola.getMetadata("fire").getFirst()!=null){
+            if(bola.hasMetadata("fire")){
+                event.setCancelled(true);
                 int fogo = bola.getMetadata("fire").getFirst().asInt();
                 if(fogo>0 && event.getHitBlock() != null){
                     event.getHitBlock().setType(Material.MAGMA_BLOCK);
@@ -95,10 +98,12 @@ public class ReliquiasEvent implements Listener {
             }
         }
         if(event.getEntity() instanceof Arrow flecha){
-            int magic = flecha.getMetadata("magic").getFirst().asInt();
-            if(magic>0 && event.getHitBlock() != null){
-                event.getHitBlock().setType(Material.BUDDING_AMETHYST);
-                event.getEntity().remove();
+            if(flecha.hasMetadata("magic")){
+                int magic = flecha.getMetadata("magic").getFirst().asInt();
+                if(magic>0 && event.getHitBlock() != null){
+                    event.getHitBlock().setType(Material.BUDDING_AMETHYST);
+                    event.getEntity().remove();
+                }
             }
         }
     }

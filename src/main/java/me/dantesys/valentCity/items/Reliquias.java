@@ -2,12 +2,17 @@ package me.dantesys.valentCity.items;
 
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.block.Banner;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -37,6 +42,9 @@ public class Reliquias {
     public static ItemStack mago;
     public static ItemStack pisante_md1;
     public static ItemStack pisante_md2;
+    public static ItemStack escudo_md1;
+    public static ItemStack escudo_md2;
+    public static ItemStack marreta;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -62,6 +70,9 @@ public class Reliquias {
         createLife();
         createPis1();
         createPis2();
+        createEsc1();
+        createEsc2();
+        createMarreta();
         createLivro();
     }
     private static void createEnxada() {
@@ -426,7 +437,7 @@ public class Reliquias {
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato feito"));
         loreitem.add(Component.text("§7pelos anciões"));
-        loreitem.add(Component.text("§7Modelo: Flash!"));
+        loreitem.add(Component.text("§7Modelo: Caminhar!"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
@@ -469,15 +480,100 @@ public class Reliquias {
         item.setItemMeta(meta);
         pisante_md2 = item;
     }
+    private static void createEsc1() {
+        ItemStack item = new ItemStack(Material.SHIELD, 1);
+        ItemMeta meta = item.getItemMeta();
+        BlockStateMeta bmeta = (BlockStateMeta) meta;
+        Banner banner = (Banner) bmeta.getBlockState();
+        banner.setBaseColor(DyeColor.RED);
+        banner.addPattern(new Pattern(DyeColor.WHITE, PatternType.RHOMBUS));
+        banner.addPattern(new Pattern(DyeColor.RED, PatternType.CIRCLE));
+        banner.addPattern(new Pattern(DyeColor.RED, PatternType.SQUARE_TOP_RIGHT));
+        banner.addPattern(new Pattern(DyeColor.RED, PatternType.SQUARE_BOTTOM_LEFT));
+        banner.update();
+        bmeta.setBlockState(banner);
+        bmeta.displayName(Component.text("§6Relíquia do Escudo (1)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos magos anciões"));
+        loreitem.add(Component.text("§7Modelo: Reversão!"));
+        bmeta.lore(loreitem);
+        bmeta.setRarity(ItemRarity.EPIC);
+        bmeta.setUnbreakable(true);
+        bmeta.setFireResistant(true);
+        bmeta.addEnchant(Enchantment.THORNS,5,true);
+        bmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        bmeta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        bmeta.addAttributeModifier(GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(GENERIC_ARMOR_TOUGHNESS.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        bmeta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        bmeta.addAttributeModifier(GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_KNOCKBACK_RESISTANCE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        item.setItemMeta(bmeta);
+        escudo_md1 = item;
+    }
+    private static void createEsc2() {
+        ItemStack item = new ItemStack(Material.SHIELD, 1);
+        ItemMeta meta = item.getItemMeta();
+        BlockStateMeta bmeta = (BlockStateMeta) meta;
+        Banner banner = (Banner) bmeta.getBlockState();
+        banner.setBaseColor(DyeColor.BLUE);
+        banner.addPattern(new Pattern(DyeColor.LIGHT_BLUE, PatternType.RHOMBUS));
+        banner.addPattern(new Pattern(DyeColor.BLUE, PatternType.FLOWER));
+        banner.addPattern(new Pattern(DyeColor.LIGHT_BLUE, PatternType.CIRCLE));
+        banner.addPattern(new Pattern(DyeColor.BLUE, PatternType.GLOBE));
+        banner.update();
+        bmeta.setBlockState(banner);
+        bmeta.displayName(Component.text("§6Relíquia do Escudo (2)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato feito"));
+        loreitem.add(Component.text("§7pelos magos anciões"));
+        loreitem.add(Component.text("§7Modelo: Amplificação!"));
+        bmeta.lore(loreitem);
+        bmeta.setRarity(ItemRarity.EPIC);
+        bmeta.setUnbreakable(true);
+        bmeta.setFireResistant(true);
+        bmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        bmeta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),20, AttributeModifier.Operation.ADD_NUMBER));
+        bmeta.addAttributeModifier(GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(GENERIC_ARMOR_TOUGHNESS.getKey(),20, AttributeModifier.Operation.ADD_NUMBER));
+        bmeta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),20, AttributeModifier.Operation.ADD_NUMBER));
+        bmeta.addAttributeModifier(GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_KNOCKBACK_RESISTANCE.getKey(),20, AttributeModifier.Operation.ADD_NUMBER));
+        item.setItemMeta(bmeta);
+        escudo_md2 = item;
+    }
+    private static void createMarreta() {
+        ItemStack item = new ItemStack(Material.MACE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia da Marreta"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7A marreta mais poderosa de"));
+        loreitem.add(Component.text("§7todo o Minecraft!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.BANE_OF_ARTHROPODS,5,true);
+        meta.addEnchant(Enchantment.BREACH,4,true);
+        meta.addEnchant(Enchantment.DENSITY,5,true);
+        meta.addEnchant(Enchantment.FIRE_ASPECT,2,true);
+        meta.addEnchant(Enchantment.LOOTING,3,true);
+        meta.addEnchant(Enchantment.SHARPNESS,5,true);
+        meta.addEnchant(Enchantment.SMITE,5,true);
+        meta.addEnchant(Enchantment.WIND_BURST,3,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addAttributeModifier(GENERIC_SAFE_FALL_DISTANCE, new AttributeModifier(GENERIC_SAFE_FALL_DISTANCE.getKey(),500, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_ATTACK_KNOCKBACK, new AttributeModifier(GENERIC_ATTACK_KNOCKBACK.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+        item.setItemMeta(meta);
+        marreta = item;
+    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das reliquias"));
         List<Component> pages = new ArrayList<>();
+        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
-        pages.add(Component.text("§l§6Relíquia da infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
+        pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
         pages.add(Component.text("§l§6Relíquia do Espião - Investigador\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, invisibilidade e encolhimento\nNo ataque: O alvo fica com escuridão\nHabilidade: -Não possui habilidade especial-"));
         pages.add(Component.text("§l§6Relíquia do Espião - Protetor\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, resistência e encolhimento\nNo ataque: O alvo fica com escuridão, naúsea e lentidão\nHabilidade: -Não possui habilidade especial-"));
         pages.add(Component.text("§l§6Relíquia do Tridente - Tempest\n§r§0Efeitos:\nNa mão: Respiração aquática, Conduit Power e Graça dos golfinhos\nNo ataque: O alvo fica sem oxigênio\nHabilidade: -Não possui habilidade especial-"));
@@ -488,12 +584,15 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode transformar o alvo em uma plantação\nHabilidade: Aplica farinha de osso nas plantações"));
         pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
         pages.add(Component.text("§l§6Relíquia do Crossbow\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Dispara uma rajada de flechas especiais\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo!\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor!\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
         pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
         pages.add(Component.text("§l§6Relíquia do Mago\n§r§0Efeitos:\nNa mão: Aleatório\nNo ataque: Aleatório\nHabilidade: Pode disparar feitiços"));
-        pages.add(Component.text("§l§6Relíquia do Pisante - Flash\n§r§0Efeitos:\nVelocidade\nHabilidade: Criar campo de desaceleração"));
+        pages.add(Component.text("§l§6Relíquia do Pisante - Caminhar\n§r§0Efeitos:\nVelocidade\nHabilidade: Criar campo de desaceleração"));
         pages.add(Component.text("§l§6Relíquia do Pisante - Rocket\n§r§0Efeitos:\nJump Bost e Levitação\nHabilidade: Durante a queda, ganha efeito de queda lente"));
+        pages.add(Component.text("§l§6Relíquia do Escudo - Reversão\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Qualquer ataque de projetil volta para o atirador"));
+        pages.add(Component.text("§l§6Relíquia do Escudo - Ampificação\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Impede qualquer mob de se aproximar dele"));
+        pages.add(Component.text("§l§6Relíquia da Marreta\n§r§0Efeitos:\nForça e invisibilidade\nHabilidade: Pode disparar uma carga de vento no mundo, bola de fogo no nether e bafo do dragão no end"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());

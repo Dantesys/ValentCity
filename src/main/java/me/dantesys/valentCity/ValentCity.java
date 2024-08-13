@@ -41,6 +41,10 @@ public final class ValentCity extends JavaPlugin{
         ItemStack pis1 = new ItemStack(Reliquias.pisante_md1);
         NamespacedKey key_pis2 = new NamespacedKey(this, "PIS2");
         ItemStack pis2 = new ItemStack(Reliquias.pisante_md2);
+        NamespacedKey key_esc1 = new NamespacedKey(this, "ESC1");
+        ItemStack esc1 = new ItemStack(Reliquias.pisante_md1);
+        NamespacedKey key_esc2 = new NamespacedKey(this, "ESC2");
+        ItemStack esc2 = new ItemStack(Reliquias.pisante_md2);
         NamespacedKey key_bk = new NamespacedKey(this, "BKINFO");
         ItemStack bk = new ItemStack(Reliquias.livro);
         ShapelessRecipe spy1_recipe = new ShapelessRecipe(key_spy1,spy1);
@@ -55,6 +59,8 @@ public final class ValentCity extends JavaPlugin{
         ShapelessRecipe pick2_recipe = new ShapelessRecipe(key_pic2,pick2);
         ShapelessRecipe pis1_recipe = new ShapelessRecipe(key_pis1,pis1);
         ShapelessRecipe pis2_recipe = new ShapelessRecipe(key_pis2,pis2);
+        ShapelessRecipe esc1_recipe = new ShapelessRecipe(key_esc1,esc1);
+        ShapelessRecipe esc2_recipe = new ShapelessRecipe(key_esc2,esc2);
         ShapelessRecipe bk_recipe = new ShapelessRecipe(key_bk,bk);
         spy1_recipe.addIngredient(Reliquias.spy_modelo2);
         spy2_recipe.addIngredient(Reliquias.spy_modelo1);
@@ -68,7 +74,9 @@ public final class ValentCity extends JavaPlugin{
         pick2_recipe.addIngredient(Reliquias.picareta_md1);
         pis1_recipe.addIngredient(Reliquias.pisante_md2);
         pis2_recipe.addIngredient(Reliquias.pisante_md1);
-        bk_recipe.addIngredient(Material.BOOK);
+        esc1_recipe.addIngredient(Reliquias.escudo_md2);
+        esc2_recipe.addIngredient(Reliquias.escudo_md1);
+        bk_recipe.addIngredient(Material.WRITTEN_BOOK);
         getServer().addRecipe(spy1_recipe);
         getServer().addRecipe(spy2_recipe);
         getServer().addRecipe(tri1_recipe);
@@ -81,6 +89,8 @@ public final class ValentCity extends JavaPlugin{
         getServer().addRecipe(pick2_recipe);
         getServer().addRecipe(pis1_recipe);
         getServer().addRecipe(pis2_recipe);
+        getServer().addRecipe(esc1_recipe);
+        getServer().addRecipe(esc2_recipe);
         getServer().addRecipe(bk_recipe);
         getServer().getPluginManager().registerEvents(new ReliquiasEvent(), this);
         getServer().getPluginManager().registerEvents(new EspadaEvent(), this);
@@ -96,6 +106,8 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new DomadorEvent(), this);
         getServer().getPluginManager().registerEvents(new VentoEvent(), this);
         getServer().getPluginManager().registerEvents(new PisanteEvent(), this);
+        getServer().getPluginManager().registerEvents(new EscudoEvent(), this);
+        getServer().getPluginManager().registerEvents(new MarretaEvent(), this);
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
     }
     @Override

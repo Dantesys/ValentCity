@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.11.0</h2>
+Adicionado 2 novas reliquias a do escudo e a da marreta
 <h2>Mudanças - v1.10.1</h2>
 Adicionado eventos para a reliquia pisante
 <h2>Mudanças - v1.10.0</h2>

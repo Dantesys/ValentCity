@@ -14,7 +14,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Collection;
-import java.util.Objects;
 
 public class PisanteEvent implements Listener {
     @EventHandler
@@ -33,7 +32,8 @@ public class PisanteEvent implements Listener {
         Location location = event.getFrom();
         double y1 = location.getY();
         double y2 = event.getTo().getY();
-        if(Objects.requireNonNull(player.getInventory().getBoots()).isSimilar(Reliquias.pisante_md1)){
+        ItemStack botas = player.getInventory().getBoots();
+        if(botas != null && botas.isSimilar(Reliquias.pisante_md1)){
             Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,5,5,5);
             while(pressf.iterator().hasNext()){
                 Entity lento = pressf.iterator().next();
@@ -50,7 +50,7 @@ public class PisanteEvent implements Listener {
                 }
                 pressf.remove(lento);
             }
-        }else if(Objects.requireNonNull(player.getInventory().getBoots()).isSimilar(Reliquias.pisante_md2)){
+        }else if(botas != null && botas.isSimilar(Reliquias.pisante_md2)){
             if(y1>y2 && player.isSneaking()){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,-1,1));
             }else if(player.isSneaking()){
