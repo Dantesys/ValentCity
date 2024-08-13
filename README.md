@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v1.13.0</h2>
+Adicionado nova reliquia a do pescador
 <h2>Mudanças - v1.12.0</h2>
 Adicionado nova reliquia a do capacete
 <h2>Mudanças - v1.11.0</h2>
