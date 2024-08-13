@@ -45,6 +45,7 @@ public class Reliquias {
     public static ItemStack escudo_md1;
     public static ItemStack escudo_md2;
     public static ItemStack marreta;
+    public static ItemStack capacete;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -73,6 +74,7 @@ public class Reliquias {
         createEsc1();
         createEsc2();
         createMarreta();
+        createCapacete();
         createLivro();
     }
     private static void createEnxada() {
@@ -564,6 +566,31 @@ public class Reliquias {
         item.setItemMeta(meta);
         marreta = item;
     }
+    private static void createCapacete() {
+        ItemStack item = new ItemStack(Material.NETHERITE_HELMET, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia do Capacete"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um capacete forjado"));
+        loreitem.add(Component.text("§7pelos alquimistas!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.AQUA_AFFINITY,1,true);
+        meta.addEnchant(Enchantment.BLAST_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.FIRE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.PROJECTILE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.PROTECTION,4,true);
+        meta.addEnchant(Enchantment.THORNS,3,true);
+        meta.addEnchant(Enchantment.RESPIRATION,3,true);
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(GENERIC_ARMOR_TOUGHNESS.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_OXYGEN_BONUS, new AttributeModifier(GENERIC_OXYGEN_BONUS.getKey(),10, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        capacete = item;
+    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
@@ -593,6 +620,7 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Escudo - Reversão\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Qualquer ataque de projetil volta para o atirador"));
         pages.add(Component.text("§l§6Relíquia do Escudo - Ampificação\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Impede qualquer mob de se aproximar dele"));
         pages.add(Component.text("§l§6Relíquia da Marreta\n§r§0Efeitos:\nForça e invisibilidade\nHabilidade: Pode disparar uma carga de vento no mundo, bola de fogo no nether e bafo do dragão no end"));
+        pages.add(Component.text("§l§6Relíquia do Capacete\n§r§0Efeitos:\nVisão noturna e Respiração aquativa quando esta nadando\nHabilidade: Deixa os outros com inveja (má sorte)"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
