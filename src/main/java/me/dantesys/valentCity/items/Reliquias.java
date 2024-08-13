@@ -597,7 +597,7 @@ public class Reliquias {
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta"));
+        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
