@@ -52,12 +52,11 @@ public class CalcaEvent implements Listener {
             int range = 20;
             final int finalDamage = 5;
             final Location location = player.getLocation();
-            final double[] tp = {0};
             final World world = player.getWorld();
             Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 5,
                     ()->{
                     },()->{},(t)->{
-                double area = range/(t.getSegundosRestantes()-tp[0]);
+                double area = (double) range /(t.getSegundosRestantes());
                 for (double i = 0; i <= 2*Math.PI*area; i += 0.05) {
                     double x = (area * Math.cos(i)) + location.getX();
                     double z = (location.getZ() + area * Math.sin(i));
@@ -72,7 +71,6 @@ public class CalcaEvent implements Listener {
                     }
                     pressf.remove(surdo);
                 }
-                tp[0]=tp[0]+1;
             });
             timer.scheduleTimer(5L);
             player.setCooldown(Reliquias.calca.getType(),600);
