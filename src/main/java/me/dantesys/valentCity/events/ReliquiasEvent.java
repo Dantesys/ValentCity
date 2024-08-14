@@ -1,5 +1,6 @@
 package me.dantesys.valentCity.events;
 
+import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -18,6 +19,9 @@ public class ReliquiasEvent implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         player.sendMessage("Seja bem vindo");
+        if(player.getName().equals("HeriteHunter")){
+            player.hidePlayer(ValentCity.getPlugin(ValentCity.class),player);
+        }
     }
     @EventHandler
     public void aumento(PlayerItemConsumeEvent event){
