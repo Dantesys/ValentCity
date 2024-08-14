@@ -14,13 +14,19 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.*;
 
+import static org.bukkit.Bukkit.getPlayer;
+import static org.bukkit.Bukkit.getServer;
+
 public class ReliquiasEvent implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         player.sendMessage("Seja bem vindo");
-        if(player.getName().equals("HeriteHunter")){
-            player.hidePlayer(ValentCity.getPlugin(ValentCity.class),player);
+        for(Player esconder: getServer().getOnlinePlayers()){
+            Player paraesc = getPlayer("HeriteHunter");
+            if(paraesc!=null){
+                esconder.hidePlayer(ValentCity.getPlugin(ValentCity.class),paraesc);
+            }
         }
     }
     @EventHandler
