@@ -49,7 +49,8 @@ public class Reliquias {
     public static ItemStack pescador;
     public static ItemStack peitoral_md1;
     public static ItemStack peitoral_md2;
-    /*Calça, Pá, Machado e Varinha*/
+    public static ItemStack calca;
+    /*Pá, Machado e Varinha*/
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -82,6 +83,7 @@ public class Reliquias {
         createPescador();
         createPeitoral1();
         createPeitoral2();
+        createCalca();
         createLivro();
     }
     private static void createEnxada() {
@@ -661,13 +663,34 @@ public class Reliquias {
         item.setItemMeta(meta);
         peitoral_md2 = item;
     }
+    private static void createCalca() {
+        ItemStack item = new ItemStack(Material.NETHERITE_LEGGINGS, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia da Calça"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma armadura"));
+        loreitem.add(Component.text("§7capaz de causar"));
+        loreitem.add(Component.text("§7terremoto!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.BLAST_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.FIRE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.PROJECTILE_PROTECTION,4,true);
+        meta.addEnchant(Enchantment.PROTECTION,4,true);
+        meta.addEnchant(Enchantment.SWIFT_SNEAK,3,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        calca = item;
+    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral"));
+        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
@@ -692,8 +715,9 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia da Marreta\n§r§0Efeitos:\nForça e invisibilidade\nHabilidade: Pode disparar uma carga de vento no mundo, bola de fogo no nether e bafo do dragão no end"));
         pages.add(Component.text("§l§6Relíquia do Capacete\n§r§0Efeitos:\nVisão noturna e Respiração aquativa quando esta nadando\nHabilidade: Deixa os outros com inveja (má sorte)"));
         pages.add(Component.text("§l§6Relíquia do Pescador\n§r§0Efeitos:\nRespiração aquativa e sorte\nHabilidade: Pode transformar mobs em peixes"));
-        pages.add(Component.text("§l§6Relíquia do Peitoral - Invencivel\n§r§0Efeitos:\nRespiração aquativa e sorte\nHabilidade: Pode transformar mobs em peixes"));
-        pages.add(Component.text("§l§6Relíquia do Peitoral - Fly\n§r§0Efeitos:\nRespiração aquativa e sorte\nHabilidade: Pode transformar mobs em peixes"));
+        pages.add(Component.text("§l§6Relíquia do Peitoral - Invencivel\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Consegue se curar com os inimigos proximos"));
+        pages.add(Component.text("§l§6Relíquia do Peitoral - Fly\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Fogetes são infinitos e potentes"));
+        pages.add(Component.text("§l§6Relíquia da Calça\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Quando agacha criar um terremoto"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());

@@ -45,7 +45,7 @@ public class PeitoralEvent implements Listener {
         }
     }
     @EventHandler
-    public void vcinteragiu(PlayerElytraBoostEvent event) {
+    public void nitro(PlayerElytraBoostEvent event) {
         Player player = event.getPlayer();
         ItemStack peitoral = player.getInventory().getChestplate();
         if(peitoral != null && peitoral.isSimilar(Reliquias.peitoral_md2)){

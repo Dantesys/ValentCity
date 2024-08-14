@@ -121,6 +121,7 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new CapaceteEvent(), this);
         getServer().getPluginManager().registerEvents(new PescadorEvent(), this);
         getServer().getPluginManager().registerEvents(new PeitoralEvent(), this);
+        getServer().getPluginManager().registerEvents(new CalcaEvent(), this);
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
     }
     @Override

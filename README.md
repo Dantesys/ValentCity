@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.1.0</h2>
+Adicionado nova reliquia a da calça
 <h2>Mudanças - v2.0.0</h2>
 Adicionado nova reliquia a do peitoral e ataque especial das reliquias espada, foice e pescador
 <h2>Mudanças - v1.13.0</h2>
