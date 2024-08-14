@@ -61,7 +61,7 @@ public class CalcaEvent implements Listener {
                     double x = (area * Math.cos(i)) + location.getX();
                     double z = (location.getZ() + area * Math.sin(i));
                     Location particle = new Location(world, x, location.getY() + 1, z);
-                    world.spawnParticle(Particle.BLOCK,particle,5);
+                    world.spawnParticle(Particle.EXPLOSION,particle,1);
                 }
                 Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,area,0,area);
                 while(pressf.iterator().hasNext()){

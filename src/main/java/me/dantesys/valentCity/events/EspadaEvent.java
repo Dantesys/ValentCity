@@ -161,7 +161,6 @@ public class EspadaEvent implements Listener {
                                     location.subtract(x,y,z);
                                     if(t.getSegundosRestantes()>finalRange || !passa[0]){
                                         t.stop();
-                                        location.getWorld().createExplosion(location,10,false,false);
                                     }
                                 });
                         timer.scheduleTimer(5L);
