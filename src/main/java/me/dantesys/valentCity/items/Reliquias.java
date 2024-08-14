@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -74,7 +73,6 @@ public class Reliquias {
         createMago();
         createPower();
         createLife();
-        createRocket();
         createPis1();
         createPis2();
         createEsc1();
