@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.2.1</h2>
+Ajuste nos cooldowns da reliquia do guardião e na area da habilidade da calça
 <h2>Mudanças - v2.2.0</h2>
 Adicionado reliquia do guardião
 <h2>Mudanças - v2.1.1</h2>

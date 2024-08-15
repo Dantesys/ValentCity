@@ -63,7 +63,7 @@ public class CalcaEvent implements Listener {
                     Location particle = new Location(world, x, location.getY() + 1, z);
                     world.spawnParticle(Particle.EXPLOSION,particle,1);
                 }
-                Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,area,0,area);
+                Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,area,2,area);
                 while(pressf.iterator().hasNext()){
                     Entity surdo = pressf.iterator().next();
                     if(surdo instanceof LivingEntity vivo){

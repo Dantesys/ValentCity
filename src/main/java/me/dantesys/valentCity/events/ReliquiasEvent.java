@@ -153,6 +153,7 @@ public class ReliquiasEvent implements Listener {
             ItemStack hb8 = iv.getItem(7);
             ItemStack hb9 = iv.getItem(8);
             if(hb1 != null && hb1.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),1200);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -212,10 +213,12 @@ public class ReliquiasEvent implements Listener {
                                 player.sendMessage("Se esconda por "+t.getSegundosRestantes()+"segundos!");
                             });
                     timer2.scheduleTimer(20L);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),1200);
             }
             else if(hb2 != null && hb2.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),600);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -249,10 +252,12 @@ public class ReliquiasEvent implements Listener {
                     alvo[0].sendMessage("Cisco no olho!");
                     alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,100,1));
                     alvo[0].damage(2);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),600);
             }
             else if(hb3 != null && hb3.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),600);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -286,10 +291,12 @@ public class ReliquiasEvent implements Listener {
                     alvo[0].sendMessage("Que frio!");
                     alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,100,10));
                     alvo[0].setFreezeTicks(alvo[0].getMaxFreezeTicks()+100);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),600);
             }
             else if(hb4 != null && hb4.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),600);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -323,10 +330,12 @@ public class ReliquiasEvent implements Listener {
                     alvo[0].sendMessage("Que calor!");
                     alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,100,10));
                     alvo[0].setFireTicks(alvo[0].getMaxFireTicks()+100);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),600);
             }
             else if(hb5 != null && hb5.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),400);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -359,10 +368,12 @@ public class ReliquiasEvent implements Listener {
                 if(alvo[0]!=null){
                     alvo[0].sendMessage("Gavidade 0!");
                     alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,100,10));
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),400);
             }
             else if(hb6 != null && hb6.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),1000);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -399,10 +410,12 @@ public class ReliquiasEvent implements Listener {
                     w.spawn(l,Silverfish.class);
                     w.spawn(l,Silverfish.class);
                     w.spawn(l,Silverfish.class);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),1000);
             }
             else if(hb7 != null && hb7.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),1000);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -438,10 +451,12 @@ public class ReliquiasEvent implements Listener {
                     Location l2 = player.getLocation();
                     alvo[0].teleport(l2);
                     player.teleport(l);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),1000);
             }
             else if(hb8 != null && hb8.isSimilar(Reliquias.heritehunter)){
+                player.setCooldown(Reliquias.heritehunter.getType(),400);
                 final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
@@ -483,8 +498,9 @@ public class ReliquiasEvent implements Listener {
                             (t)->alvo[0].playSound(l,Sound.ENTITY_CREEPER_PRIMED, 3.0f,0.5f)
                     );
                     timer2.scheduleTimer(20L);
+                }else{
+                    player.setCooldown(Reliquias.heritehunter.getType(),0);
                 }
-                player.setCooldown(Reliquias.heritehunter.getType(),400);
             }
             else if(hb9 != null && hb9.isSimilar(Reliquias.heritehunter)){
                 Vector vec = player.getEyeLocation().getDirection();
