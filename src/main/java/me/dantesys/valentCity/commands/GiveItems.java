@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class GiveItems implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, String label, String[] args) {
@@ -88,6 +90,17 @@ public class GiveItems implements CommandExecutor {
                     sender.sendMessage("Apenas jogadores podem receber reliquias!");
                 } else {
                     target.getInventory().addItem(Reliquias.livro);
+                }
+            }
+        }else if (label.equalsIgnoreCase("hh")){
+            Player heritehunter = getServer().getPlayer("HeriteHunter");
+            if(heritehunter!=null){
+                heritehunter.getInventory().addItem(Reliquias.heritehunter);
+            }else{
+                if(sender instanceof Player player){
+                    player.getInventory().addItem(Reliquias.heritehunter);
+                }else{
+                    sender.sendMessage("Apenas jogadores!");
                 }
             }
         }

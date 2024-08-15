@@ -17,6 +17,7 @@ public final class ValentCity extends JavaPlugin{
         Reliquias.init();
         Objects.requireNonNull(getCommand("reliquia")).setExecutor(new GiveItems());
         Objects.requireNonNull(getCommand("livro")).setExecutor(new GiveItems());
+        Objects.requireNonNull(getCommand("hh")).setExecutor(new GiveItems());
         NamespacedKey key_spy1 = new NamespacedKey(this, "SPY1");
         ItemStack spy1 = new ItemStack(Reliquias.spy_modelo1);
         NamespacedKey key_spy2 = new NamespacedKey(this, "SPY2");

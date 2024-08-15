@@ -3,6 +3,8 @@ package me.dantesys.valentCity.events;
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -22,16 +24,20 @@ public class PisanteEvent implements Listener {
         ItemStack item = event.getNewItem();
         if(item.isSimilar(Reliquias.pisante_md1) && event.getSlotType().equals(PlayerArmorChangeEvent.SlotType.FEET)){
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,-1,1));
+            player.setAllowFlight(false);
+            player.setFlying(false);
         }else if(item.isSimilar(Reliquias.pisante_md2) && event.getSlotType().equals(PlayerArmorChangeEvent.SlotType.FEET)){
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST,-1,1));
+            player.setAllowFlight(true);
+            player.setFlying(true);
+        }else{
+            player.setAllowFlight(false);
+            player.setFlying(false);
         }
     }
     @EventHandler
     public void movimento(PlayerMoveEvent event){
         Player player = event.getPlayer();
         Location location = event.getFrom();
-        double y1 = location.getY();
-        double y2 = event.getTo().getY();
         ItemStack botas = player.getInventory().getBoots();
         if(botas != null && botas.isSimilar(Reliquias.pisante_md1)){
             Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,5,5,5);
@@ -50,31 +56,9 @@ public class PisanteEvent implements Listener {
                 }
                 pressf.remove(lento);
             }
-        }else if(botas != null && botas.isSimilar(Reliquias.pisante_md2)){
-            if(y1>y2 && player.isSneaking()){
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,-1,1));
-            }else if(player.isSneaking()){
-                player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,-1,1));
-            }else{
-                player.removePotionEffect(PotionEffectType.SLOW_FALLING);
-                player.removePotionEffect(PotionEffectType.LEVITATION);
-            }
-            Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,5,5,5);
-            while(pressf.iterator().hasNext()){
-                Entity lento = pressf.iterator().next();
-                if(lento instanceof LivingEntity vivo){
-                    if(vivo instanceof Player p2){
-                        if(player==p2){
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST,-1,1));
-                        }else{
-                            vivo.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,20,1));
-                        }
-                    }else{
-                        vivo.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,20,1));
-                    }
-                }
-                pressf.remove(lento);
-            }
+        }else if(botas != null && botas.isSimilar(Reliquias.pisante_md1) && player.isFlying()){
+            World world = player.getWorld();
+            world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,location,1);
         }
     }
 }

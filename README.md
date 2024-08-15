@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.2.0</h2>
+Adicionado reliquia do guardião
 <h2>Mudanças - v2.1.1</h2>
 Ajuste na mudança do modo das reliquias
 <h2>Mudanças - v2.1.0</h2>

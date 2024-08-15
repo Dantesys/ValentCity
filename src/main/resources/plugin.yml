@@ -1,5 +1,5 @@
 name: ValentCity
-version: '2.1.1'
+version: '2.2.0'
 main: me.dantesys.valentCity.ValentCity
 api-version: '1.21'
 authors: [ Dantesys ]
@@ -8,6 +8,11 @@ commands:
   reliquia:
     description: Recebe as reliquias
     usage: /<command> <target> <reliquias>
+    permission: reliquias.use
+    permission-message: Você não tem permissão
+  hh:
+    description: Recebe o machado da punição
+    usage: /<command>
     permission: reliquias.use
     permission-message: Você não tem permissão
   livro:

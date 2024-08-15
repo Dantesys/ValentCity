@@ -50,7 +50,8 @@ public class Reliquias {
     public static ItemStack peitoral_md1;
     public static ItemStack peitoral_md2;
     public static ItemStack calca;
-    /*Pá, Machado e Varinha*/
+    /*Pá, Machado, Varinha e alquimia(poção)*/
+    public static ItemStack heritehunter;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -84,6 +85,7 @@ public class Reliquias {
         createPeitoral1();
         createPeitoral2();
         createCalca();
+        createHeriteHunter();
         createLivro();
     }
     private static void createEnxada() {
@@ -683,6 +685,34 @@ public class Reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         calca = item;
+    }
+    private static void createHeriteHunter() {
+        ItemStack item = new ItemStack(Material.IRON_AXE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia do Guardião"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7(1) Disabilita Armadura (10s) - Mas ele te vê (10s) - CD 1min"));
+        loreitem.add(Component.text("§7(2) Cegueira (5s) - CD 30s"));
+        loreitem.add(Component.text("§7(3) Congelar (5s) - CD 30s"));
+        loreitem.add(Component.text("§7(4) Fogo (5s) - CD 30s"));
+        loreitem.add(Component.text("§7(5) Levitação (5s)  - CD 20s"));
+        loreitem.add(Component.text("§7(6) Spawn 3xTraça - CD 50s"));
+        loreitem.add(Component.text("§7(7) Troca - CD 40s"));
+        loreitem.add(Component.text("§7(8) Susto - CD 20s"));
+        loreitem.add(Component.text("§7(9) Teleport - CD 10s"));
+        loreitem.add(Component.text("§7CD -> Cooldown"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.BANE_OF_ARTHROPODS,5,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
+        meta.addEnchant(Enchantment.SHARPNESS,5,true);
+        meta.addEnchant(Enchantment.SMITE,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        heritehunter = item;
     }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
