@@ -202,18 +202,13 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb2 != null && hb2.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),600);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
                 final double[] tp = {0};
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{
-                    alvo[0].sendMessage("Cisco no olho!");
-                    alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,100,1));
-                    alvo[0].damage(2);
-                    },(t)->{
+                        },()->{},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -224,7 +219,9 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Cisco no olho!");
+                            vivo.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,100,1));
+                            vivo.damage(2);
                             t.stop();
                         }
                         pressf.remove(surdo);
@@ -238,7 +235,6 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb3 != null && hb3.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),600);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -246,9 +242,7 @@ public class ReliquiasEvent implements Listener {
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
                         },()->{
-                    alvo[0].sendMessage("Que frio!");
-                    alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,100,10));
-                    alvo[0].setFreezeTicks(alvo[0].getMaxFreezeTicks()+100);},(t)->{
+                    },(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -259,7 +253,9 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Que frio!");
+                            vivo.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,100,10));
+                            vivo.setFreezeTicks(vivo.getMaxFreezeTicks()+100);
                             t.stop();
                         }
                         pressf.remove(surdo);
@@ -273,7 +269,6 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb4 != null && hb4.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),600);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -281,9 +276,7 @@ public class ReliquiasEvent implements Listener {
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
                         },()->{
-                    alvo[0].sendMessage("Que calor!");
-                    alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,100,10));
-                    alvo[0].setFireTicks(alvo[0].getMaxFireTicks()+100);},(t)->{
+                    },(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -294,7 +287,9 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Que calor!");
+                            vivo.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,100,10));
+                            vivo.setFireTicks(vivo.getMaxFireTicks()+100);
                             t.stop();
                         }
                         pressf.remove(surdo);
@@ -308,15 +303,13 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb5 != null && hb5.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),400);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
                 final double[] tp = {0};
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{alvo[0].sendMessage("Gavidade 0!");
-                    alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,100,10));},(t)->{
+                        },()->{},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -327,7 +320,8 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Gavidade 0!");
+                            vivo.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,100,10));
                             t.stop();
                         }
                         pressf.remove(surdo);
@@ -341,19 +335,13 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb6 != null && hb6.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),1000);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
                 final double[] tp = {0};
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{alvo[0].sendMessage("Insetos!");
-                    Location l = alvo[0].getLocation();
-                    World w = alvo[0].getWorld();
-                    w.spawn(l,Silverfish.class);
-                    w.spawn(l,Silverfish.class);
-                    w.spawn(l,Silverfish.class);},(t)->{
+                        },()->{},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -364,7 +352,12 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Insetos!");
+                            Location l = vivo.getLocation();
+                            World w = vivo.getWorld();
+                            w.spawn(l,Silverfish.class);
+                            w.spawn(l,Silverfish.class);
+                            w.spawn(l,Silverfish.class);
                             t.stop();
                         }
                         pressf.remove(surdo);
@@ -378,18 +371,13 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb7 != null && hb7.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),1000);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
                 final double[] tp = {0};
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{alvo[0].sendMessage("Onde é que eu estou!");
-                    Location l = alvo[0].getLocation();
-                    Location l2 = player.getLocation();
-                    alvo[0].teleport(l2);
-                    player.teleport(l);},(t)->{
+                        },()->{},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -400,7 +388,11 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Onde é que eu estou!");
+                            Location l = vivo.getLocation();
+                            Location l2 = player.getLocation();
+                            vivo.teleport(l2);
+                            player.teleport(l);
                             t.stop();
                         }
                         pressf.remove(surdo);
@@ -414,7 +406,6 @@ public class ReliquiasEvent implements Listener {
             }
             else if(hb8 != null && hb8.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),400);
-                final Player[] alvo = {null};
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -426,15 +417,12 @@ public class ReliquiasEvent implements Listener {
                         ()-> {c.set(w.get().spawn(l.get(), Creeper.class));
                             c.get().setPowered(true);
                         },()-> c.get().remove(),
-                        (t)->alvo[0].playSound(l.get(),Sound.ENTITY_CREEPER_PRIMED, 3.0f,0.5f)
+                        (t)->w.get().playSound(l.get(),Sound.ENTITY_CREEPER_PRIMED, 3.0f,0.5f)
                 );
 
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{alvo[0].sendMessage("Aw man!");
-                    l.set(alvo[0].getLocation());
-                    w.set(alvo[0].getWorld());
-                    timer2.scheduleTimer(20L);},(t)->{
+                        },()->{},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -445,7 +433,10 @@ public class ReliquiasEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
+                            vivo.sendMessage("Aw man!");
+                            l.set(vivo.getLocation());
+                            w.set(vivo.getWorld());
+                            timer2.scheduleTimer(20L);
                             t.stop();
                         }
                         pressf.remove(surdo);
