@@ -177,7 +177,7 @@ public class ReliquiasEvent implements Listener {
                     pei.set(alvo[0].getInventory().getChestplate());
                     cal.set(alvo[0].getInventory().getLeggings());
                     bot.set(alvo[0].getInventory().getBoots());
-                        },()->{timer2.scheduleTimer(20L);},(t)->{
+                        },()->timer2.scheduleTimer(20L),(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -198,7 +198,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb2 != null && hb2.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),600);
@@ -234,7 +234,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb3 != null && hb3.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),600);
@@ -269,7 +269,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb4 != null && hb4.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),600);
@@ -304,7 +304,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb5 != null && hb5.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),400);
@@ -337,7 +337,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb6 != null && hb6.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),1000);
@@ -374,7 +374,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb7 != null && hb7.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),1000);
@@ -410,7 +410,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
+                timer.scheduleTimer(20L);
             }
             else if(hb8 != null && hb8.isSimilar(Reliquias.heritehunter)){
                 player.setCooldown(Reliquias.heritehunter.getType(),400);
@@ -455,13 +455,7 @@ public class ReliquiasEvent implements Listener {
                         t.stop();
                     }
                 });
-                timer.scheduleTimer(5L);
-                if(alvo[0]!=null){
-
-
-                }else{
-                    player.setCooldown(Reliquias.heritehunter.getType(),0);
-                }
+                timer.scheduleTimer(20L);
             }
             else if(hb9 != null && hb9.isSimilar(Reliquias.heritehunter)){
                 Vector vec = player.getEyeLocation().getDirection();
