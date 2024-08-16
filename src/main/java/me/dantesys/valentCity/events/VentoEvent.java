@@ -61,8 +61,8 @@ public class VentoEvent implements Listener {
                 player.getInventory().setItem(slot, Reliquias.vento);
                 WindCharge wc = player.launchProjectile(WindCharge.class);
                 wc.setYield(50);
-                wc.setAcceleration(vec.multiply(2));
-                wc.setDirection(vec.multiply(2));
+                wc.setAcceleration(vec.multiply(5));
+                wc.setDirection(vec.multiply(5));
                 wc.setGlowing(true);
                 wc.setMetadata("vento",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),(double) 10));
             }
