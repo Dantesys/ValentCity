@@ -27,6 +27,7 @@ public class ReliquiasEvent implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        event.joinMessage(null);
         player.sendMessage("Seja bem vindo");
         for(Player esconder: getServer().getOnlinePlayers()){
             Player paraesc = getPlayer("HeriteHunter");
