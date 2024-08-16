@@ -98,6 +98,65 @@ public class ReliquiasEvent implements Listener {
     }
     @EventHandler
     public void acertou(ProjectileHitEvent event){
+        if(event.getEntity() instanceof ThrownPotion pocao){
+            if(pocao.hasMetadata("alquimia")){
+                boolean alquimia = pocao.getMetadata("alquimia").getFirst().asBoolean();
+                if(alquimia && event.getHitBlock() != null){
+                    Random rd = new Random();
+                    int ver = rd.nextInt(0,100);
+                    if(ver<=25)event.getHitBlock().setType(Material.COAL_ORE);
+                    else if(ver<=45)event.getHitBlock().setType(Material.COPPER_ORE);
+                    else if(ver<=65)event.getHitBlock().setType(Material.IRON_ORE);
+                    else if(ver<=80)event.getHitBlock().setType(Material.GOLD_ORE);
+                    else if(ver<=90)event.getHitBlock().setType(Material.LAPIS_ORE);
+                    else if(ver<=95)event.getHitBlock().setType(Material.REDSTONE_ORE);
+                    else if(ver<=99)event.getHitBlock().setType(Material.DIAMOND_ORE);
+                    else event.getHitBlock().setType(Material.ANCIENT_DEBRIS);
+                }else{
+                    Entity entity = event.getHitEntity();
+                    if(alquimia && entity!=null){
+                        if(entity instanceof LivingEntity toma){
+                            int tempo = 1000;
+                            int power = 1;
+                            if(toma == pocao.getShooter()){
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.HASTE,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.LUCK,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,tempo,power));
+                            }else{
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.POISON,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power));
+                                toma.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power));
+                            }
+                        }
+                    }
+                }
+            }
+        }
         if(event.getEntity() instanceof Snowball bola){
             if(bola.hasMetadata("freeze")){
                 int gelo = bola.getMetadata("freeze").getFirst().asInt();

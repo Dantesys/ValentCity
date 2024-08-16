@@ -50,8 +50,10 @@ public class Reliquias {
     public static ItemStack peitoral_md1;
     public static ItemStack peitoral_md2;
     public static ItemStack calca;
-    /*Pá, Varinha e alquimia(poção)*/
+    /*Varinha*/
     public static ItemStack machado;
+    public static ItemStack alquimia;
+    public static ItemStack escavacao;
     public static ItemStack heritehunter;
     public static ItemStack livro;
     public static ItemStack power;
@@ -86,6 +88,8 @@ public class Reliquias {
         createPeitoral1();
         createPeitoral2();
         createCalca();
+        createEscavacao();
+        createAlquimia();
         createHeriteHunter();
         createMachado();
         createLivro();
@@ -722,9 +726,8 @@ public class Reliquias {
         meta.displayName(Component.text("§6Reliquia do Barbaro"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um machado com"));
-        loreitem.add(Component.text("§7poder suficiente"));
-        loreitem.add(Component.text("§7para cortar"));
-        loreitem.add(Component.text("§7até mesmo o ar!"));
+        loreitem.add(Component.text("§7uma pecualidade"));
+        loreitem.add(Component.text("§7de guardar fúria"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
@@ -736,10 +739,46 @@ public class Reliquias {
         meta.addEnchant(Enchantment.SMITE,5,true);
         meta.addEnchant(Enchantment.LOOTING,3,true);
         meta.addEnchant(Enchantment.FORTUNE,3,true);
-        meta.addEnchant(Enchantment.MULTISHOT,1,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         machado = item;
+    }
+    private static void createEscavacao() {
+        ItemStack item = new ItemStack(Material.NETHERITE_SHOVEL, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia da Escavação"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma pá capaz"));
+        loreitem.add(Component.text("§7de achar"));
+        loreitem.add(Component.text("§7ruinas ou templos"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
+        meta.addEnchant(Enchantment.FORTUNE,3,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        escavacao = item;
+    }
+    private static void createAlquimia() {
+        ItemStack item = new ItemStack(Material.DRAGON_BREATH, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia da Alquimia"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma poção misteriosa"));
+        loreitem.add(Component.text("§7com efeitos diversos"));
+        loreitem.add(Component.text("§7será que a"));
+        loreitem.add(Component.text("§7troca é equivalente?"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        alquimia = item;
     }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
@@ -747,7 +786,7 @@ public class Reliquias {
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro"));
+        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro, Escavação"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
@@ -776,6 +815,8 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Peitoral - Fly\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Fogetes são infinitos e potentes"));
         pages.add(Component.text("§l§6Relíquia da Calça\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Quando agacha criar um terremoto"));
         pages.add(Component.text("§l§6Relíquia do Barbaro\n§r§0Efeitos:\nForça\nHabilidade: Ganha fúria quando é atacado e libera um ataque devastador liberando toda sua fária"));
+        pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 1 Ancient City, 2 Mina, 3 Stronghold, 4 Baú do tesouro, 5 Ruinas, 6 Camara do jugamento, 7 Pirâmides, 8 Templo da jungle, 9 Portal em ruina"));
+        pages.add(Component.text("§l§6Relíquia da Alquimia\n§r§0Efeitos:\nNa mão: Aleatório\nHabilidade: Pode disparar poções com efeitos misteriosos!"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
