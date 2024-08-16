@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.3.0</h2>
+Adicionado nova reliquia do barbaro e mudançan a forma me mostrar os status da espada e da foice
 <h2>Mudanças - v2.2.2</h2>
 Ajuste nas habilidades da reliquia do guardião e na da reliquia do vento
 <h2>Mudanças - v2.2.1</h2>
