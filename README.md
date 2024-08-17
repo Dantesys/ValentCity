@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.5.0</h2>
+Adicionado nova reliquia da varinha e ajustes no codigo
 <h2>Mudanças - v2.4.0</h2>
 Adicionado novas reliquias do escavador e do alquimista
 <h2>Mudanças - v2.3.0</h2>

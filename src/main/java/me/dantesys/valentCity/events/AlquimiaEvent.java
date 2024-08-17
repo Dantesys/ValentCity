@@ -3,18 +3,22 @@ package me.dantesys.valentCity.events;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class AlquimiaEvent implements Listener {
@@ -105,27 +109,7 @@ public class AlquimiaEvent implements Listener {
                     else if (ver<=85) player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER,-1,1));
                     else if (ver<=90) player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,-1,1));
                     else if (ver<=95) player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,-1,1));
-                    else{
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,-1,1));
-                    }
+                    else ReliquiasEvent.efeitos(player,true,-1,1);
                 }else{
                     ReliquiasEvent.limparEfeito(player);
                 }
@@ -139,10 +123,10 @@ public class AlquimiaEvent implements Listener {
         Entity atacante = event.getDamager();
         Entity presa = event.getEntity();
         if(atacante instanceof Player atacantepl) {
-            if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.mago)) {
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.alquimia)) {
                 if(presa instanceof LivingEntity toma){
                     Random rd = new Random();
-                    int ver = rd.nextInt(0,100);
+                    int ver = rd.nextInt(0,200);
                     if(toma instanceof Monster monster){
                         if(ver<=30){
                             Location l = monster.getLocation();
@@ -215,6 +199,8 @@ public class AlquimiaEvent implements Listener {
                             else if(ver==30) w.spawn(l, Illusioner.class);
                             animal.remove();
                         }
+                    }else{
+                        event.setDamage(10);
                     }
                 }
             }
@@ -232,7 +218,51 @@ public class AlquimiaEvent implements Listener {
                 ThrownPotion tp = player.launchProjectile(ThrownPotion.class);
                 tp.setMetadata("alquimia",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),true));
                 tp.setVelocity(vec.multiply(5));
-                player.setCooldown(Reliquias.mago.getType(),300);
+                player.setCooldown(Reliquias.alquimia.getType(),300);
+            }
+        }
+    }
+    @EventHandler
+    public void pocao(PotionSplashEvent event) {
+        ThrownPotion pocao = event.getEntity();
+        Collection<LivingEntity> atigidos = event.getAffectedEntities();
+        ProjectileSource ps = pocao.getShooter();
+        if(pocao.hasMetadata("alquimia") && ps instanceof Player atirador){
+            boolean alquimia = pocao.getMetadata("alquimia").getFirst().asBoolean();
+            if(alquimia && event.getHitBlock() != null){
+                Block bloco = event.getHitBlock();
+                event.setCancelled(true);
+                Random rd = new Random();
+                int ver = rd.nextInt(0,200);
+                if(ver<=25)bloco.setType(Material.COAL_ORE);
+                else if(ver<=45)bloco.setType(Material.COPPER_ORE);
+                else if(ver<=65)bloco.setType(Material.IRON_ORE);
+                else if(ver<=80)bloco.setType(Material.GOLD_ORE);
+                else if(ver<=90)bloco.setType(Material.LAPIS_ORE);
+                else if(ver<=95)bloco.setType(Material.REDSTONE_ORE);
+                else if(ver<=99)bloco.setType(Material.DIAMOND_ORE);
+                else if(ver==100)bloco.setType(Material.ANCIENT_DEBRIS);
+                else{
+                    while(!atigidos.iterator().hasNext()){
+                        LivingEntity vivo = atigidos.iterator().next();
+                        if(vivo instanceof Player player){
+                            ReliquiasEvent.efeitos(player, player.getName().equals(atirador.getName()),1000,1);
+                        }else{
+                            ReliquiasEvent.efeitos(vivo,false,1000,1);
+                        }
+                        atigidos.remove(vivo);
+                    }
+                }
+            }else if(alquimia){
+                while(!atigidos.iterator().hasNext()){
+                    LivingEntity vivo = atigidos.iterator().next();
+                    if(vivo instanceof Player player){
+                        ReliquiasEvent.efeitos(player, player.getName().equals(atirador.getName()),1000,1);
+                    }else{
+                        ReliquiasEvent.efeitos(vivo,false,1000,1);
+                    }
+                    atigidos.remove(vivo);
+                }
             }
         }
     }

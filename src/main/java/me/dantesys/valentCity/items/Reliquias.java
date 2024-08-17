@@ -50,7 +50,7 @@ public class Reliquias {
     public static ItemStack peitoral_md1;
     public static ItemStack peitoral_md2;
     public static ItemStack calca;
-    /*Varinha*/
+    public static ItemStack varinha;
     public static ItemStack machado;
     public static ItemStack alquimia;
     public static ItemStack escavacao;
@@ -92,6 +92,7 @@ public class Reliquias {
         createAlquimia();
         createHeriteHunter();
         createMachado();
+        createVarinha();
         createLivro();
     }
     private static void createEnxada() {
@@ -780,13 +781,30 @@ public class Reliquias {
         item.setItemMeta(meta);
         alquimia = item;
     }
+    private static void createVarinha() {
+        ItemStack item = new ItemStack(Material.DEBUG_STICK, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia da Mágia"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma varinha misteriosa"));
+        loreitem.add(Component.text("§7com poderes incriveis"));
+
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        varinha = item;
+    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
         meta.setAuthor("O Explorador");
-        meta.displayName(Component.text("§6Manual das reliquias"));
+        meta.displayName(Component.text("§6Manual das Reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro, Escavação"));
+        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro, Escavação, Alquimia, Mágia"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
@@ -817,6 +835,9 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Barbaro\n§r§0Efeitos:\nForça\nHabilidade: Ganha fúria quando é atacado e libera um ataque devastador liberando toda sua fária"));
         pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 1 Ancient City, 2 Mina, 3 Stronghold, 4 Baú do tesouro, 5 Ruinas, 6 Camara do jugamento, 7 Pirâmides, 8 Templo da jungle, 9 Portal em ruina"));
         pages.add(Component.text("§l§6Relíquia da Alquimia\n§r§0Efeitos:\nNa mão: Aleatório\nHabilidade: Pode disparar poções com efeitos misteriosos!"));
+        pages.add(Component.text("§l§6Relíquia da Mágia - OverWorld\n§r§0Habilidade: Pode disparar mágias se tiver mana"));
+        pages.add(Component.text("§l§6Relíquia da Mágia - Nether\n§r§0Habilidade: Pode disparar mágias se tiver mana"));
+        pages.add(Component.text("§l§6Relíquia da Mágia - Ender\n§r§0Habilidade: Pode disparar mágias se tiver mana"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());

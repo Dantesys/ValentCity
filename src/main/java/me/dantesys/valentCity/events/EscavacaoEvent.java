@@ -60,7 +60,7 @@ public class EscavacaoEvent implements Listener {
         Action action = event.getAction();
         if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.escavacao)){
             if(action.isLeftClick() && !player.hasCooldown(Reliquias.escavacao.getType())){
-                player.setCooldown(Reliquias.heritehunter.getType(),1200);
+                player.setCooldown(Reliquias.escavacao.getType(),1200);
                 World w = player.getWorld();
                 Location l = player.getLocation();
                 Inventory iv = player.getInventory();

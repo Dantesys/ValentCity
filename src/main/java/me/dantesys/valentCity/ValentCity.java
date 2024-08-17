@@ -103,6 +103,7 @@ public final class ValentCity extends JavaPlugin{
         getServer().addRecipe(pei1_recipe);
         getServer().addRecipe(pei2_recipe);
         getServer().addRecipe(bk_recipe);
+        getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
         getServer().getPluginManager().registerEvents(new ReliquiasEvent(), this);
         getServer().getPluginManager().registerEvents(new EspadaEvent(), this);
         getServer().getPluginManager().registerEvents(new TotemEvent(), this);
@@ -126,6 +127,8 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new MachadoEvent(), this);
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
         getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
+        getServer().getPluginManager().registerEvents(new VarinhasEvent(), this);
+        getServer().getPluginManager().registerEvents(new GuardiaoEvent(), this);
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
     }
     @Override

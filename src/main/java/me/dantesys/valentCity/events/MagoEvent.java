@@ -8,13 +8,14 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
@@ -52,25 +53,7 @@ public class MagoEvent implements Listener {
                 else if (ver<=90) player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,-1,1));
                 else if (ver<=95) player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,-1,1));
                 else{
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,-1,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,-1,1));
+                    ReliquiasEvent.efeitos(player,true,-1,1);
                 }
             }else{
                 if(omao.isSimilar(Reliquias.totem)){
@@ -108,27 +91,7 @@ public class MagoEvent implements Listener {
                     else if (ver<=85) player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER,-1,1));
                     else if (ver<=90) player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,-1,1));
                     else if (ver<=95) player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,-1,1));
-                    else{
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE,-1,1));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE,-1,1));
-                    }
+                    else ReliquiasEvent.efeitos(player,true,-1,1);
                 }else{
                     ReliquiasEvent.limparEfeito(player);
                 }
@@ -161,20 +124,7 @@ public class MagoEvent implements Listener {
                     else if(ver<=80) toma.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power));
                     else if(ver<=88) toma.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power));
                     else if(ver<=96) toma.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power));
-                    else{
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.POISON,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power));
-                        toma.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power));
-                    }
+                    else ReliquiasEvent.efeitos(toma,false,tempo,power);
                 }
             }
         }
@@ -278,24 +228,33 @@ public class MagoEvent implements Listener {
                 }else{
                     player.sendMessage("Pōshonmikkusu");
                     ThrownPotion tp = player.launchProjectile(ThrownPotion.class);
-                    PotionMeta pm = tp.getPotionMeta();
-                    int tempo = 600;
-                    int power = 1;
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.SLOWNESS,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.NAUSEA,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.BLINDNESS,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.HUNGER,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.WEAKNESS,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.POISON,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.WITHER,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.LEVITATION,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power),true);
-                    pm.addCustomEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power),true);
-                    tp.setPotionMeta(pm);
+                    tp.setMetadata("magia",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),true));
                     tp.setVelocity(vec.multiply(5));
                     player.setCooldown(Reliquias.mago.getType(),300);
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void pocao(PotionSplashEvent event) {
+        ThrownPotion pocao = event.getEntity();
+        Collection<LivingEntity> atigidos = event.getAffectedEntities();
+        ProjectileSource ps = pocao.getShooter();
+        if(pocao.hasMetadata("magia") && ps instanceof Player atirador){
+            boolean magia = pocao.getMetadata("magia").getFirst().asBoolean();
+            if(magia){
+                Random rd = new Random();
+                while(!atigidos.iterator().hasNext()){
+                    int forca = rd.nextInt(1,4);
+                    int tempo = rd.nextInt(1,60);
+                    tempo = tempo*20;
+                    LivingEntity vivo = atigidos.iterator().next();
+                    if(vivo instanceof Player player){
+                        ReliquiasEvent.efeitos(player, player.getName().equals(atirador.getName()),tempo,forca);
+                    }else{
+                        ReliquiasEvent.efeitos(vivo,false,tempo,forca);
+                    }
+                    atigidos.remove(vivo);
                 }
             }
         }
