@@ -3,6 +3,7 @@ package me.dantesys.valentCity.events;
 import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.generator.structure.Structure;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.StructureSearchResult;
@@ -74,13 +76,18 @@ public class EscavacaoEvent implements Listener {
                 ItemStack hb7 = iv.getItem(6);
                 ItemStack hb8 = iv.getItem(7);
                 ItemStack hb9 = iv.getItem(8);
+                ItemStack bussola = new ItemStack(Material.COMPASS);
                 if(hb1 != null && hb1.isSimilar(Reliquias.escavacao)){
                     ssr = w.locateNearestStructure(l, Structure.ANCIENT_CITY,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Ancient City: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Ancient City"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Ancient City encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Ancient City encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -88,9 +95,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.MINESHAFT,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Mina: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Mina"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Mina encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Mina encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -98,9 +109,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.STRONGHOLD,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Stronghold: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Stronghold"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Stronghold encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Stronghold encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -108,9 +123,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.BURIED_TREASURE,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Baú do tesouro: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Baú do Tesouro"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Baú do tesouro encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Baú do tesouro encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -118,9 +137,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.TRAIL_RUINS,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Ruinas: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Ruinas"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Ruinas encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Ruinas encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -128,9 +151,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.TRIAL_CHAMBERS,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Camara do jugamento: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Camâra do Jugamento"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Camara do jugamento encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Camara do jugamento encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -138,9 +165,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.DESERT_PYRAMID,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Pirâmide: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Pirâmide"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Pirâmide encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Pirâmide encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -148,9 +179,13 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.JUNGLE_PYRAMID,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Templo da jungle: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Templo da jungle"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Templo da jungle encontrada!"));
+                        player.sendMessage(Component.text("Nenhum Templo da jungle encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
@@ -158,12 +193,17 @@ public class EscavacaoEvent implements Listener {
                     ssr = w.locateNearestStructure(l, Structure.RUINED_PORTAL,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();
-                        player.sendActionBar(Component.text("Portal em ruina: X "+ls.getX()+" Y "+ls.getY()+" Z "+ls.getZ()));
+                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
+                        meta.setLodestone(ls);
+                        meta.displayName(Component.text("Portal em ruina"));
+                        bussola.setItemMeta(meta);
+                        player.getInventory().addItem(bussola);
                     }else{
-                        player.sendActionBar(Component.text("Nenhuma Portal em ruina encontrada!"));
+                        player.sendMessage(Component.text("Nenhuma Portal em ruina encontrada!"));
                         player.setCooldown(Reliquias.heritehunter.getType(),0);
                     }
                 }
+                player.updateInventory();
             }
         }
     }

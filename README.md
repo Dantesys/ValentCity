@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.5.2</h2>
+Ajustes na reliquia da escavação agora da uma bussola para o local
 <h2>Mudanças - v2.5.1</h2>
 Ajustes na reliquia da varinha e criação de config
 <h2>Mudanças - v2.5.0</h2>
