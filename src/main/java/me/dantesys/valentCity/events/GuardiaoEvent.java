@@ -71,38 +71,12 @@ public class GuardiaoEvent implements Listener {
             ItemStack hb8 = iv.getItem(7);
             ItemStack hb9 = iv.getItem(8);
             if(hb1 != null && hb1.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),1200);
-                final Player[] alvo = {null};
+                player.setCooldown(Reliquias.heritehunter.getType(),6000);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
                 final double[] tp = {0};
                 final boolean[] passa = {false};
-                AtomicReference<ItemStack> cap = new AtomicReference<>();
-                AtomicReference<ItemStack> pei = new AtomicReference<>();
-                AtomicReference<ItemStack> cal = new AtomicReference<>();
-                AtomicReference<ItemStack> bot = new AtomicReference<>();
-                Temporizador timer2 = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
-                ()->{
-                    alvo[0].showPlayer(ValentCity.getPlugin(ValentCity.class),player);
-                    alvo[0].getInventory().setHelmet(null);
-                    alvo[0].getInventory().setChestplate(null);
-                    alvo[0].getInventory().setLeggings(null);
-                    alvo[0].getInventory().setBoots(null);
-                    alvo[0].sendMessage("Maldição Aplicada!");
-                    alvo[0].addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,20,1));
-                    player.sendMessage("Maldição Aplicada!");
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,20,1));
-                },()->{
-                    alvo[0].hidePlayer(ValentCity.getPlugin(ValentCity.class),player);
-                    alvo[0].getInventory().setHelmet(cap.get());
-                    alvo[0].getInventory().setChestplate(pei.get());
-                    alvo[0].getInventory().setLeggings(cal.get());
-                    alvo[0].getInventory().setBoots(bot.get());
-                },(t)->{
-                    alvo[0].sendMessage("Sobreviva por "+t.getSegundosRestantes()+"segundos!");
-                    player.sendMessage("Se esconda por "+t.getSegundosRestantes()+"segundos!");
-                });
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                 ()->{},
                 ()->{
@@ -120,13 +94,8 @@ public class GuardiaoEvent implements Listener {
                     while(pressf.iterator().hasNext()){
                         Entity surdo = pressf.iterator().next();
                         if(surdo instanceof Player vivo){
-                            alvo[0] = vivo;
-                            timer2.scheduleTimer(20L);
-                            cap.set(vivo.getInventory().getHelmet());
-                            pei.set(vivo.getInventory().getChestplate());
-                            cal.set(vivo.getInventory().getLeggings());
-                            bot.set(vivo.getInventory().getBoots());
                             passa[0] = true;
+                            vivo.damage(vivo.getHealth()-1);
                             t.stop();
                         }
                         pressf.remove(surdo);

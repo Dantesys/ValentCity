@@ -5,6 +5,7 @@ import me.dantesys.valentCity.events.*;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.*;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +13,7 @@ import java.util.*;
 
 
 public final class ValentCity extends JavaPlugin{
+    FileConfiguration config = getConfig();
     @Override
     public void onEnable() {
         Reliquias.init();
@@ -129,6 +131,9 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
         getServer().getPluginManager().registerEvents(new VarinhasEvent(), this);
         getServer().getPluginManager().registerEvents(new GuardiaoEvent(), this);
+        config.addDefault("guardiao", "HeriteHunter");
+        config.options().copyDefaults(true);
+        saveConfig();
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
     }
     @Override

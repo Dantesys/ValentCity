@@ -495,7 +495,6 @@ public class Reliquias {
         meta.addEnchant(Enchantment.FEATHER_FALLING,20,true);
         meta.addEnchant(Enchantment.SOUL_SPEED,3,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.addAttributeModifier(GENERIC_GRAVITY, new AttributeModifier(GENERIC_GRAVITY.getKey(),-1, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         item.setItemMeta(meta);
         pisante_md2 = item;
@@ -698,7 +697,7 @@ public class Reliquias {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("§6Reliquia do Guardião"));
         List<Component> loreitem = new ArrayList<>();
-        loreitem.add(Component.text("§7(1) Disabilita Armadura (10s) - Mas ele te vê (10s) - CD 1min"));
+        loreitem.add(Component.text("§7(1) 1HP - CD 5min"));
         loreitem.add(Component.text("§7(2) Cegueira (5s) - CD 30s"));
         loreitem.add(Component.text("§7(3) Congelar (5s) - CD 30s"));
         loreitem.add(Component.text("§7(4) Fogo (5s) - CD 30s"));
@@ -835,9 +834,7 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Barbaro\n§r§0Efeitos:\nForça\nHabilidade: Ganha fúria quando é atacado e libera um ataque devastador liberando toda sua fária"));
         pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 1 Ancient City, 2 Mina, 3 Stronghold, 4 Baú do tesouro, 5 Ruinas, 6 Camara do jugamento, 7 Pirâmides, 8 Templo da jungle, 9 Portal em ruina"));
         pages.add(Component.text("§l§6Relíquia da Alquimia\n§r§0Efeitos:\nNa mão: Aleatório\nHabilidade: Pode disparar poções com efeitos misteriosos!"));
-        pages.add(Component.text("§l§6Relíquia da Mágia - OverWorld\n§r§0Habilidade: Pode disparar mágias se tiver mana"));
-        pages.add(Component.text("§l§6Relíquia da Mágia - Nether\n§r§0Habilidade: Pode disparar mágias se tiver mana"));
-        pages.add(Component.text("§l§6Relíquia da Mágia - Ender\n§r§0Habilidade: Pode disparar mágias se tiver mana"));
+        pages.add(Component.text("§l§6Relíquia da Mágia\n§r§0Habilidade: Pode disparar mágias se tiver mana, mágias podem variar dependendo da dimensão"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());

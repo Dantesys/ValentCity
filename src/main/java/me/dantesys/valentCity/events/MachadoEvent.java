@@ -83,39 +83,41 @@ public class MachadoEvent implements Listener {
             if(action.isLeftClick() && player.hasMetadata("furia")){
                 player.sendActionBar(Component.text("Fúria: 0"));
                 double rgdm = player.getMetadata("furia").getFirst().asDouble();
-                player.removeMetadata("fura",ValentCity.getPlugin(ValentCity.class));
-                final double finalRange = rgdm;
-                final double finalDamage = rgdm;
-                final Location location = player.getLocation();
-                final boolean[] passa = {true};
-                final Vector direction = location.getDirection().normalize();
-                final double[] tp = {0};
-                Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
-                        ()->{
-                        },()-> {
-                },(t)->{
-                    tp[0] = tp[0]+3.4;
-                    double x = direction.getX()*tp[0];
-                    double y = direction.getY()*tp[0]+1.4;
-                    double z = direction.getZ()*tp[0];
-                    location.add(x,y,z);
-                    location.getWorld().spawnParticle(Particle.ANGRY_VILLAGER,location,1,0,0,0,0);
-                    passa[0] = location.getBlock().isPassable();
-                    location.getWorld().playSound(location, Sound.ENTITY_PLAYER_ATTACK_SWEEP,0.5f,0.7f);
-                    Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,2,2,2);
-                    while(pressf.iterator().hasNext()){
-                        Entity surdo = pressf.iterator().next();
-                        if(surdo instanceof LivingEntity vivo){
-                            vivo.damage(finalDamage);
+                if(rgdm>0){
+                    player.setMetadata("furia",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),0));
+                    final double finalRange = rgdm;
+                    final double finalDamage = rgdm;
+                    final Location location = player.getLocation();
+                    final boolean[] passa = {true};
+                    final Vector direction = location.getDirection().normalize();
+                    final double[] tp = {0};
+                    Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
+                            ()->{
+                            },()-> {
+                    },(t)->{
+                        tp[0] = tp[0]+3.4;
+                        double x = direction.getX()*tp[0];
+                        double y = direction.getY()*tp[0]+1.4;
+                        double z = direction.getZ()*tp[0];
+                        location.add(x,y,z);
+                        location.getWorld().spawnParticle(Particle.ANGRY_VILLAGER,location,1,0,0,0,0);
+                        passa[0] = location.getBlock().isPassable();
+                        location.getWorld().playSound(location, Sound.ENTITY_PLAYER_ATTACK_SWEEP,0.5f,0.7f);
+                        Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,2,2,2);
+                        while(pressf.iterator().hasNext()){
+                            Entity surdo = pressf.iterator().next();
+                            if(surdo instanceof LivingEntity vivo){
+                                vivo.damage(finalDamage);
+                            }
+                            pressf.remove(surdo);
                         }
-                        pressf.remove(surdo);
-                    }
-                    location.subtract(x,y,z);
-                    if(t.getSegundosRestantes()>finalRange || !passa[0]){
-                        t.stop();
-                    }
-                });
-                timer.scheduleTimer(5L);
+                        location.subtract(x,y,z);
+                        if(t.getSegundosRestantes()>finalRange || !passa[0]){
+                            t.stop();
+                        }
+                    });
+                    timer.scheduleTimer(5L);
+                }
             }
         }
     }
