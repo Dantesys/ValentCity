@@ -108,7 +108,7 @@ public class FazendeiroEvent implements Listener {
                 }else if (presa instanceof LivingEntity lepresa) {
                     if (lepresa instanceof Tameable domado){
                         if(domado.isTamed()){
-                            if(!(domado.getOwner() == atacantepl)){
+                            if(domado.getOwner() != atacantepl){
                                 atacantepl.sendMessage("Você não pode pegar pet de outros jogadores!");
                                 return;
                             }
@@ -119,36 +119,9 @@ public class FazendeiroEvent implements Listener {
                     ItemMeta meta = item.getItemMeta();
                     meta.displayName(Component.text(nome));
                     item.setItemMeta(meta);
-                    if(lepresa instanceof Pig pig) {
-                        if(pig.hasSaddle()) {
-                            pig.getWorld().dropItem(pig.getLocation(), new ItemStack(Material.SADDLE, 1));
-                        }
-                    }
-                    if(lepresa instanceof Horse cavalo) {
-                        if(cavalo.getInventory().getSaddle() != null){
-                            cavalo.getWorld().dropItemNaturally(cavalo.getLocation(), cavalo.getInventory().getSaddle());
-                        }
-                        if(cavalo.getInventory().getArmor() != null){
-                            cavalo.getWorld().dropItemNaturally(cavalo.getLocation(), cavalo.getInventory().getArmor());
-                        }
-                        ItemStack[] itens = cavalo.getInventory().getContents();
-                        if(itens.length>1){
-                            Block bloco = cavalo.getWorld().getBlockAt(cavalo.getLocation());
-                            Chest bau = (Chest) bloco;
-                            bau.getBlockInventory().addItem(itens);
-                        }
-                    }
-                    if(lepresa instanceof InventoryHolder) {
-                        ItemStack[] items = ((InventoryHolder) lepresa).getInventory().getContents();
-                        for(ItemStack itemStack : items) {
-                            if(itemStack!=null){
-                                lepresa.getWorld().dropItemNaturally(lepresa.getLocation(), itemStack);
-                            }
-                        }
-                    }
                     lepresa.remove();
                     lepresa.getWorld().dropItem(lepresa.getLocation(), item);
-                    atacantepl.setCooldown(Reliquias.farm_modelo2.getType(),50);
+                    atacantepl.setCooldown(Reliquias.farm_modelo2.getType(),200);
                 }
             }
         }

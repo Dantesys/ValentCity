@@ -27,7 +27,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Objects;
-import java.util.Random;
 
 public class DomadorEvent implements Listener {
     @EventHandler
@@ -36,13 +35,7 @@ public class DomadorEvent implements Listener {
         Entity presa = event.getEntity();
         if(atacante instanceof Player atacantepl) {
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.domador)) {
-                Random rd = new Random();
-                int ver = rd.nextInt(0,100);
-                if(ver<=50){
-                    sumonalobo(atacantepl,presa);
-                }else{
-                    sumonarapoza(atacantepl,presa);
-                }
+                sumonalobo(atacantepl,presa);
             }
         }
     }
@@ -99,86 +92,6 @@ public class DomadorEvent implements Listener {
         creatureSpawner.setSpawnedType(type);
         creatureSpawner.update();
     }
-    public void sumonarapoza(Player player,Entity entity) {
-        EntityEquipment equip = player.getEquipment();
-        ItemStack hand = null;
-        boolean main = true;
-        if (equip.getItemInMainHand().getType() == Material.STICK) {
-            hand = equip.getItemInMainHand();
-            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
-                hand = null;
-            }
-        }
-        if (equip.getItemInOffHand().getType() == Material.STICK) {
-            hand = equip.getItemInOffHand();
-            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
-                hand = null;
-            }
-            main = false;
-        }
-        if (hand != null) {
-            boolean finalMain = main;
-            ItemStack finalHand = Reliquias.domador;
-            ItemStack espada = new ItemStack(Material.NETHERITE_SWORD);
-            ItemMeta meta = espada.getItemMeta();
-            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,new AttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE.getKey(),9, AttributeModifier.Operation.ADD_NUMBER));
-            meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,new AttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
-            meta.addEnchant(Enchantment.SHARPNESS,10,true);
-            meta.addEnchant(Enchantment.FIRE_ASPECT,10,true);
-            espada.setItemMeta(meta);
-            Fox wolf = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
-            wolf.setFirstTrustedPlayer(player);
-            wolf.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
-            Objects.requireNonNull(wolf.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200);
-            wolf.attack(entity);
-            wolf.setTarget((LivingEntity) entity);
-            wolf.getEquipment().setItemInMainHand(espada);
-            wolf.setCanPickupItems(false);
-            Fox wolf2 = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
-            wolf2.setFirstTrustedPlayer(player);
-            wolf2.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
-            Objects.requireNonNull(wolf2.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
-            wolf2.attack(entity);
-            wolf2.setTarget((LivingEntity) entity);
-            wolf2.getEquipment().setItemInMainHand(espada);
-            wolf2.setCanPickupItems(false);
-            Fox wolf3 = (Fox) player.getWorld().spawnEntity(entity.getLocation(), EntityType.FOX);
-            wolf3.setFirstTrustedPlayer(player);
-            wolf3.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
-            Objects.requireNonNull(wolf3.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
-            wolf3.attack(entity);
-            wolf3.setTarget((LivingEntity) entity);
-            wolf3.getEquipment().setItemInMainHand(espada);
-            wolf3.setCanPickupItems(false);
-            Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 30,
-                    () -> {
-                        player.sendMessage("Rapoza Ativado!");
-                        player.getEquipment().setItemInMainHand(null);
-                        wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                        wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                        wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                    },() -> {
-                if (finalMain) {
-                    player.getEquipment().setItemInMainHand(finalHand);
-                } else {
-                    player.getEquipment().setItemInOffHand(finalHand);
-                }
-                wolf.remove();
-                wolf2.remove();
-                wolf3.remove();
-            },(t) -> {
-                wolf.customName(Component.text("Lider ("+(t.getSegundosRestantes())+"s)"));
-                wolf2.customName(Component.text("Soldado ("+(t.getSegundosRestantes())+"s)"));
-                wolf3.customName(Component.text("Soldado ("+(t.getSegundosRestantes())+"s)"));
-                wolf.setCustomNameVisible(true);
-                wolf2.setCustomNameVisible(true);
-                wolf3.setCustomNameVisible(true);
-                player.sendMessage("Falta "+ (t.getSegundosRestantes()) + " Segundo para reativar");
-            }
-            );
-            timer.scheduleTimer(20L);
-        }
-    }
     public void sumonalobo(Player player,Entity entity) {
         EntityEquipment equip = player.getEquipment();
         ItemStack hand = null;
@@ -202,7 +115,6 @@ public class DomadorEvent implements Listener {
             ItemStack armadura = new ItemStack(Material.WOLF_ARMOR);
             ItemMeta meta = armadura.getItemMeta();
             meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,new AttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE.getKey(),9, AttributeModifier.Operation.ADD_NUMBER));
-            meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,new AttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
             armadura.setItemMeta(meta);
             Wolf wolf = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
             wolf.setOwner(player);

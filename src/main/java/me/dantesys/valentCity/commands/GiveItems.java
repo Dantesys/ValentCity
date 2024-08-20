@@ -1,16 +1,19 @@
 package me.dantesys.valentCity.commands;
 
+import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static org.bukkit.Bukkit.getServer;
 
 public class GiveItems implements CommandExecutor {
+    FileConfiguration config = ValentCity.getPlugin(ValentCity.class).getConfig();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("reliquia")){
@@ -104,15 +107,15 @@ public class GiveItems implements CommandExecutor {
                     target.getInventory().addItem(Reliquias.livro);
                 }
             }
-        }else if (label.equalsIgnoreCase("hh")){
-            Player heritehunter = getServer().getPlayer("HeriteHunter");
+        }else if (label.equalsIgnoreCase("guardiao")){
+            Player heritehunter = getServer().getPlayer(config.get("guardiao").toString());
             if(heritehunter!=null){
                 heritehunter.getInventory().addItem(Reliquias.heritehunter);
             }else{
                 if(sender instanceof Player player){
                     player.getInventory().addItem(Reliquias.heritehunter);
                 }else{
-                    sender.sendMessage("Apenas jogadores!");
+                    sender.sendMessage("Apenas jogadores podem receber a reliquia do guardião!");
                 }
             }
         }

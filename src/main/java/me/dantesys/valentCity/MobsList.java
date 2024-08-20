@@ -1,6 +1,7 @@
 package me.dantesys.valentCity;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -69,25 +70,20 @@ public enum MobsList {
     private final EntityType entityType;
     private String friendlyName;
     private final Material material;
-
     MobsList(EntityType entityType, String friendlyName, Material material) {
         this.entityType = entityType;
         this.friendlyName = friendlyName;
         this.material = material;
     }
-
     public EntityType getCreatureType() {
         return this.entityType;
     }
-
     public String getFriendlyName() {
         return this.friendlyName;
     }
-
     public Material getMaterial() {
         return this.material;
     }
-
     public static MobsList getEggType(Entity entity) {
         for (MobsList eggType : MobsList.values()) {
             if (eggType.getCreatureType().getEntityClass() != null && !eggType.getCreatureType().getEntityClass().isInstance(entity)) {
@@ -97,7 +93,7 @@ public enum MobsList {
             if(component==null){
                 return eggType;
             }
-            eggType.friendlyName = component.examinableName();
+            eggType.friendlyName = PlainTextComponentSerializer.plainText().serialize(component);
             if(!component.examinableName().equals(eggType.getFriendlyName())){
                 return eggType;
             }
