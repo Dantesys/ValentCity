@@ -22,7 +22,7 @@ public class VentoEvent implements Listener {
             if(vento.hasMetadata("vento")) {
                 int voar = vento.getMetadata("vento").getFirst().asInt();
                 if(event.getEntity() instanceof LivingEntity vivo){
-                    vivo.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,voar*20,voar/2));
+                    vivo.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION,voar*20,voar));
                 }
             }
         }
@@ -33,7 +33,7 @@ public class VentoEvent implements Listener {
             if(event.getEntity() instanceof WindCharge vento){
                 int forca = vento.getMetadata("vento").getFirst().asInt();
                 if(forca>0 && event.getHitBlock() != null){
-                    vento.setYield(10);
+                    vento.setYield(5);
                     vento.explode();
                 }
             }
@@ -41,7 +41,7 @@ public class VentoEvent implements Listener {
         if(event.getEntity() instanceof WindCharge vento){
             int forca = vento.getMetadata("vento").getFirst().asInt();
             if(forca>0 && event.getHitBlock() != null){
-                vento.setYield(50);
+                vento.setYield(5);
                 vento.explode();
             }
         }
@@ -60,7 +60,7 @@ public class VentoEvent implements Listener {
                 player.setCooldown(Reliquias.vento.getType(),0);
                 player.getInventory().setItem(slot, Reliquias.vento);
                 WindCharge wc = player.launchProjectile(WindCharge.class);
-                wc.setYield(50);
+                wc.setYield(5);
                 wc.setAcceleration(vec.multiply(5));
                 wc.setDirection(vec.multiply(5));
                 wc.setGlowing(true);

@@ -67,7 +67,6 @@ public class EscavacaoEvent implements Listener {
                 Location l = player.getLocation();
                 Inventory iv = player.getInventory();
                 StructureSearchResult ssr;
-                ItemStack hb1 = iv.getItem(0);
                 ItemStack hb2 = iv.getItem(1);
                 ItemStack hb3 = iv.getItem(2);
                 ItemStack hb4 = iv.getItem(3);
@@ -77,21 +76,7 @@ public class EscavacaoEvent implements Listener {
                 ItemStack hb8 = iv.getItem(7);
                 ItemStack hb9 = iv.getItem(8);
                 ItemStack bussola = new ItemStack(Material.COMPASS);
-                if(hb1 != null && hb1.isSimilar(Reliquias.escavacao)){
-                    ssr = w.locateNearestStructure(l, Structure.ANCIENT_CITY,30000,true);
-                    if(ssr!=null){
-                        Location ls = ssr.getLocation();
-                        CompassMeta meta = (CompassMeta) bussola.getItemMeta();
-                        meta.setLodestone(ls);
-                        meta.displayName(Component.text("Ancient City"));
-                        bussola.setItemMeta(meta);
-                        player.getInventory().addItem(bussola);
-                    }else{
-                        player.sendMessage(Component.text("Nenhuma Ancient City encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
-                    }
-                }
-                else if(hb2 != null && hb2.isSimilar(Reliquias.escavacao)){
+                if(hb2 != null && hb2.isSimilar(Reliquias.escavacao)){
                     ssr = w.locateNearestStructure(l, Structure.MINESHAFT,30000,true);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();

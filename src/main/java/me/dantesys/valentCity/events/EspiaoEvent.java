@@ -1,7 +1,6 @@
 package me.dantesys.valentCity.events;
 
 import me.dantesys.valentCity.items.Reliquias;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,8 +9,6 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.util.Objects;
 
 public class EspiaoEvent implements Listener {
     @EventHandler
@@ -23,13 +20,11 @@ public class EspiaoEvent implements Listener {
         try{
             if(item != null && item.isSimilar(Reliquias.spy_modelo1)){
                 ReliquiasEvent.limparEfeito(player);
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.01);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
             }else if(item != null && item.isSimilar(Reliquias.spy_modelo2)){
                 ReliquiasEvent.limparEfeito(player);
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.25);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
@@ -48,11 +43,9 @@ public class EspiaoEvent implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
             }else{
                 if(item != null && item.isSimilar(Reliquias.spy_modelo1)){
-                    Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.01);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else if(item != null && item.isSimilar(Reliquias.spy_modelo2)) {
-                    Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.25);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, true, false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 1, true, false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, -1, 1, true, false));

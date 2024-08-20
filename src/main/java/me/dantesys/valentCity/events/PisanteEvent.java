@@ -56,9 +56,16 @@ public class PisanteEvent implements Listener {
                 }
                 pressf.remove(lento);
             }
-        }else if(botas != null && botas.isSimilar(Reliquias.pisante_md1) && player.isFlying()){
-            World world = player.getWorld();
-            world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,location,1);
+        }else if(botas != null && botas.isSimilar(Reliquias.pisante_md2)){
+            if(player.isFlying()){
+                World world = player.getWorld();
+                world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,location,1);
+            }else{
+                float queda = player.getFallDistance();
+                if(queda>0){
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,100,1));
+                }
+            }
         }
     }
 }

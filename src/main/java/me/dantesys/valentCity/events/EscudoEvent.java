@@ -54,15 +54,17 @@ public class EscudoEvent implements Listener {
         Entity entity = event.getEntity();
         Entity entity2 = event.getDamager();
         if(entity instanceof LivingEntity vivo){
-            if(vivo instanceof Player player && entity2 instanceof Projectile projetil){
-                if(player.getInventory().getItemInOffHand().isSimilar(Reliquias.escudo_md1)){
+            if(vivo instanceof Player player){
+                if(entity2 instanceof Projectile projetil && player.getInventory().getItemInOffHand().isSimilar(Reliquias.escudo_md1)){
                     event.setCancelled(true);
-                    Vector vec = projetil.getLocation().getDirection();
+                    Vector vec = projetil.getVelocity();
                     vec.multiply(-1);
                     projetil.setVelocity(vec);
                     Projectile revers = player.launchProjectile(projetil.getClass());
                     projetil.remove();
                     revers.setVelocity(vec);
+                }else if(player.getInventory().getItemInOffHand().isSimilar(Reliquias.escudo_md2) && !(entity2 instanceof Projectile)){
+                    event.setCancelled(true);
                 }
             }
         }
