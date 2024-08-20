@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.5.4</h2>
+Ajustes no codigo
 <h2>Mudanças - v2.5.3</h2>
 Ajustes na reliquia da escavação, escudo, spy, pisante, tridente e vento
 <h2>Mudanças - v2.5.2</h2>
