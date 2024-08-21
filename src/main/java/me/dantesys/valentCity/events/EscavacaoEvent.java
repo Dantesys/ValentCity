@@ -87,7 +87,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Mina encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb3 != null && hb3.isSimilar(Reliquias.escavacao)){
@@ -100,7 +100,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Stronghold encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb4 != null && hb4.isSimilar(Reliquias.escavacao)){
@@ -113,7 +113,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Baú do tesouro encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb5 != null && hb5.isSimilar(Reliquias.escavacao)){
@@ -126,7 +126,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Ruinas encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb6 != null && hb6.isSimilar(Reliquias.escavacao)){
@@ -139,7 +139,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Camara do jugamento encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb7 != null && hb7.isSimilar(Reliquias.escavacao)){
@@ -152,7 +152,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Pirâmide encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb8 != null && hb8.isSimilar(Reliquias.escavacao)){
@@ -165,7 +165,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhum Templo da jungle encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 else if(hb9 != null && hb9.isSimilar(Reliquias.escavacao)){
@@ -178,7 +178,7 @@ public class EscavacaoEvent implements Listener {
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Portal em ruina encontrada!"));
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 }
                 player.getInventory().addItem(bussola);

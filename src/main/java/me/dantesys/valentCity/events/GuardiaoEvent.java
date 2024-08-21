@@ -4,9 +4,11 @@ import me.dantesys.valentCity.Temporizador;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
@@ -16,6 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GuardiaoEvent implements Listener {
@@ -26,7 +29,7 @@ public class GuardiaoEvent implements Listener {
         ItemStack item = player.getInventory().getItem(slot);
         ItemStack omao = player.getInventory().getItemInOffHand();
         try{
-            if(item != null && item.isSimilar(Reliquias.heritehunter) || player.getInventory().contains(Reliquias.heritehunter)){
+            if(item != null && item.isSimilar(Reliquias.guardiao) || player.getInventory().contains(Reliquias.guardiao)){
                 ReliquiasEvent.limparEfeito(player);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
@@ -44,7 +47,7 @@ public class GuardiaoEvent implements Listener {
             if(omao.isSimilar(Reliquias.totem)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
             }else{
-                if(item != null && item.isSimilar(Reliquias.heritehunter) || player.getInventory().contains(Reliquias.heritehunter)){
+                if(item != null && (item.isSimilar(Reliquias.guardiao) || player.getInventory().contains(Reliquias.guardiao) || item.isSimilar(Reliquias.guardiaominer) || player.getInventory().contains(Reliquias.guardiaominer))){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
                 }else{
@@ -56,10 +59,27 @@ public class GuardiaoEvent implements Listener {
         }
     }
     @EventHandler
-    public static void punicao(PlayerInteractEvent event){
+    public void kaboom(EntityExplodeEvent event){
+        Entity entity = event.getEntity();
+        if(entity instanceof TNTPrimed tnt){
+            if(tnt.hasMetadata("guardiao")){
+                if(tnt.getMetadata("guardiao").getFirst().asBoolean()){
+                    List<Block> blocos = event.blockList();
+                    event.blockList().clear();
+                    for(int i=0;i<=blocos.size();i++){
+                        if(blocos.get(i).getType().equals(Material.STONE) || blocos.get(i).getType().equals(Material.DEEPSLATE)){
+                            event.blockList().add(blocos.get(i));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void punicao(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-        if(item != null && item.isSimilar(Reliquias.heritehunter) && !player.hasCooldown(Reliquias.heritehunter.getType())){
+        if(item != null && item.isSimilar(Reliquias.guardiao) && !player.hasCooldown(Reliquias.guardiao.getType())){
             Inventory iv = player.getInventory();
             ItemStack hb1 = iv.getItem(0);
             ItemStack hb2 = iv.getItem(1);
@@ -70,8 +90,8 @@ public class GuardiaoEvent implements Listener {
             ItemStack hb7 = iv.getItem(6);
             ItemStack hb8 = iv.getItem(7);
             ItemStack hb9 = iv.getItem(8);
-            if(hb1 != null && hb1.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),6000);
+            if(hb1 != null && hb1.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),6000);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -81,7 +101,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -107,8 +127,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb2 != null && hb2.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),600);
+            else if(hb2 != null && hb2.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),600);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -118,7 +138,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -146,8 +166,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb3 != null && hb3.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),600);
+            else if(hb3 != null && hb3.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),600);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -157,7 +177,7 @@ public class GuardiaoEvent implements Listener {
                         ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -185,8 +205,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb4 != null && hb4.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),600);
+            else if(hb4 != null && hb4.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),600);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -196,7 +216,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -224,8 +244,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb5 != null && hb5.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),400);
+            else if(hb5 != null && hb5.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),400);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -235,7 +255,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -262,8 +282,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb6 != null && hb6.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),1000);
+            else if(hb6 != null && hb6.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),1000);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -273,7 +293,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -304,8 +324,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb7 != null && hb7.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),1000);
+            else if(hb7 != null && hb7.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),1000);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -315,7 +335,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -345,8 +365,8 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb8 != null && hb8.isSimilar(Reliquias.heritehunter)){
-                player.setCooldown(Reliquias.heritehunter.getType(),400);
+            else if(hb8 != null && hb8.isSimilar(Reliquias.guardiao)){
+                player.setCooldown(Reliquias.guardiao.getType(),400);
                 final int finalRange = 10;
                 final Location location = player.getLocation();
                 final Vector direction = location.getDirection().normalize();
@@ -365,7 +385,7 @@ public class GuardiaoEvent implements Listener {
                 ()->{},
                 ()->{
                     if(!passa[0]){
-                        player.setCooldown(Reliquias.heritehunter.getType(),0);
+                        player.setCooldown(Reliquias.guardiao.getType(),0);
                     }
                 },(t)->{
                     tp[0] = tp[0]+3.4;
@@ -394,12 +414,26 @@ public class GuardiaoEvent implements Listener {
                 });
                 timer.scheduleTimer(5L);
             }
-            else if(hb9 != null && hb9.isSimilar(Reliquias.heritehunter)){
+            else if(hb9 != null && hb9.isSimilar(Reliquias.guardiao)){
                 Vector vec = player.getEyeLocation().getDirection();
                 EnderPearl perola = player.launchProjectile(EnderPearl.class);
                 perola.setGlowing(true);
                 perola.setVelocity(vec.multiply(5));
-                player.setCooldown(Reliquias.heritehunter.getType(),200);
+                player.setCooldown(Reliquias.guardiao.getType(),200);
+            }
+        }else if(item != null && item.isSimilar(Reliquias.guardiaominer) && !player.hasCooldown(Reliquias.guardiaominer.getType())){
+            if(event.getClickedBlock() != null){
+                Block block = event.getClickedBlock();
+                if(block.getType() == Material.DEEPSLATE || block.getType() == Material.STONE){
+                    Location l = event.getClickedBlock().getLocation();
+                    World w = event.getClickedBlock().getWorld();
+                    player.setCooldown(Reliquias.picareta_md2.getType(),1200);
+                    ReliquiasEvent.mina(w,l,player,true);
+                }else if(!player.hasCooldown(Reliquias.picareta_md2.getType())){
+                    player.sendMessage("Só pode colocar tnt na ardosia ou na pedra");
+                }else{
+                    player.sendMessage("Aguarde a tnt ser feita!");
+                }
             }
         }
     }

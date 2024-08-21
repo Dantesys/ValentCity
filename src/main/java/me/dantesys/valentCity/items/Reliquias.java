@@ -54,7 +54,8 @@ public class Reliquias {
     public static ItemStack machado;
     public static ItemStack alquimia;
     public static ItemStack escavacao;
-    public static ItemStack heritehunter;
+    public static ItemStack guardiao;
+    public static ItemStack guardiaominer;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -90,7 +91,8 @@ public class Reliquias {
         createCalca();
         createEscavacao();
         createAlquimia();
-        createHeriteHunter();
+        createGuardiao();
+        createGuardiaoMiner();
         createMachado();
         createVarinha();
         createLivro();
@@ -694,7 +696,7 @@ public class Reliquias {
         item.setItemMeta(meta);
         calca = item;
     }
-    private static void createHeriteHunter() {
+    private static void createGuardiao() {
         ItemStack item = new ItemStack(Material.IRON_AXE, 1);
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("§6Reliquia do Guardião"));
@@ -720,7 +722,23 @@ public class Reliquias {
         meta.addEnchant(Enchantment.SMITE,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        heritehunter = item;
+        guardiao = item;
+    }
+    private static void createGuardiaoMiner() {
+        ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia do Guardião"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Pode colocar tnt que explode apenas pedra e ardosia"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.FORTUNE,5,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        guardiaominer = item;
     }
     private static void createMachado() {
         ItemStack item = new ItemStack(Material.NETHERITE_AXE, 1);
@@ -819,7 +837,7 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
         pages.add(Component.text("§l§6Relíquia do Crossbow\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Dispara uma rajada de flechas especiais\nHabilidade: -Sem habilidade-"));
         pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate e quebrar bedrock"));
         pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
         pages.add(Component.text("§l§6Relíquia do Mago\n§r§0Efeitos:\nNa mão: Aleatório\nNo ataque: Aleatório\nHabilidade: Pode disparar feitiços"));
         pages.add(Component.text("§l§6Relíquia do Pisante - Caminhar\n§r§0Efeitos:\nVelocidade\nHabilidade: Criar campo de desaceleração"));

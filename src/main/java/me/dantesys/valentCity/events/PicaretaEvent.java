@@ -1,9 +1,6 @@
 package me.dantesys.valentCity.events;
 
-import me.dantesys.valentCity.Temporizador;
-import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
-import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
@@ -14,7 +11,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -160,19 +156,22 @@ public class PicaretaEvent implements Listener {
         }
     }
     @EventHandler
-    public void plantarmina(PlayerInteractEvent event) {
+    public void picaretainteracao(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         Action action = event.getAction();
         if(item != null && item.isSimilar(Reliquias.picareta_md2)){
-            if(action.isRightClick()){
-                if(event.getClickedBlock() != null){
-                    Block block = event.getClickedBlock();
+            if(event.getClickedBlock() != null){
+                Block block = event.getClickedBlock();
+                Location l = event.getClickedBlock().getLocation();
+                World w = event.getClickedBlock().getWorld();
+                if(block.getType() == Material.BEDROCK){
+                    w.dropItemNaturally(l,new ItemStack(Material.BEDROCK));
+                    block.setType(Material.AIR);
+                }else if(action.isRightClick()){
                     if(block.getType() == Material.DEEPSLATE && !player.hasCooldown(Reliquias.picareta_md2.getType())){
-                        Location l = event.getClickedBlock().getLocation();
-                        World w = event.getClickedBlock().getWorld();
                         player.setCooldown(Reliquias.picareta_md2.getType(),1200);
-                        mina(w,l,player);
+                        ReliquiasEvent.mina(w,l,player,false);
                     }else if(!player.hasCooldown(Reliquias.picareta_md2.getType())){
                         player.sendMessage("Só pode colocar dinamite na deepslate");
                     }else{
@@ -183,7 +182,7 @@ public class PicaretaEvent implements Listener {
         }
     }
     @EventHandler
-    public void radar(BlockBreakEvent event){
+    public void sortudo(BlockBreakEvent event){
         Player player = event.getPlayer();
         if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.picareta_md1) && !player.hasCooldown(Reliquias.picareta_md1.getType())){
             Random rd = new Random();
@@ -209,47 +208,6 @@ public class PicaretaEvent implements Listener {
                 w.dropItemNaturally(l,new ItemStack(Material.NETHERITE_SCRAP,qtd));
             }
             player.setCooldown(Reliquias.picareta_md1.getType(),2400);
-        }
-    }
-    public void mina(World w,Location l, Player player) {
-        EntityEquipment equip = player.getEquipment();
-        ItemStack hand = null;
-        boolean main = true;
-        if (equip.getItemInMainHand().getType() == Material.NETHERITE_PICKAXE) {
-            hand = equip.getItemInMainHand();
-            if (!hand.isSimilar(Reliquias.picareta_md2)) {
-                hand = null;
-            }
-        }
-        if (equip.getItemInOffHand().getType() == Material.NETHERITE_PICKAXE) {
-            hand = equip.getItemInOffHand();
-            if (!hand.isSimilar(Reliquias.picareta_md2)) {
-                hand = null;
-            }
-            main = false;
-        }
-        if (hand != null) {
-            TNTPrimed tnt = w.spawn(l, TNTPrimed.class);
-            tnt.setFuseTicks(10000);
-            boolean finalMain = main;
-            ItemStack finalHand = Reliquias.picareta_md2;
-            Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class),10,
-                    () -> player.sendMessage("Dinamite ativada!"),
-                    () -> {
-                        if (finalMain) {
-                            player.getEquipment().setItemInMainHand(finalHand);
-                        } else {
-                            player.getEquipment().setItemInOffHand(finalHand);
-                        }
-                        tnt.remove();
-                        w.createExplosion(l,40,false,true);
-                    },(t) -> {
-                player.sendMessage("Falta "+ (t.getSegundosRestantes()) + " Segundo para explosão!");
-                tnt.customName(Component.text((t.getSegundosRestantes())+"s"));
-                tnt.setCustomNameVisible(true);
-            }
-            );
-            timer.scheduleTimer(20L);
         }
     }
 }

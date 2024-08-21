@@ -110,10 +110,10 @@ public class GiveItems implements CommandExecutor {
         }else if (label.equalsIgnoreCase("guardiao")){
             Player heritehunter = getServer().getPlayer(config.get("guardiao").toString());
             if(heritehunter!=null){
-                heritehunter.getInventory().addItem(Reliquias.heritehunter);
+                heritehunter.getInventory().addItem(Reliquias.guardiao);
             }else{
                 if(sender instanceof Player player){
-                    player.getInventory().addItem(Reliquias.heritehunter);
+                    player.getInventory().addItem(Reliquias.guardiao);
                 }else{
                     sender.sendMessage("Apenas jogadores podem receber a reliquia do guardião!");
                 }

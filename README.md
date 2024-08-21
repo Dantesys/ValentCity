@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.6.0</h2>
+Adicionado segunda forma para reliquias do guardião e ajuste na reliquia do mineiro modelo destruidor
 <h2>Mudanças - v2.5.5</h2>
 Resolvendo bugs da reliquia da magia e da escavação e nerfando reliquia do crossbow
 <h2>Mudanças - v2.5.4</h2>

@@ -1,5 +1,7 @@
 package me.dantesys.valentCity.events;
 
+import me.dantesys.valentCity.Temporizador;
+import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
@@ -10,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -147,5 +150,20 @@ public class ReliquiasEvent implements Listener {
             toma.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK,tempo,power));
             toma.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS,tempo,power));
         }
+    }
+    public static void mina(World w, Location l, Player player,boolean meta) {
+        TNTPrimed tnt = w.spawn(l, TNTPrimed.class);
+        tnt.setFuseTicks(10000);
+        tnt.setMetadata("guardiao",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),meta));
+        Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class),10,
+                () -> player.sendMessage("Dinamite ativada!"),
+                () -> tnt.setFuseTicks(0),
+                (t) -> {
+                    player.sendMessage("Falta "+ (t.getSegundosRestantes()) + " Segundo para explosão!");
+                    tnt.customName(Component.text((t.getSegundosRestantes())+"s"));
+                    tnt.setCustomNameVisible(true);
+                }
+        );
+        timer.scheduleTimer(20L);
     }
 }
