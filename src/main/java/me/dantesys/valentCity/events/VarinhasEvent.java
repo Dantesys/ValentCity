@@ -521,9 +521,8 @@ public class VarinhasEvent implements Listener {
                 mana=mana+10;
             }else{
                 mana = 1;
-                player.setMetadata("mana",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),1));
             }
-            player.sendMessage("Mana: "+mana);
+            player.setMetadata("mana",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),mana));
             player.sendActionBar(Component.text("Mana: "+mana));
         }
     }
@@ -547,8 +546,8 @@ public class VarinhasEvent implements Listener {
                 }
             }else{
                 mana = 1;
-                player.setMetadata("mana",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),1));
             }
+            player.setMetadata("mana",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),mana));
             player.sendActionBar(Component.text("Mana: "+mana));
         }
     }
@@ -616,8 +615,8 @@ public class VarinhasEvent implements Listener {
                 }
             }else{
                 mana = 1;
-                player.setMetadata("mana",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),1));
             }
+            player.setMetadata("mana",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),mana));
             player.sendActionBar(Component.text("Mana: "+mana));
         }
     }

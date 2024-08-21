@@ -65,9 +65,6 @@ public class ReliquiasEvent implements Listener {
             if(flecha.hasMetadata("magic")) {
                 double damage = flecha.getMetadata("magic").getFirst().asDouble();
                 event.setDamage(damage);
-            }else if(flecha.hasMetadata("kaboom")){
-                float damage = flecha.getMetadata("kaboom").getFirst().asFloat();
-                event.getEntity().getWorld().createExplosion(event.getEntity(),damage,false,false);
             }
         }
         if(event.getDamager() instanceof Snowball bola) {

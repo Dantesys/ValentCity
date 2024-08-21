@@ -38,7 +38,7 @@ public class CrossbowEvent implements Listener {
                     }else if(ver<=80){
                         arrow.addCustomEffect(new PotionEffect(PotionEffectType.NAUSEA,200,2),true);
                     }else if(ver<=85){
-                        arrow.addCustomEffect(new PotionEffect(PotionEffectType.HUNGER,200,2),true);
+                        arrow.setMetadata("firerocket",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),(float) 10));
                     }else if(ver<=90){
                         arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON,200,2),true);
                     }else if(ver<=95){
@@ -49,19 +49,20 @@ public class CrossbowEvent implements Listener {
                         arrow.setMetadata("kaboom",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),(float) 10));
                     }
                 }
-                arrow.setVelocity(player.getLocation().getDirection().multiply(5));
                 event.setProjectile(arrow);
             }
         }
     }
     @EventHandler
     public void acertou(ProjectileHitEvent event){
-        if(event.getEntity().getShooter() instanceof Player player) {
-            if (player.getInventory().getItemInMainHand().isSimilar(Reliquias.crossbow)) {
-                Arrow arrow = (Arrow) event.getEntity();
+        if(event.getEntity() instanceof Arrow arrow) {
+            if(arrow.hasMetadata("kaboom")){
+                float damage = arrow.getMetadata("kaboom").getFirst().asFloat();
+                event.getEntity().getWorld().createExplosion(event.getEntity(),damage,false,false);
+            }else if(arrow.hasMetadata("firerocket")){
                 Random rd = new Random();
                 int ver = rd.nextInt(0, 100);
-                if (ver >= 0 && ver <= 50) {
+                if (ver <= 75) {
                     Location location;
                     if (event.getHitBlock() != null){
                         location = event.getHitBlock().getLocation();
@@ -84,7 +85,7 @@ public class CrossbowEvent implements Listener {
                     fm.setPower(5);
                     fw.setFireworkMeta(fm);
                     fw.setTicksToDetonate(0);
-                }else if (ver >= 75 && ver <= 99) {
+                }else{
                     Location location = event.getEntity().getLocation();
                     World world = arrow.getWorld();
                     world.spawn(location, Firework.class);
@@ -100,10 +101,6 @@ public class CrossbowEvent implements Listener {
                     fm.setPower(10);
                     fw.setFireworkMeta(fm);
                     fw.setTicksToDetonate(0);
-                }else{
-                    Location location = event.getEntity().getLocation();
-                    World world = arrow.getWorld();
-                    world.createExplosion(location,10,false,false);
                 }
             }
         }

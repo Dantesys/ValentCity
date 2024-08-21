@@ -342,7 +342,7 @@ public class Reliquias {
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.setFireResistant(true);
-        meta.addEnchant(Enchantment.MULTISHOT,100,true);
+        meta.addEnchant(Enchantment.MULTISHOT,50,true);
         meta.addEnchant(Enchantment.PIERCING,10,true);
         meta.addEnchant(Enchantment.QUICK_CHARGE,3,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
