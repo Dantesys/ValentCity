@@ -5,15 +5,12 @@ import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
@@ -134,25 +131,25 @@ public class FazendeiroEvent implements Listener {
             if(event.getClickedBlock() != null){
                 if(event.getClickedBlock().isBuildable()){ return; }
                 Material mat = event.getClickedBlock().getType();
-                if (plantavel(mat)) {
-                    event.getClickedBlock().applyBoneMeal(event.getBlockFace());
+                if (aravel(mat)) {
+                    event.getClickedBlock().setType(Material.FARMLAND);
                 }
-
             }
         }else if(item != null && item.isSimilar(Reliquias.farm_modelo2)){
             if(action.isRightClick()){
                 if(event.getClickedBlock() != null){
                     if(event.getClickedBlock().isBuildable()){ return; }
                     Material mat = event.getClickedBlock().getType();
-                    if (plantavel(mat)) {
+                    if (aravel(mat)) {
                         event.getClickedBlock().applyBoneMeal(event.getBlockFace());
                     }
                 }
             }
         }
-    }private boolean plantavel(Material material) {
+    }
+    private boolean aravel(Material material) {
         return switch (material) {
-            case WHEAT, CARROTS, POTATOES, BEETROOTS, NETHER_WART -> true;
+            case GRASS_BLOCK, DIRT, FARMLAND, ROOTED_DIRT, DIRT_PATH, COARSE_DIRT, PODZOL, MYCELIUM -> true;
             default -> false;
         };
     }

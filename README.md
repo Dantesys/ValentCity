@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.6.1</h2>
+Ajustes na reliquia do fazendeiro
 <h2>Mudanças - v2.6.0</h2>
 Adicionado segunda forma para reliquias do guardião e ajuste na reliquia do mineiro modelo destruidor
 <h2>Mudanças - v2.5.5</h2>
