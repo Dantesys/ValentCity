@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.6.2</h2>
+Ajustes na reliquia do fazendeiro e na do guardião, habilidades não estava funcionando
 <h2>Mudanças - v2.6.1</h2>
 Ajustes na reliquia do fazendeiro
 <h2>Mudanças - v2.6.0</h2>

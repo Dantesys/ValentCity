@@ -427,9 +427,9 @@ public class GuardiaoEvent implements Listener {
                 if(block.getType() == Material.DEEPSLATE || block.getType() == Material.STONE){
                     Location l = event.getClickedBlock().getLocation();
                     World w = event.getClickedBlock().getWorld();
-                    player.setCooldown(Reliquias.picareta_md2.getType(),1200);
+                    player.setCooldown(Reliquias.guardiaominer.getType(),1200);
                     ReliquiasEvent.mina(w,l,player,true);
-                }else if(!player.hasCooldown(Reliquias.picareta_md2.getType())){
+                }else if(!player.hasCooldown(Reliquias.guardiaominer.getType())){
                     player.sendMessage("Só pode colocar tnt na ardosia ou na pedra");
                 }else{
                     player.sendMessage("Aguarde a tnt ser feita!");

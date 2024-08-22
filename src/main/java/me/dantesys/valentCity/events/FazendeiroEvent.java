@@ -79,21 +79,18 @@ public class FazendeiroEvent implements Listener {
                         }
                         presa.remove();
                         atacantepl.sendMessage(presa.getName()+" agora está plantado!");
-                        Location l2 = l.add(0,1,0);
-                        l.subtract(0,1,0);
+                        l.add(0,1,0);
                         if(ver<=25){
-                            w.getBlockAt(l).setType(Material.FARMLAND);
-                            w.getBlockAt(l2).setType(Material.WHEAT);
+                            w.getBlockAt(l).setType(Material.WHEAT);
                         }else if(ver<=50){
-                            w.getBlockAt(l).setType(Material.FARMLAND);
-                            w.getBlockAt(l2).setType(Material.BEETROOTS);
+                            w.getBlockAt(l).setType(Material.BEETROOTS);
                         }else if(ver<=75){
-                            w.getBlockAt(l).setType(Material.FARMLAND);
-                            w.getBlockAt(l2).setType(Material.POTATOES);
+                            w.getBlockAt(l).setType(Material.POTATOES);
                         }else{
-                            w.getBlockAt(l).setType(Material.FARMLAND);
-                            w.getBlockAt(l2).setType(Material.CARROTS);
+                            w.getBlockAt(l).setType(Material.CARROTS);
                         }
+                        l.add(0,-1,0);
+                        w.getBlockAt(l).setType(Material.FARMLAND);
                     }
                 }
             }
@@ -129,7 +126,6 @@ public class FazendeiroEvent implements Listener {
         Action action = event.getAction();
         if(item != null && item.isSimilar(Reliquias.farm_modelo1)){
             if(event.getClickedBlock() != null){
-                if(event.getClickedBlock().isBuildable()){ return; }
                 Material mat = event.getClickedBlock().getType();
                 if (aravel(mat)) {
                     event.getClickedBlock().setType(Material.FARMLAND);
@@ -138,7 +134,6 @@ public class FazendeiroEvent implements Listener {
         }else if(item != null && item.isSimilar(Reliquias.farm_modelo2)){
             if(action.isRightClick()){
                 if(event.getClickedBlock() != null){
-                    if(event.getClickedBlock().isBuildable()){ return; }
                     Material mat = event.getClickedBlock().getType();
                     if (aravel(mat)) {
                         event.getClickedBlock().applyBoneMeal(event.getBlockFace());
