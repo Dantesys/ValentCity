@@ -65,10 +65,12 @@ public class GuardiaoEvent implements Listener {
             if(tnt.hasMetadata("guardiao")){
                 if(tnt.getMetadata("guardiao").getFirst().asBoolean()){
                     List<Block> blocos = event.blockList();
-                    event.blockList().clear();
-                    for(int i=0;i<=blocos.size();i++){
-                        if(blocos.get(i).getType().equals(Material.STONE) || blocos.get(i).getType().equals(Material.DEEPSLATE)){
-                            event.blockList().add(blocos.get(i));
+                    if(!blocos.isEmpty()){
+                        event.blockList().clear();
+                        for(int i=0;i<=blocos.size();i++){
+                            if(blocos.get(i).getType().equals(Material.STONE) || blocos.get(i).getType().equals(Material.DEEPSLATE)){
+                                event.blockList().add(blocos.get(i));
+                            }
                         }
                     }
                 }
