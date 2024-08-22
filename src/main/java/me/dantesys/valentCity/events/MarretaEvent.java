@@ -189,7 +189,7 @@ public class MarretaEvent implements Listener {
                     vento.setMetadata("marreta",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),(double) 5));
                     vento.setVelocity(vec.multiply(2));
                 }
-                player.setCooldown(Reliquias.marreta.getType(),100);
+                player.setCooldown(Reliquias.marreta.getType(),200);
             }
         }
     }

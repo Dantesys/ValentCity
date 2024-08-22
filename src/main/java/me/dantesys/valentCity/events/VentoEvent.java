@@ -41,10 +41,12 @@ public class VentoEvent implements Listener {
             }
         }
         if(event.getEntity() instanceof WindCharge vento){
-            int forca = vento.getMetadata("vento").getFirst().asInt();
-            if(forca>0 && event.getHitBlock() != null){
-                vento.setYield(5);
-                vento.explode();
+            if(vento.hasMetadata("vento")) {
+                int forca = vento.getMetadata("vento").getFirst().asInt();
+                if(forca>0 && event.getHitBlock() != null){
+                    vento.setYield(5);
+                    vento.explode();
+                }
             }
         }
     }

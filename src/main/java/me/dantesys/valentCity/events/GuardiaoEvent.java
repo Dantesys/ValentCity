@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class GuardiaoEvent implements Listener {
     @EventHandler
     public void segurar(PlayerItemHeldEvent event) {
@@ -65,6 +67,7 @@ public class GuardiaoEvent implements Listener {
             if(tnt.hasMetadata("guardiao")){
                 if(tnt.getMetadata("guardiao").getFirst().asBoolean()){
                     List<Block> blocos = event.blockList();
+                    getServer().getConsoleSender().sendMessage("BLOCOS:"+blocos);
                     if(!blocos.isEmpty()){
                         event.blockList().clear();
                         for(int i=0;i<=blocos.size();i++){
