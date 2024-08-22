@@ -18,10 +18,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class GuardiaoEvent implements Listener {
     @EventHandler
@@ -67,13 +66,14 @@ public class GuardiaoEvent implements Listener {
             if(tnt.hasMetadata("guardiao")){
                 if(tnt.getMetadata("guardiao").getFirst().asBoolean()){
                     List<Block> blocos = event.blockList();
-                    getServer().getConsoleSender().sendMessage("BLOCOS:"+blocos);
                     if(!blocos.isEmpty()){
                         event.blockList().clear();
-                        for(int i=0;i<=blocos.size();i++){
-                            if(blocos.get(i).getType().equals(Material.STONE) || blocos.get(i).getType().equals(Material.DEEPSLATE)){
-                                event.blockList().add(blocos.get(i));
+                        for(Iterator<Block> i = blocos.iterator(); i.hasNext();){
+                            Block bloco = i.next();
+                            if(bloco.getType().equals(Material.STONE) || bloco.getType().equals(Material.DEEPSLATE)){
+                                event.blockList().add(bloco);
                             }
+                            i.remove();
                         }
                     }
                 }
