@@ -10,6 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import static org.bukkit.Bukkit.getServer;
 
 public class GiveItems implements CommandExecutor {
@@ -105,7 +107,7 @@ public class GiveItems implements CommandExecutor {
                 }
             }
         }else if (label.equalsIgnoreCase("guardiao")){
-            Player heritehunter = getServer().getPlayer(config.get("guardiao").toString());
+            Player heritehunter = getServer().getPlayer(Objects.requireNonNull(config.get("guardiao")).toString());
             if(heritehunter!=null){
                 heritehunter.getInventory().addItem(Reliquias.guardiao);
             }else{
