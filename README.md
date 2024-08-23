@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.7.0</h2>
+Ajustes na reliquia do guardião e adicionado reliquia do invasor e removido reliquia da magia
 <h2>Mudanças - v2.6.3</h2>
 Ajustes na reliquia do guardião, habilidades não estava funcionando
 <h2>Mudanças - v2.6.2</h2>

@@ -50,12 +50,13 @@ public class Reliquias {
     public static ItemStack peitoral_md1;
     public static ItemStack peitoral_md2;
     public static ItemStack calca;
-    public static ItemStack varinha;
     public static ItemStack machado;
     public static ItemStack alquimia;
     public static ItemStack escavacao;
     public static ItemStack guardiao;
     public static ItemStack guardiaominer;
+    public static ItemStack invasor;
+    public static ItemStack invasorminer;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -93,8 +94,9 @@ public class Reliquias {
         createAlquimia();
         createGuardiao();
         createGuardiaoMiner();
+        createInvasor();
+        createInvasorMiner();
         createMachado();
-        createVarinha();
         createLivro();
     }
     private static void createEnxada() {
@@ -697,18 +699,64 @@ public class Reliquias {
         calca = item;
     }
     private static void createGuardiao() {
-        ItemStack item = new ItemStack(Material.IRON_AXE, 1);
+        ItemStack item = new ItemStack(Material.DIAMOND_AXE, 1);
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("§6Reliquia do Guardião"));
         List<Component> loreitem = new ArrayList<>();
-        loreitem.add(Component.text("§7(1) 1HP - CD 5min"));
-        loreitem.add(Component.text("§7(2) Cegueira (5s) - CD 30s"));
-        loreitem.add(Component.text("§7(3) Congelar (5s) - CD 30s"));
-        loreitem.add(Component.text("§7(4) Fogo (5s) - CD 30s"));
-        loreitem.add(Component.text("§7(5) Levitação (5s)  - CD 20s"));
-        loreitem.add(Component.text("§7(6) Spawn 3xTraça - CD 50s"));
+        loreitem.add(Component.text("§7(1) Proteger (1min) - CD 5min"));
+        loreitem.add(Component.text("§7(2)  - CD 30s"));
+        loreitem.add(Component.text("§7(3)  - CD 30s"));
+        loreitem.add(Component.text("§7(4)  - CD 30s"));
+        loreitem.add(Component.text("§7(5)  - CD 20s"));
+        loreitem.add(Component.text("§7(6)  - CD 50s"));
         loreitem.add(Component.text("§7(7) Troca - CD 40s"));
-        loreitem.add(Component.text("§7(8) Susto - CD 20s"));
+        loreitem.add(Component.text("§7(8)  - CD 20s"));
+        loreitem.add(Component.text("§7(9) Teleport - CD 10s"));
+        loreitem.add(Component.text("§7CD -> Cooldown"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.BANE_OF_ARTHROPODS,7,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,5,true);
+        meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
+        meta.addEnchant(Enchantment.SHARPNESS,7,true);
+        meta.addEnchant(Enchantment.SMITE,7,true);
+        meta.addAttributeModifier(GENERIC_ARMOR,new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        guardiao = item;
+    }
+    private static void createGuardiaoMiner() {
+        ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia do Guardião"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Para ajudar na mineração"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.FORTUNE,5,true);
+        meta.addEnchant(Enchantment.EFFICIENCY,10,true);
+        meta.addAttributeModifier(GENERIC_ARMOR,new AttributeModifier(GENERIC_ARMOR.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        guardiaominer = item;
+    }
+    private static void createInvasor() {
+        ItemStack item = new ItemStack(Material.NETHERITE_AXE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia do Invasor"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7(1) - CD 5min"));
+        loreitem.add(Component.text("§7(2) - CD 30s"));
+        loreitem.add(Component.text("§7(3) - CD 30s"));
+        loreitem.add(Component.text("§7(4) - CD 30s"));
+        loreitem.add(Component.text("§7(5) - CD 20s"));
+        loreitem.add(Component.text("§7(6) - CD 50s"));
+        loreitem.add(Component.text("§7(7) Troca - CD 1min"));
+        loreitem.add(Component.text("§7(8) - CD 20s"));
         loreitem.add(Component.text("§7(9) Teleport - CD 10s"));
         loreitem.add(Component.text("§7CD -> Cooldown"));
         meta.lore(loreitem);
@@ -722,14 +770,14 @@ public class Reliquias {
         meta.addEnchant(Enchantment.SMITE,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        guardiao = item;
+        invasor = item;
     }
-    private static void createGuardiaoMiner() {
-        ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE, 1);
+    private static void createInvasorMiner() {
+        ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("§6Reliquia do Guardião"));
+        meta.displayName(Component.text("§6Reliquia do Invasor"));
         List<Component> loreitem = new ArrayList<>();
-        loreitem.add(Component.text("§7Pode colocar tnt que explode apenas pedra e ardosia"));
+        loreitem.add(Component.text("§7"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
@@ -738,7 +786,7 @@ public class Reliquias {
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        guardiaominer = item;
+        invasorminer = item;
     }
     private static void createMachado() {
         ItemStack item = new ItemStack(Material.NETHERITE_AXE, 1);
@@ -800,29 +848,13 @@ public class Reliquias {
         item.setItemMeta(meta);
         alquimia = item;
     }
-    private static void createVarinha() {
-        ItemStack item = new ItemStack(Material.DEBUG_STICK, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("§6Reliquia da Mágia"));
-        List<Component> loreitem = new ArrayList<>();
-        loreitem.add(Component.text("§7Uma varinha misteriosa"));
-        loreitem.add(Component.text("§7com poderes incriveis"));
-        meta.lore(loreitem);
-        meta.setRarity(ItemRarity.EPIC);
-        meta.setUnbreakable(true);
-        meta.setFireResistant(true);
-        meta.addEnchant(Enchantment.INFINITY,1,true);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        item.setItemMeta(meta);
-        varinha = item;
-    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das Reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro, Escavação, Alquimia, Mágia"));
+        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro, Escavação, Alquimia"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e Invisibilidade\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
@@ -853,7 +885,6 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Barbaro\n§r§0Efeitos:\nForça\nHabilidade: Ganha fúria quando é atacado e libera um ataque devastador liberando toda sua fária"));
         pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 2 Mina, 3 Stronghold, 4 Baú do tesouro, 5 Ruinas, 6 Camara do jugamento, 7 Pirâmides, 8 Templo da jungle, 9 Portal em ruina"));
         pages.add(Component.text("§l§6Relíquia da Alquimia\n§r§0Efeitos:\nNa mão: Aleatório\nHabilidade: Pode disparar poções com efeitos misteriosos!"));
-        pages.add(Component.text("§l§6Relíquia da Mágia\n§r§0Habilidade: Pode disparar mágias se tiver mana, as mágias podem variar dependendo da dimensão"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());

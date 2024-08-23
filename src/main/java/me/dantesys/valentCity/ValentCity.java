@@ -139,7 +139,6 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new MachadoEvent(), this);
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
         getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
-        getServer().getPluginManager().registerEvents(new VarinhasEvent(), this);
         getServer().getPluginManager().registerEvents(new GuardiaoEvent(), this);
         config.addDefault("guardiao", "HeriteHunter");
         config.options().copyDefaults(true);
