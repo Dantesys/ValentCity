@@ -10,12 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
-import static org.bukkit.Bukkit.getServer;
-
 public class GiveItems implements CommandExecutor {
-    FileConfiguration config = ValentCity.getPlugin(ValentCity.class).getConfig();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("reliquia")){
@@ -104,17 +99,6 @@ public class GiveItems implements CommandExecutor {
                     sender.sendMessage("Apenas jogadores podem receber reliquias!");
                 } else {
                     target.getInventory().addItem(Reliquias.livro);
-                }
-            }
-        }else if (label.equalsIgnoreCase("guardiao")){
-            Player heritehunter = getServer().getPlayer(Objects.requireNonNull(config.get("guardiao")).toString());
-            if(heritehunter!=null){
-                heritehunter.getInventory().addItem(Reliquias.guardiao);
-            }else{
-                if(sender instanceof Player player){
-                    player.getInventory().addItem(Reliquias.guardiao);
-                }else{
-                    sender.sendMessage("Apenas jogadores podem receber a reliquia do guardião!");
                 }
             }
         }

@@ -3,6 +3,7 @@ package me.dantesys.valentCity.events;
 import me.dantesys.valentCity.Temporizador;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -31,11 +32,13 @@ public class EnxadaEvent implements Listener {
                 ReliquiasEvent.limparEfeito(player);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                ValentCity.glowColor(player, NamedTextColor.BLACK);
             }else{
                 if(omao.isSimilar(Reliquias.totem)){
                     ReliquiasEvent.limparEfeito(player);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
                 }else{
+                    ValentCity.stopGlowing(player);
                     ReliquiasEvent.limparEfeito(player);
                 }
             }
@@ -48,7 +51,9 @@ public class EnxadaEvent implements Listener {
                 if(item != null && item.isSimilar(Reliquias.enxada)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                    ValentCity.glowColor(player, NamedTextColor.BLACK);
                 }else{
+                    ValentCity.stopGlowing(player);
                     ReliquiasEvent.limparEfeito(player);
                 }
             }

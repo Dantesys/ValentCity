@@ -3,23 +3,31 @@ package me.dantesys.valentCity;
 import me.dantesys.valentCity.commands.GiveItems;
 import me.dantesys.valentCity.events.*;
 import me.dantesys.valentCity.items.Reliquias;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.*;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.*;
 
 
 public final class ValentCity extends JavaPlugin{
     FileConfiguration config = getConfig();
+    HashMap<Player, Team> tempTeams = new HashMap<>();
     @Override
     public void onEnable() {
         Reliquias.init();
         Objects.requireNonNull(getCommand("reliquia")).setExecutor(new GiveItems());
         Objects.requireNonNull(getCommand("livro")).setExecutor(new GiveItems());
-        Objects.requireNonNull(getCommand("guardiao")).setExecutor(new GiveItems());
         NamespacedKey key_spy1 = new NamespacedKey(this, "SPY1");
         ItemStack spy1 = new ItemStack(Reliquias.spy_modelo1);
         NamespacedKey key_spy2 = new NamespacedKey(this, "SPY2");
@@ -52,10 +60,6 @@ public final class ValentCity extends JavaPlugin{
         ItemStack pei1 = new ItemStack(Reliquias.peitoral_md1);
         NamespacedKey key_pei2 = new NamespacedKey(this, "PEI2");
         ItemStack pei2 = new ItemStack(Reliquias.peitoral_md2);
-        NamespacedKey key_gua1 = new NamespacedKey(this, "GUA1");
-        ItemStack gua1 = new ItemStack(Reliquias.guardiao);
-        NamespacedKey key_gua2 = new NamespacedKey(this, "GUA2");
-        ItemStack gua2 = new ItemStack(Reliquias.guardiaominer);
         NamespacedKey key_bk = new NamespacedKey(this, "BKINFO");
         ItemStack bk = new ItemStack(Reliquias.livro);
         ShapelessRecipe spy1_recipe = new ShapelessRecipe(key_spy1,spy1);
@@ -74,8 +78,6 @@ public final class ValentCity extends JavaPlugin{
         ShapelessRecipe esc2_recipe = new ShapelessRecipe(key_esc2,esc2);
         ShapelessRecipe pei1_recipe = new ShapelessRecipe(key_pei1,pei1);
         ShapelessRecipe pei2_recipe = new ShapelessRecipe(key_pei2,pei2);
-        ShapelessRecipe gua1_recipe = new ShapelessRecipe(key_gua1,gua1);
-        ShapelessRecipe gua2_recipe = new ShapelessRecipe(key_gua2,gua2);
         ShapelessRecipe bk_recipe = new ShapelessRecipe(key_bk,bk);
         spy1_recipe.addIngredient(Reliquias.spy_modelo2);
         spy2_recipe.addIngredient(Reliquias.spy_modelo1);
@@ -93,8 +95,6 @@ public final class ValentCity extends JavaPlugin{
         esc2_recipe.addIngredient(Reliquias.escudo_md1);
         pei1_recipe.addIngredient(Reliquias.peitoral_md2);
         pei2_recipe.addIngredient(Reliquias.peitoral_md1);
-        gua1_recipe.addIngredient(Reliquias.guardiaominer);
-        gua2_recipe.addIngredient(Reliquias.guardiao);
         bk_recipe.addIngredient(Material.WRITTEN_BOOK);
         getServer().addRecipe(spy1_recipe);
         getServer().addRecipe(spy2_recipe);
@@ -112,8 +112,6 @@ public final class ValentCity extends JavaPlugin{
         getServer().addRecipe(esc2_recipe);
         getServer().addRecipe(pei1_recipe);
         getServer().addRecipe(pei2_recipe);
-        getServer().addRecipe(gua1_recipe);
-        getServer().addRecipe(gua2_recipe);
         getServer().addRecipe(bk_recipe);
         getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
         getServer().getPluginManager().registerEvents(new ReliquiasEvent(), this);
@@ -139,8 +137,7 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new MachadoEvent(), this);
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
         getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
-        getServer().getPluginManager().registerEvents(new GuardiaoEvent(), this);
-        config.addDefault("guardiao", "HeriteHunter");
+        config.addDefault("guardiao", "dantesys");
         config.options().copyDefaults(true);
         saveConfig();
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
@@ -149,5 +146,18 @@ public final class ValentCity extends JavaPlugin{
     public void onDisable() {
         getServer().clearRecipes();
         getServer().getConsoleSender().sendMessage("§4[Valent City]: Plugin Desativado!");
+    }
+    public static void glowColor(Player player, NamedTextColor color) {
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Team team = scoreboard.registerNewTeam("temp-color-team-" + UUID.randomUUID());
+        team.color(color);
+        team.addEntry(PlainTextComponentSerializer.plainText().serialize(player.displayName()));
+        tempTeams.put(player, team);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 0));
+    }
+    public static void stopGlowing(Player player) {
+        player.removePotionEffect(PotionEffectType.GLOWING);
+        tempTeams.get(player).unregister();
+        tempTeams.remove(player);
     }
 }

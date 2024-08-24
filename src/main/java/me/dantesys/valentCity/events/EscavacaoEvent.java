@@ -83,11 +83,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Mina"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Mina encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb3 != null && hb3.isSimilar(Reliquias.escavacao)){
@@ -96,11 +97,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Stronghold"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Stronghold encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb4 != null && hb4.isSimilar(Reliquias.escavacao)){
@@ -109,11 +111,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Baú do Tesouro"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Baú do tesouro encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb5 != null && hb5.isSimilar(Reliquias.escavacao)){
@@ -122,11 +125,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Ruinas"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Ruinas encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb6 != null && hb6.isSimilar(Reliquias.escavacao)){
@@ -135,11 +139,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Camâra do Jugamento"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Camara do jugamento encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb7 != null && hb7.isSimilar(Reliquias.escavacao)){
@@ -148,11 +153,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Pirâmide"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Pirâmide encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb8 != null && hb8.isSimilar(Reliquias.escavacao)){
@@ -161,11 +167,12 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Templo da jungle"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhum Templo da jungle encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
                 else if(hb9 != null && hb9.isSimilar(Reliquias.escavacao)){
@@ -174,15 +181,18 @@ public class EscavacaoEvent implements Listener {
                         Location ls = ssr.getLocation();
                         CompassMeta meta = (CompassMeta) bussola.getItemMeta();
                         meta.setLodestone(ls);
+                        meta.setLodestoneTracked(true);
                         meta.displayName(Component.text("Portal em ruina"));
                         bussola.setItemMeta(meta);
                     }else{
                         player.sendMessage(Component.text("Nenhuma Portal em ruina encontrada!"));
-                        player.setCooldown(Reliquias.guardiao.getType(),0);
+                        player.setCooldown(Reliquias.escavacao.getType(),0);
                     }
                 }
-                player.getInventory().addItem(bussola);
-                player.updateInventory();
+                if(((CompassMeta) bussola.getItemMeta()).hasLodestone()){
+                    player.getInventory().addItem(bussola);
+                    player.updateInventory();
+                }
             }
         }
     }

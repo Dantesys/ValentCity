@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.8.0</h2>
+Removido a reliquia do guardião e a reliquia do invasor, ajustes na reliquia do ceifador, na do tridente e na reliquia da escavação
 <h2>Mudanças - v2.7.0</h2>
 Ajustes na reliquia do guardião e adicionado reliquia do invasor e removido reliquia da magia
 <h2>Mudanças - v2.6.3</h2>
