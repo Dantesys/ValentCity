@@ -4,6 +4,7 @@ import me.dantesys.valentCity.Temporizador;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -16,11 +17,16 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class EnxadaEvent implements Listener {
+    HashMap<Player, Team> tempTeams = new HashMap<>();
     @EventHandler
     public void segurar(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
@@ -32,13 +38,13 @@ public class EnxadaEvent implements Listener {
                 ReliquiasEvent.limparEfeito(player);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
-                ValentCity.glowColor(player, NamedTextColor.BLACK);
+                glowColor(player, NamedTextColor.BLACK);
             }else{
                 if(omao.isSimilar(Reliquias.totem)){
                     ReliquiasEvent.limparEfeito(player);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
                 }else{
-                    ValentCity.stopGlowing(player);
+                    stopGlowing(player);
                     ReliquiasEvent.limparEfeito(player);
                 }
             }
@@ -51,9 +57,9 @@ public class EnxadaEvent implements Listener {
                 if(item != null && item.isSimilar(Reliquias.enxada)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
-                    ValentCity.glowColor(player, NamedTextColor.BLACK);
+                    glowColor(player, NamedTextColor.BLACK);
                 }else{
-                    ValentCity.stopGlowing(player);
+                    stopGlowing(player);
                     ReliquiasEvent.limparEfeito(player);
                 }
             }
@@ -173,5 +179,18 @@ public class EnxadaEvent implements Listener {
                 }
             }
         }
+    }
+    public void glowColor(Player player, NamedTextColor color) {
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Team team = scoreboard.registerNewTeam("temp-color-team-" + UUID.randomUUID());
+        team.color(color);
+        team.addEntry(PlainTextComponentSerializer.plainText().serialize(player.displayName()));
+        tempTeams.put(player, team);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 0));
+    }
+    public void stopGlowing(Player player) {
+        player.removePotionEffect(PotionEffectType.GLOWING);
+        tempTeams.get(player).unregister();
+        tempTeams.remove(player);
     }
 }

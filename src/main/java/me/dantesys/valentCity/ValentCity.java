@@ -4,7 +4,6 @@ import me.dantesys.valentCity.commands.GiveItems;
 import me.dantesys.valentCity.events.*;
 import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.*;
 
@@ -22,7 +21,6 @@ import java.util.*;
 
 public final class ValentCity extends JavaPlugin{
     FileConfiguration config = getConfig();
-    HashMap<Player, Team> tempTeams = new HashMap<>();
     @Override
     public void onEnable() {
         Reliquias.init();
@@ -146,18 +144,5 @@ public final class ValentCity extends JavaPlugin{
     public void onDisable() {
         getServer().clearRecipes();
         getServer().getConsoleSender().sendMessage("§4[Valent City]: Plugin Desativado!");
-    }
-    public static void glowColor(Player player, NamedTextColor color) {
-        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-        Team team = scoreboard.registerNewTeam("temp-color-team-" + UUID.randomUUID());
-        team.color(color);
-        team.addEntry(PlainTextComponentSerializer.plainText().serialize(player.displayName()));
-        tempTeams.put(player, team);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 0));
-    }
-    public static void stopGlowing(Player player) {
-        player.removePotionEffect(PotionEffectType.GLOWING);
-        tempTeams.get(player).unregister();
-        tempTeams.remove(player);
     }
 }
