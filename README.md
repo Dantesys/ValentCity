@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.9.0</h2>
+Adicionado nova reliquia do ladrão, dá o livro para o player no primeiro join e altrado a versão para 1.21.1
 <h2>Mudanças - v2.8.0</h2>
 Removido a reliquia do guardião e a reliquia do invasor, ajustes na reliquia do ceifador, na do tridente e na reliquia da escavação
 <h2>Mudanças - v2.7.0</h2>

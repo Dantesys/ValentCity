@@ -1,12 +1,10 @@
 package me.dantesys.valentCity.commands;
 
-import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,6 +41,7 @@ public class GiveItems implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.machado);
                         target.getInventory().addItem(Reliquias.escavacao);
                         target.getInventory().addItem(Reliquias.alquimia);
+                        target.getInventory().addItem(Reliquias.ladrao);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(Reliquias.espadamd);
                     }else if(args[1].equalsIgnoreCase("spy")){
@@ -85,6 +84,8 @@ public class GiveItems implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.escavacao);
                     }else if(args[1].equalsIgnoreCase("alquimia")){
                         target.getInventory().addItem(Reliquias.alquimia);
+                    }else if(args[1].equalsIgnoreCase("ladrao")){
+                        target.getInventory().addItem(Reliquias.ladrao);
                     }else{
                         sender.sendMessage("Reliquia não encontrada!");
                     }

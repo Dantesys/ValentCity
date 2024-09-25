@@ -53,6 +53,7 @@ public class Reliquias {
     public static ItemStack machado;
     public static ItemStack alquimia;
     public static ItemStack escavacao;
+    public static ItemStack ladrao;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
@@ -89,6 +90,7 @@ public class Reliquias {
         createEscavacao();
         createAlquimia();
         createMachado();
+        createLadrao();
         createLivro();
     }
     private static void createEnxada() {
@@ -338,7 +340,7 @@ public class Reliquias {
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.setFireResistant(true);
-        meta.addEnchant(Enchantment.MULTISHOT,50,true);
+        meta.addEnchant(Enchantment.MULTISHOT,100,true);
         meta.addEnchant(Enchantment.PIERCING,10,true);
         meta.addEnchant(Enchantment.QUICK_CHARGE,3,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -750,6 +752,23 @@ public class Reliquias {
         item.setItemMeta(meta);
         alquimia = item;
     }
+    private static void createLadrao() {
+        ItemStack item = new ItemStack(Material.BUNDLE, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Reliquia do Ladrão"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma bolsa capaz"));
+        loreitem.add(Component.text("§7de roubar itens!"));
+        loreitem.add(Component.text("§7Faz o L!"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.INFINITY,1,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        ladrao = item;
+    }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta meta = (BookMeta) item.getItemMeta();
@@ -785,8 +804,9 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Peitoral - Fly\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Fogetes são infinitos e potentes"));
         pages.add(Component.text("§l§6Relíquia da Calça\n§r§0Efeitos:\n-Sem efeito-\nHabilidade: Quando agacha criar um terremoto"));
         pages.add(Component.text("§l§6Relíquia do Barbaro\n§r§0Efeitos:\nForça\nHabilidade: Ganha fúria quando é atacado e libera um ataque devastador liberando toda sua fária"));
-        pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 2 Mina, 3 Stronghold, 4 Baú do tesouro, 5 Ruinas, 6 Camara do jugamento, 7 Pirâmides, 8 Templo da jungle, 9 Portal em ruina"));
+        pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 1 Modo de escavação 2-9 Modo de exploração"));
         pages.add(Component.text("§l§6Relíquia da Alquimia\n§r§0Efeitos:\nNa mão: Aleatório\nHabilidade: Pode disparar poções com efeitos misteriosos!"));
+        pages.add(Component.text("§l§6Relíquia do Ladrão\n§r§0Efeitos:\nNa mão: Invisibilidade e Visão Noturna\nHabilidade: Pode roubar itens!"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());

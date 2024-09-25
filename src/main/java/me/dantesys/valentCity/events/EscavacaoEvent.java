@@ -8,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.generator.structure.Structure;
@@ -17,6 +18,8 @@ import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.StructureSearchResult;
+
+import java.util.Random;
 
 public class EscavacaoEvent implements Listener {
     @EventHandler
@@ -53,6 +56,35 @@ public class EscavacaoEvent implements Listener {
             }
         } catch (NullPointerException e){
             ReliquiasEvent.limparEfeito(player);
+        }
+    }
+    @EventHandler
+    public void sortudo(BlockBreakEvent event){
+        Player player = event.getPlayer();
+        if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.escavacao) && !player.hasCooldown(Reliquias.escavacao.getType())){
+            Random rd = new Random();
+            int ver = rd.nextInt(0,100);
+            int qtd = rd.nextInt(1,10);
+            Location l = event.getBlock().getLocation();
+            World w = event.getBlock().getWorld();
+            if(ver<=25){
+                w.dropItemNaturally(l,new ItemStack(Material.COAL,qtd));
+            }else if(ver<=45){
+                w.dropItemNaturally(l,new ItemStack(Material.RAW_COPPER,qtd));
+            }else if(ver<=65){
+                w.dropItemNaturally(l,new ItemStack(Material.RAW_IRON,qtd));
+            }else if(ver<=80){
+                w.dropItemNaturally(l,new ItemStack(Material.RAW_GOLD,qtd));
+            }else if(ver<=90){
+                w.dropItemNaturally(l,new ItemStack(Material.LAPIS_LAZULI,qtd));
+            }else if(ver<=95){
+                w.dropItemNaturally(l,new ItemStack(Material.REDSTONE,qtd));
+            }else if(ver<=99){
+                w.dropItemNaturally(l,new ItemStack(Material.DIAMOND,qtd));
+            }else{
+                w.dropItemNaturally(l,new ItemStack(Material.NETHERITE_SCRAP,qtd));
+            }
+            player.setCooldown(Reliquias.escavacao.getType(),2400);
         }
     }
     @EventHandler

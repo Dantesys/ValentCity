@@ -128,6 +128,7 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new MachadoEvent(), this);
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
         getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
+        getServer().getPluginManager().registerEvents(new LadraoEvent(), this);
         config.addDefault("guardiao", "dantesys");
         config.options().copyDefaults(true);
         saveConfig();
