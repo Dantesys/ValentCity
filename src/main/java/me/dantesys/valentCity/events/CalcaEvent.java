@@ -50,7 +50,7 @@ public class CalcaEvent implements Listener {
         ItemStack calca = player.getInventory().getLeggings();
         if(calca != null && calca.isSimilar(Reliquias.calca) && !player.hasCooldown(Reliquias.calca.getType())){
             int range = 20;
-            final int finalDamage = 5;
+            final int finalDamage = 10;
             final Location location = player.getLocation();
             final World world = player.getWorld();
             Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 5,
@@ -61,13 +61,15 @@ public class CalcaEvent implements Listener {
                     double x = (area * Math.cos(i)) + location.getX();
                     double z = (location.getZ() + area * Math.sin(i));
                     Location particle = new Location(world, x, location.getY() + 1, z);
-                    world.spawnParticle(Particle.EXPLOSION,particle,1);
+                    world.spawnParticle(Particle.SWEEP_ATTACK,particle,1);
                 }
                 Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,area,2,area);
                 while(pressf.iterator().hasNext()){
                     Entity surdo = pressf.iterator().next();
                     if(surdo instanceof LivingEntity vivo){
-                        vivo.damage(finalDamage);
+                        if(!vivo.getEquipment().getLeggings().isSimilar(Reliquias.calca)){
+                            vivo.damage(finalDamage);
+                        }
                     }
                     pressf.remove(surdo);
                 }

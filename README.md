@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.9.1</h2>
+Ajustes na reliquia do guerreiro,ladrão emineiro
 <h2>Mudanças - v2.9.0</h2>
 Adicionado nova reliquia do ladrão, dá o livro para o player no primeiro join e altrado a versão para 1.21.1
 <h2>Mudanças - v2.8.0</h2>

@@ -16,10 +16,10 @@ public class JoinQuitEvent implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if(player.getName().equals(config.get("guardiao"))){
-            player.displayName(Component.text("Guardião"));
-            player.playerListName(Component.text("Guardião"));
-            player.sendPlayerListHeaderAndFooter(Component.text("Guardião"),Component.text("Guardião"));
-            event.joinMessage(Component.text("§2O Guardião despertou!"));
+            player.displayName(Component.text("Dev"));
+            player.playerListName(Component.text("Dev"));
+            player.sendPlayerListHeaderAndFooter(Component.text("Dev"),Component.text("Dev"));
+            event.joinMessage(Component.text("§2O Dev despertou!"));
         }else{
             event.joinMessage(Component.text("§2"+player.getName()+" foi sumonado!"));
         }
@@ -32,7 +32,7 @@ public class JoinQuitEvent implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         if(player.getName().equals(config.get("guardiao"))){
-            event.quitMessage(Component.text("§4O Guardião descansou!"));
+            event.quitMessage(Component.text("§4O Dev descansou!"));
         }else{
             event.quitMessage(Component.text("§4"+player.getName()+" despawnou!"));
         }

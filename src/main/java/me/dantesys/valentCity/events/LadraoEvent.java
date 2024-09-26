@@ -1,6 +1,8 @@
 package me.dantesys.valentCity.events;
 
 import me.dantesys.valentCity.items.Reliquias;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -8,13 +10,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.BundleMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class LadraoEvent implements Listener {
@@ -43,7 +46,7 @@ public class LadraoEvent implements Listener {
             if(omao.isSimilar(Reliquias.totem)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
             }else{
-                if(item != null && item.isSimilar(Reliquias.espadamd)){
+                if(item != null && item.isSimilar(Reliquias.ladrao)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
                 }else{
@@ -66,11 +69,25 @@ public class LadraoEvent implements Listener {
                         Inventory fazol = roubado.getInventory();
                         BundleMeta bmeta = (BundleMeta) is.getItemMeta();
                         while(bmeta.getItems().size()<is.getMaxStackSize()){
-                            ItemStack[] items = roubado.getInventory().getContents();
+                            ItemStack[] items = fazol.getContents();
                             Random rd = new Random();
                             int ver = rd.nextInt(0, items.length);
                             bmeta.addItem(items[ver]);
+                            ItemStack item = new ItemStack(Material.PAPER, 1);
+                            ItemMeta meta = item.getItemMeta();
+                            meta.displayName(Component.text("Você foi roubado"));
+                            List<Component> loreitem = new ArrayList<>();
+                            loreitem.add(items[ver].getItemMeta().displayName().append(Component.text("x"+items[ver].getAmount())));
+                            meta.lore(loreitem);
+                            meta.setRarity(ItemRarity.EPIC);
+                            meta.setUnbreakable(true);
+                            meta.setFireResistant(true);
+                            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                            item.setItemMeta(meta);
+                            fazol.remove(items[ver]);
+                            fazol.addItem(item);
                         }
+                        roubado.updateInventory();
                         is.setItemMeta(bmeta);
                     }
                 }
@@ -78,7 +95,7 @@ public class LadraoEvent implements Listener {
         }
     }
     @EventHandler
-    public void corte(PlayerInteractEvent event){
+    public void roubo(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.ladrao)){
             ItemStack is = player.getInventory().getItemInMainHand();
@@ -91,7 +108,9 @@ public class LadraoEvent implements Listener {
                     Random rd = new Random();
                     int ver = rd.nextInt(0, items.length);
                     bmeta.addItem(items[ver]);
+                    i.remove(items[ver]);
                 }
+                ih.getInventory().setContents(i.getContents());
                 is.setItemMeta(bmeta);
             }
         }
