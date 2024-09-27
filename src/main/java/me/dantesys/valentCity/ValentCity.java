@@ -19,6 +19,10 @@ public final class ValentCity extends JavaPlugin{
         Reliquias.init();
         Objects.requireNonNull(getCommand("reliquia")).setExecutor(new GiveItems());
         Objects.requireNonNull(getCommand("livro")).setExecutor(new GiveItems());
+        NamespacedKey key_espa1 = new NamespacedKey(this, "ESPA1");
+        ItemStack espa1 = new ItemStack(Reliquias.espadamd1);
+        NamespacedKey key_espa2 = new NamespacedKey(this, "ESPA2");
+        ItemStack espa2 = new ItemStack(Reliquias.espadamd2);
         NamespacedKey key_spy1 = new NamespacedKey(this, "SPY1");
         ItemStack spy1 = new ItemStack(Reliquias.spy_modelo1);
         NamespacedKey key_spy2 = new NamespacedKey(this, "SPY2");
@@ -53,6 +57,8 @@ public final class ValentCity extends JavaPlugin{
         ItemStack pei2 = new ItemStack(Reliquias.peitoral_md2);
         NamespacedKey key_bk = new NamespacedKey(this, "BKINFO");
         ItemStack bk = new ItemStack(Reliquias.livro);
+        ShapelessRecipe espa1_recipe = new ShapelessRecipe(key_espa1,espa1);
+        ShapelessRecipe espa2_recipe = new ShapelessRecipe(key_espa2,espa2);
         ShapelessRecipe spy1_recipe = new ShapelessRecipe(key_spy1,spy1);
         ShapelessRecipe spy2_recipe = new ShapelessRecipe(key_spy2,spy2);
         ShapelessRecipe tri1_recipe = new ShapelessRecipe(key_tri1,tri1);
@@ -70,6 +76,8 @@ public final class ValentCity extends JavaPlugin{
         ShapelessRecipe pei1_recipe = new ShapelessRecipe(key_pei1,pei1);
         ShapelessRecipe pei2_recipe = new ShapelessRecipe(key_pei2,pei2);
         ShapelessRecipe bk_recipe = new ShapelessRecipe(key_bk,bk);
+        espa1_recipe.addIngredient(Reliquias.espadamd2);
+        espa2_recipe.addIngredient(Reliquias.espadamd1);
         spy1_recipe.addIngredient(Reliquias.spy_modelo2);
         spy2_recipe.addIngredient(Reliquias.spy_modelo1);
         tri1_recipe.addIngredient(Reliquias.tridente_modelo2);
@@ -87,6 +95,8 @@ public final class ValentCity extends JavaPlugin{
         pei1_recipe.addIngredient(Reliquias.peitoral_md2);
         pei2_recipe.addIngredient(Reliquias.peitoral_md1);
         bk_recipe.addIngredient(Material.WRITTEN_BOOK);
+        getServer().addRecipe(espa1_recipe);
+        getServer().addRecipe(espa2_recipe);
         getServer().addRecipe(spy1_recipe);
         getServer().addRecipe(spy2_recipe);
         getServer().addRecipe(tri1_recipe);

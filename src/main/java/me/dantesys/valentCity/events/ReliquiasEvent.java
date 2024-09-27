@@ -155,11 +155,11 @@ public class ReliquiasEvent implements Listener {
         TNTPrimed tnt = w.spawn(l, TNTPrimed.class);
         tnt.setFuseTicks(10000);
         tnt.setMetadata("guardiao",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),meta));
-        tnt.setYield(15);
+        tnt.setYield(10);
         Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class),10,
                 () -> player.sendMessage("Dinamite ativada!"),
                 () -> {
-                    tnt.getLocation().getWorld().createExplosion(tnt.getLocation(),15,false,true);
+                    tnt.getLocation().getWorld().createExplosion(tnt.getLocation(),10,false,true);
                     tnt.remove();
                 },
                 (t) -> {

@@ -20,7 +20,7 @@ public class GiveItems implements CommandExecutor {
                     sender.sendMessage("Apenas jogadores podem receber reliquias!");
                 } else {
                     if(args[1].equalsIgnoreCase("all")){
-                        target.getInventory().addItem(Reliquias.espadamd);
+                        target.getInventory().addItem(Reliquias.espadamd1);
                         target.getInventory().addItem(Reliquias.enxada);
                         target.getInventory().addItem(Reliquias.totem);
                         target.getInventory().addItem(Reliquias.spy_modelo1);
@@ -43,7 +43,7 @@ public class GiveItems implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.alquimia);
                         target.getInventory().addItem(Reliquias.ladrao);
                     }else if(args[1].equalsIgnoreCase("espada")){
-                        target.getInventory().addItem(Reliquias.espadamd);
+                        target.getInventory().addItem(Reliquias.espadamd1);
                     }else if(args[1].equalsIgnoreCase("spy")){
                         target.getInventory().addItem(Reliquias.spy_modelo1);
                     }else if(args[1].equalsIgnoreCase("foice")){

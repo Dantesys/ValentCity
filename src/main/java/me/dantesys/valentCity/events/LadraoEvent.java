@@ -2,6 +2,7 @@ package me.dantesys.valentCity.events;
 
 import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
@@ -77,7 +78,9 @@ public class LadraoEvent implements Listener {
                             ItemMeta meta = item.getItemMeta();
                             meta.displayName(Component.text("Você foi roubado"));
                             List<Component> loreitem = new ArrayList<>();
-                            loreitem.add(items[ver].getItemMeta().displayName().append(Component.text("x"+items[ver].getAmount())));
+                            String nome = items[ver].getAmount()+"X"+PlainTextComponentSerializer.plainText().serialize(items[ver].displayName());
+                            loreitem.add(Component.text(nome));
+                            loreitem.add(Component.text("FAZ O L!"));
                             meta.lore(loreitem);
                             meta.setRarity(ItemRarity.EPIC);
                             meta.setUnbreakable(true);

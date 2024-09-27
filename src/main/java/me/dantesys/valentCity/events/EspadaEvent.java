@@ -12,9 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.StructureSearchResult;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
@@ -27,9 +29,12 @@ public class EspadaEvent implements Listener {
         ItemStack item = player.getInventory().getItem(slot);
         ItemStack omao = player.getInventory().getItemInOffHand();
         try{
-            if(item != null && item.isSimilar(Reliquias.espadamd)){
+            if(item != null && item.isSimilar(Reliquias.espadamd1)){
                 ReliquiasEvent.limparEfeito(player);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1));
+            }else if(item != null && item.isSimilar(Reliquias.espadamd2)){
+                ReliquiasEvent.limparEfeito(player);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, -1, 1));
             }else{
                 if(omao.isSimilar(Reliquias.totem)){
                     ReliquiasEvent.limparEfeito(player);
@@ -44,14 +49,21 @@ public class EspadaEvent implements Listener {
             if(omao.isSimilar(Reliquias.totem)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
             }else{
-                if(item != null && item.isSimilar(Reliquias.espadamd)){
+                if(item != null && item.isSimilar(Reliquias.espadamd1)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1));
+                }else if(item != null && item.isSimilar(Reliquias.espadamd2)){
+                    ReliquiasEvent.limparEfeito(player);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, -1, 1));
                 }else{
                     ReliquiasEvent.limparEfeito(player);
                 }
             }
         } catch (NullPointerException e){
             ReliquiasEvent.limparEfeito(player);
+        }
+        Inventory iv = player.getInventory();
+        if(iv.contains(Reliquias.espadamd2)){
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
         }
     }
     @EventHandler
@@ -64,27 +76,27 @@ public class EspadaEvent implements Listener {
                 World w = dead.getWorld();
                 Location l = dead.getLocation();
                 if(dead.getType() == EntityType.WITHER){
-                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd)){
+                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd1)){
                         is = Reliquias.power;
                         is.add(2);
                     }
                 }else if(dead.getType() == EntityType.ELDER_GUARDIAN){
-                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd)){
+                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd1)){
                         is = Reliquias.power;
                         is.add();
                     }
                 }else if(dead.getType() == EntityType.ENDER_DRAGON){
-                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd)){
+                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd1)){
                         is = Reliquias.power;
                         is.add(3);
                     }
                 }else if(dead.getType() == EntityType.WARDEN){
-                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd)){
+                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd1)){
                         is = Reliquias.power;
                         is.add(4);
                     }
                 }else{
-                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd)){
+                    if(killer.getInventory().getItemInMainHand().equals(Reliquias.espadamd1)){
                         is = Reliquias.power;
                     }
                 }
@@ -99,7 +111,7 @@ public class EspadaEvent implements Listener {
         Entity atacante = event.getDamager();
         Entity presa = event.getEntity();
         if(atacante instanceof Player atacantepl) {
-            if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.espadamd)) {
+            if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.espadamd1)) {
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 100, 2));
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 2));
                 if (presa instanceof LivingEntity lepresa) {
@@ -107,6 +119,8 @@ public class EspadaEvent implements Listener {
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300, 1));
                     lepresa.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 1));
                 }
+            }else if(atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.espadamd2)){
+                atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 100, 2));
             }
         }
     }
@@ -114,8 +128,8 @@ public class EspadaEvent implements Listener {
     public void corte(PlayerInteractEvent event){
         Player player = event.getPlayer();
         Action action = event.getAction();
-        if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.espadamd)){
-            if(action.isLeftClick() && !player.hasCooldown(Reliquias.espadamd.getType())){
+        if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.espadamd1)){
+            if(action.isLeftClick() && !player.hasCooldown(Reliquias.espadamd1.getType())){
                 int slot = -1;
                 if(player.getInventory().contains(Reliquias.power)){
                     slot = player.getInventory().first(Reliquias.power);
@@ -164,7 +178,7 @@ public class EspadaEvent implements Listener {
                                     }
                                 });
                         timer.scheduleTimer(5L);
-                        player.setCooldown(Reliquias.espadamd.getType(),600);
+                        player.setCooldown(Reliquias.espadamd1.getType(),600);
                     }
                 }
             }

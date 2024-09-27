@@ -23,7 +23,8 @@ import static org.bukkit.Bukkit.getServer;
 import static org.bukkit.attribute.Attribute.*;
 
 public class Reliquias {
-    public static ItemStack espadamd;
+    public static ItemStack espadamd1;
+    public static ItemStack espadamd2;
     public static ItemStack totem;
     public static ItemStack enxada;
     public static ItemStack spy_modelo1;
@@ -59,7 +60,8 @@ public class Reliquias {
     public static ItemStack life;
     public static void init() {
         createEnxada();
-        createEspadamd();
+        createEspadamd1();
+        createEspadamd2();
         createTotem();
         createSpy1();
         createSpy2();
@@ -110,13 +112,14 @@ public class Reliquias {
         item.setItemMeta(meta);
         enxada = item;
     }
-    private static void createEspadamd() {
+    private static void createEspadamd1() {
         ItemStack item = new ItemStack(Material.NETHERITE_SWORD, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("§6Relíquia do Guerreiro"));
+        meta.displayName(Component.text("§6Relíquia do Guerreiro (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7A espada mais poderosa de"));
         loreitem.add(Component.text("§7todo o passado do Minecraft!"));
+        loreitem.add(Component.text("§7Modelo: Combatente"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
@@ -130,7 +133,30 @@ public class Reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.addAttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO, new AttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         item.setItemMeta(meta);
-        espadamd = item;
+        espadamd1 = item;
+    }
+    private static void createEspadamd2() {
+        ItemStack item = new ItemStack(Material.NETHERITE_SWORD, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia do Guerreiro (2)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7A espada mais poderosa de"));
+        loreitem.add(Component.text("§7todo o passado do Minecraft!"));
+        loreitem.add(Component.text("§7Modelo: Assasino"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.BANE_OF_ARTHROPODS,5,true);
+        meta.addEnchant(Enchantment.FIRE_ASPECT,2,true);
+        meta.addEnchant(Enchantment.LOOTING,3,true);
+        meta.addEnchant(Enchantment.SHARPNESS,5,true);
+        meta.addEnchant(Enchantment.SMITE,5,true);
+        meta.addEnchant(Enchantment.SWEEPING_EDGE,5,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addAttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO, new AttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        item.setItemMeta(meta);
+        espadamd1 = item;
     }
     private static void createTotem() {
         ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING, 1);
@@ -757,7 +783,7 @@ public class Reliquias {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text("§6Reliquia do Ladrão"));
         List<Component> loreitem = new ArrayList<>();
-        loreitem.add(Component.text("§7Uma bolsa capaz"));
+        loreitem.add(Component.text("§7Uma shulker capaz"));
         loreitem.add(Component.text("§7de roubar itens!"));
         loreitem.add(Component.text("§7Faz o L!"));
         meta.lore(loreitem);
@@ -775,9 +801,11 @@ public class Reliquias {
         meta.setAuthor("O Explorador");
         meta.displayName(Component.text("§6Manual das Reliquias"));
         List<Component> pages = new ArrayList<>();
-        pages.add(Component.text("§r§0Reliquias:\nCeifador, Guerreiro, Infinidade, Espião, Tridente, Vento, Arco, Fazendeiro, Crossbow, Mineiro, Domador, Mago, Pisante, Escudo, Marreta, Capacete, Pescador, Peitoral, Calça, Barbaro, Escavação, Alquimia"));
+        pages.add(Component.text("§r§0Reliquias:\n(1) - Ceifador\n(2) - Guerreiro\n(3) - Infinidade\n(4) - Espião\n(5) - Tridente\n(6) - Vento\n(7) - Arco\n(8) - Fazendeiro\n(9) - Crossbow\n(10) - Mineiro\n(11) - Domador\n(12) - Mago"));
+        pages.add(Component.text("§r§0(13) - Pisante\n(14) - Escudo\n(15) - Marreta\n(16) - Capacete\n(17) - Pescador\n(18) - Peitoral\n(19) - Calça\n(20) - Barbaro\n(21) - Escavação\n(22) - Alquimia\n(23) - Ladrão"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e aura sombria\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
-        pages.add(Component.text("§l§6Relíquia do Guerreiro\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
+        pages.add(Component.text("§l§6Relíquia do Guerreiro - Combatente\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
+        pages.add(Component.text("§l§6Relíquia do Guerreiro - Assasino\n§r§0Efeitos:\nNa mão: Regeneração\nNo ataque: Força \nHabilidade: Quando está na hotbar ganha efeito de invisibilidade"));
         pages.add(Component.text("§l§6Relíquia da Infinidade\n§r§0Efeitos:\nNa mão: Regeneração\nNa outra mão: Saturação\nNo ataque: Regeneração, no alvo regeneração\nHabilidade: Quando ativo ele desaparece e reaparece em 5 segundos"));
         pages.add(Component.text("§l§6Relíquia do Espião - Investigador\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, invisibilidade e encolhimento\nNo ataque: O alvo fica com escuridão\nHabilidade: -Não possui habilidade especial-"));
         pages.add(Component.text("§l§6Relíquia do Espião - Protetor\n§r§0Efeitos:\nNa mão: Visão noturna, velocidade, resistência e encolhimento\nNo ataque: O alvo fica com escuridão, naúsea e lentidão\nHabilidade: -Não possui habilidade especial-"));

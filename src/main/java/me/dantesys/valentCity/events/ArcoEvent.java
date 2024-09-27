@@ -23,8 +23,8 @@ public class ArcoEvent implements Listener {
         try{
             if(item != null && item.isSimilar(Reliquias.arco_modelo1)){
                 ReliquiasEvent.limparEfeito(player);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1));
             }else if(item != null && item.isSimilar(Reliquias.arco_modelo2)){
                 ReliquiasEvent.limparEfeito(player);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1,true,false));
@@ -43,11 +43,11 @@ public class ArcoEvent implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
             }else{
                 if(item != null && item.isSimilar(Reliquias.arco_modelo1)){
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1,true,false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1));
                 }else if(item != null && item.isSimilar(Reliquias.arco_modelo2)) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1, true, false));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, -1, 0, true, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, -1, 0));
                 }else{
                     ReliquiasEvent.limparEfeito(player);
                 }
