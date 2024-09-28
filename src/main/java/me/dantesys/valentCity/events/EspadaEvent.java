@@ -16,7 +16,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.StructureSearchResult;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
@@ -63,7 +62,7 @@ public class EspadaEvent implements Listener {
         }
         Inventory iv = player.getInventory();
         if(iv.contains(Reliquias.espadamd2)){
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1,true,false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1));
         }
     }
     @EventHandler

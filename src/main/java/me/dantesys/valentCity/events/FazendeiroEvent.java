@@ -138,6 +138,8 @@ public class FazendeiroEvent implements Listener {
                     if (aravel(mat)) {
                         event.getClickedBlock().applyBoneMeal(event.getBlockFace());
                     }
+                }else{
+                    event.setCancelled(true);
                 }
             }
         }

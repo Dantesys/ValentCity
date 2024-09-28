@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.11.0</h2>
+Adicionado segunda forma para reliquia do crossbow e ajustes na reliquia do pescador e guerreiro
 <h2>Mudanças - v2.10.0</h2>
 Adicionado segunda forma para reliquia do guerreiro e ajustes na reliquia do ladrão e mineiro
 <h2>Mudanças - v2.9.1</h2>

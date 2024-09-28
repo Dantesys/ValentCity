@@ -36,7 +36,8 @@ public class Reliquias {
     public static ItemStack arco_modelo2;
     public static ItemStack farm_modelo1;
     public static ItemStack farm_modelo2;
-    public static ItemStack crossbow;
+    public static ItemStack crossbowmd1;
+    public static ItemStack crossbowmd2;
     public static ItemStack picareta_md1;
     public static ItemStack picareta_md2;
     public static ItemStack domador;
@@ -72,7 +73,8 @@ public class Reliquias {
         createArco2();
         createFarm1();
         createFarm2();
-        createCrossbow();
+        createCrossbowmd1();
+        createCrossbowmd2();
         createPick1();
         createPick2();
         createDomador();
@@ -156,7 +158,7 @@ public class Reliquias {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.addAttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO, new AttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         item.setItemMeta(meta);
-        espadamd1 = item;
+        espadamd2 = item;
     }
     private static void createTotem() {
         ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING, 1);
@@ -354,24 +356,45 @@ public class Reliquias {
         item.setItemMeta(meta);
         farm_modelo2 = item;
     }
-    private static void createCrossbow() {
+    private static void createCrossbowmd1() {
         ItemStack item = new ItemStack(Material.CROSSBOW, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("§6Relíquia do Crossbow"));
+        meta.displayName(Component.text("§6Relíquia do Crossbow (1)"));
         List<Component> loreitem = new ArrayList<>();
         loreitem.add(Component.text("§7Um artefato misterioso"));
         loreitem.add(Component.text("§7capaz de disparar"));
         loreitem.add(Component.text("§7flechas misteriosas"));
+        loreitem.add(Component.text("§7Modelo: AOE"));
         meta.lore(loreitem);
         meta.setRarity(ItemRarity.EPIC);
         meta.setUnbreakable(true);
         meta.setFireResistant(true);
-        meta.addEnchant(Enchantment.MULTISHOT,100,true);
+        meta.addEnchant(Enchantment.MULTISHOT,50,true);
         meta.addEnchant(Enchantment.PIERCING,10,true);
         meta.addEnchant(Enchantment.QUICK_CHARGE,3,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-        crossbow = item;
+        crossbowmd1 = item;
+    }
+    private static void createCrossbowmd2() {
+        ItemStack item = new ItemStack(Material.CROSSBOW, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia do Crossbow (2)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Um artefato misterioso"));
+        loreitem.add(Component.text("§7capaz de disparar"));
+        loreitem.add(Component.text("§7flechas misteriosas"));
+        loreitem.add(Component.text("§7Modelo: Focus"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.MULTISHOT,50,true);
+        meta.addEnchant(Enchantment.PIERCING,10,true);
+        meta.addEnchant(Enchantment.QUICK_CHARGE,3,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        crossbowmd2 = item;
     }
     private static void createPick1() {
         ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE, 1);
@@ -816,7 +839,8 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Arco - Minigun\n§r§0Efeitos:\nNa mão: Brilhante e lentidão\nNo ataque: A velocidade de atirar outra flecha é nula\nHabilidade: Não precisa de flechas"));
         pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode transformar o alvo em uma plantação\nHabilidade: Aplica farinha de osso nas plantações"));
         pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
-        pages.add(Component.text("§l§6Relíquia do Crossbow\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Dispara uma rajada de flechas especiais\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Crossbow - AOE\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Dispara uma rajada de flechas especiais ao redor do atirador\nHabilidade: -Sem habilidade-"));
+        pages.add(Component.text("§l§6Relíquia do Crossbow - Focus\n§r§0Efeitos:\nNa mão: Invisibilidade\nNo ataque: Dispara uma rajada de flechas especiais focada\nHabilidade: -Sem habilidade-"));
         pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
         pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate e quebrar bedrock"));
         pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));

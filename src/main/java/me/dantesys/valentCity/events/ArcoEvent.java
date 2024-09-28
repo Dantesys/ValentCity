@@ -27,7 +27,7 @@ public class ArcoEvent implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1));
             }else if(item != null && item.isSimilar(Reliquias.arco_modelo2)){
                 ReliquiasEvent.limparEfeito(player);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, -1, 1));
             }else{
                 if(omao.isSimilar(Reliquias.totem)){
                     ReliquiasEvent.limparEfeito(player);

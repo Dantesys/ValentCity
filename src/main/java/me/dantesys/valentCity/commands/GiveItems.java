@@ -29,7 +29,7 @@ public class GiveItems implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.arco_modelo1);
                         target.getInventory().addItem(Reliquias.farm_modelo1);
                         target.getInventory().addItem(Reliquias.picareta_md1);
-                        target.getInventory().addItem(Reliquias.crossbow);
+                        target.getInventory().addItem(Reliquias.crossbowmd1);
                         target.getInventory().addItem(Reliquias.domador);
                         target.getInventory().addItem(Reliquias.mago);
                         target.getInventory().addItem(Reliquias.pisante_md1);
@@ -42,6 +42,7 @@ public class GiveItems implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.escavacao);
                         target.getInventory().addItem(Reliquias.alquimia);
                         target.getInventory().addItem(Reliquias.ladrao);
+                        target.getInventory().addItem(Reliquias.pescador);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(Reliquias.espadamd1);
                     }else if(args[1].equalsIgnoreCase("spy")){
@@ -59,7 +60,7 @@ public class GiveItems implements CommandExecutor {
                     }else if(args[1].equalsIgnoreCase("fazendeiro")){
                         target.getInventory().addItem(Reliquias.farm_modelo1);
                     }else if(args[1].equalsIgnoreCase("crossbow")){
-                        target.getInventory().addItem(Reliquias.crossbow);
+                        target.getInventory().addItem(Reliquias.crossbowmd1);
                     }else if(args[1].equalsIgnoreCase("mineiro")){
                         target.getInventory().addItem(Reliquias.picareta_md1);
                     }else if(args[1].equalsIgnoreCase("domador")){
@@ -86,6 +87,8 @@ public class GiveItems implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.alquimia);
                     }else if(args[1].equalsIgnoreCase("ladrao")){
                         target.getInventory().addItem(Reliquias.ladrao);
+                    }else if(args[1].equalsIgnoreCase("pescador")){
+                        target.getInventory().addItem(Reliquias.pescador);
                     }else{
                         sender.sendMessage("Reliquia não encontrada!");
                     }
