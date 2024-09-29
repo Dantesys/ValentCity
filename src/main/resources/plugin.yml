@@ -1,10 +1,15 @@
 name: ValentCity
-version: '2.11.0'
+version: '2.12.0'
 main: me.dantesys.valentCity.ValentCity
-api-version: '1.21'
+api-version: '1.21.1'
 authors: [ Dantesys ]
 description: Um plugin usando no servidor valent city
 commands:
+  registro:
+    description: Para gerenciar os registros das reliquias
+    usage: /<command> [list|registrar]
+    permission: reliquas.registro
+    permission-message: Você não tem permissão
   reliquia:
     description: Recebe as reliquias
     usage: /<command> <target> <reliquias>
@@ -16,14 +21,12 @@ commands:
     permission: reliquias.livro
     permission-message: Você não tem permissão
 permissions:
-  relics.livro:
+  reliquias.registro:
+    description: Ver registros
+    default: op
+  reliquias.livro:
     description: Permiter pegar o livro
-    default: true
-  relics.use:
+    default: not op
+  reliquias.use:
     description: Permiter pegar as reliquias
     default: op
-  relics.*:
-    description: Valent City Permissões
-    default: op
-    children:
-      relics.use: true

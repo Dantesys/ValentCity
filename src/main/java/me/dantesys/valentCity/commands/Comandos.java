@@ -1,17 +1,52 @@
 package me.dantesys.valentCity.commands;
 
+import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class GiveItems implements CommandExecutor {
+public class Comandos implements CommandExecutor {
+    FileConfiguration config = ValentCity.getPlugin(ValentCity.class).getConfig();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, String label, String[] args) {
-        if (label.equalsIgnoreCase("reliquia")){
+        if (label.equalsIgnoreCase("registro")){
+            if (args.length <= 3) {
+                sender.sendMessage("Tente:");
+                sender.sendMessage("/registro list");
+                sender.sendMessage("/registro registrar");
+            }else if(args.equals("list")){
+                sender.sendMessage("Guerreiro:"+config.get("guerreiro"));
+                sender.sendMessage("Ceifador:"+config.get("ceifador"));
+                sender.sendMessage("Infinidade:"+config.get("infinidade"));
+                sender.sendMessage("Espião:"+config.get("espiao"));
+                sender.sendMessage("Tridente:"+config.get("tridente"));
+                sender.sendMessage("Vento:"+config.get("vento"));
+                sender.sendMessage("Arco:"+config.get("arco"));
+                sender.sendMessage("Fazendeiro:"+config.get("fazendeiro"));
+                sender.sendMessage("Crossbow:"+config.get("crossbow"));
+                sender.sendMessage("Mineiro:"+config.get("mineiro"));
+                sender.sendMessage("Domador:"+config.get("domador"));
+                sender.sendMessage("Mago:"+config.get("mago"));
+                sender.sendMessage("Pisante:"+config.get("pisante"));
+                sender.sendMessage("Escudo:"+config.get("escudo"));
+                sender.sendMessage("Marreta:"+config.get("marreta"));
+                sender.sendMessage("Capacete:"+config.get("capacete"));
+                sender.sendMessage("Pescador:"+config.get("pescador"));
+                sender.sendMessage("Peitoral:"+config.get("peitoral"));
+                sender.sendMessage("Calça:"+config.get("calca"));
+                sender.sendMessage("Barbaro:"+config.get("barbaro"));
+                sender.sendMessage("Escavação:"+config.get("escavacao"));
+                sender.sendMessage("Alquimia:"+config.get("alquimia"));
+                sender.sendMessage("Ladrão:"+config.get("ladrao"));
+            }else if(args.equals("registrar")){
+                //TODO
+            }
+        }else if (label.equalsIgnoreCase("reliquia")){
             if (args.length == 0) {
                 sender.sendMessage("Recebedor ou alvo não definido");
             } else {

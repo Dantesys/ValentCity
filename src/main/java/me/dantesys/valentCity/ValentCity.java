@@ -1,6 +1,6 @@
 package me.dantesys.valentCity;
 
-import me.dantesys.valentCity.commands.GiveItems;
+import me.dantesys.valentCity.commands.Comandos;
 import me.dantesys.valentCity.events.*;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.*;
@@ -17,8 +17,9 @@ public final class ValentCity extends JavaPlugin{
     @Override
     public void onEnable() {
         Reliquias.init();
-        Objects.requireNonNull(getCommand("reliquia")).setExecutor(new GiveItems());
-        Objects.requireNonNull(getCommand("livro")).setExecutor(new GiveItems());
+        Objects.requireNonNull(getCommand("reliquia")).setExecutor(new Comandos());
+        Objects.requireNonNull(getCommand("livro")).setExecutor(new Comandos());
+        Objects.requireNonNull(getCommand("registro")).setExecutor(new Comandos());
         NamespacedKey key_espa1 = new NamespacedKey(this, "ESPA1");
         ItemStack espa1 = new ItemStack(Reliquias.espadamd1);
         NamespacedKey key_espa2 = new NamespacedKey(this, "ESPA2");
@@ -147,7 +148,32 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
         getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
         getServer().getPluginManager().registerEvents(new LadraoEvent(), this);
-        config.addDefault("guardiao", "dantesys");
+        config.addDefault("dev", "dantesys");
+        config.addDefault("limite_vida", 200);
+        config.addDefault("limite_dano", 100);
+        config.addDefault("guerreiro", "");
+        config.addDefault("ceifador", "");
+        config.addDefault("infinidade", "");
+        config.addDefault("espiao", "");
+        config.addDefault("tridente", "");
+        config.addDefault("vento", "");
+        config.addDefault("arco", "");
+        config.addDefault("fazendeiro", "");
+        config.addDefault("crossbow", "");
+        config.addDefault("mineiro", "");
+        config.addDefault("domador", "");
+        config.addDefault("mago", "");
+        config.addDefault("pisante", "");
+        config.addDefault("escudo", "");
+        config.addDefault("marreta", "");
+        config.addDefault("capacete", "");
+        config.addDefault("pescador", "");
+        config.addDefault("peitoral", "");
+        config.addDefault("calca", "");
+        config.addDefault("barbaro", "");
+        config.addDefault("escavacao", "");
+        config.addDefault("alquimia", "");
+        config.addDefault("ladrao", "");
         config.options().copyDefaults(true);
         saveConfig();
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");

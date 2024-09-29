@@ -23,10 +23,6 @@ public class JoinQuitEvent implements Listener {
         }else{
             event.joinMessage(Component.text("§2"+player.getName()+" foi sumonado!"));
         }
-        if(!player.hasMetadata("jaentrou")){
-            player.getInventory().addItem(Reliquias.livro);
-            player.setMetadata("jaentrou",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),true));
-        }
     }
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {

@@ -41,24 +41,25 @@ public class Reliquias {
     public static ItemStack picareta_md1;
     public static ItemStack picareta_md2;
     public static ItemStack domador;
-    public static ItemStack mago;
+    public static ItemStack mago;//mudar
     public static ItemStack pisante_md1;
     public static ItemStack pisante_md2;
     public static ItemStack escudo_md1;
     public static ItemStack escudo_md2;
     public static ItemStack marreta;
-    public static ItemStack capacete;
+    public static ItemStack capacete;//mudar
     public static ItemStack pescador;
-    public static ItemStack peitoral_md1;
+    public static ItemStack peitoral_md1;//mudar
     public static ItemStack peitoral_md2;
     public static ItemStack calca;
     public static ItemStack machado;
-    public static ItemStack alquimia;
+    public static ItemStack alquimia;//mudar
     public static ItemStack escavacao;
     public static ItemStack ladrao;
     public static ItemStack livro;
     public static ItemStack power;
     public static ItemStack life;
+    //ninja,hulk,copia (1 - players 2 - mobs), dragão, fenix
     public static void init() {
         createEnxada();
         createEspadamd1();
@@ -412,6 +413,7 @@ public class Reliquias {
         meta.addEnchant(Enchantment.FORTUNE,5,true);
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
         meta.addAttributeModifier(GENERIC_LUCK, new AttributeModifier(GENERIC_LUCK.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_SCALE, new AttributeModifier(GENERIC_SCALE.getKey(),-0.5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         picareta_md1 = item;
@@ -432,11 +434,10 @@ public class Reliquias {
         meta.addEnchant(Enchantment.INFINITY,1,true);
         meta.addEnchant(Enchantment.SILK_TOUCH,1,true);
         meta.addEnchant(Enchantment.EFFICIENCY,5,true);
-        meta.addAttributeModifier(PLAYER_BLOCK_BREAK_SPEED, new AttributeModifier(PLAYER_BLOCK_BREAK_SPEED.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
-        meta.addAttributeModifier(PLAYER_MINING_EFFICIENCY, new AttributeModifier(PLAYER_MINING_EFFICIENCY.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(PLAYER_BLOCK_INTERACTION_RANGE, new AttributeModifier(PLAYER_BLOCK_INTERACTION_RANGE.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
-        meta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
-        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),100, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE.getKey(),1000, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_ARMOR, new AttributeModifier(GENERIC_ARMOR.getKey(),1000, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_SCALE, new AttributeModifier(GENERIC_SCALE.getKey(),-0.5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         picareta_md2 = item;
@@ -837,13 +838,13 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia do Vento\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: O alvo é jogado para longe\nHabilidade: É infinito, nunca acaba"));
         pages.add(Component.text("§l§6Relíquia do Arco - Sniper\n§r§0Efeitos:\nNa mão: Visão noturna e invisibilidade\nNo ataque: A velocidade da flecha 100 vezes mais rápida\nHabilidade: Não precisa de flechas"));
         pages.add(Component.text("§l§6Relíquia do Arco - Minigun\n§r§0Efeitos:\nNa mão: Brilhante e lentidão\nNo ataque: A velocidade de atirar outra flecha é nula\nHabilidade: Não precisa de flechas"));
-        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode transformar o alvo em uma plantação\nHabilidade: Aplica farinha de osso nas plantações"));
-        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
+        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Agro\n§r§0Efeitos:\nNa mão: Saturação e Sorte\nNo ataque: Pode arancar sementes\nHabilidade: Aplica farinha de osso nas plantações, Se com sementes no inventario pode joga-las"));
+        pages.add(Component.text("§l§6Relíquia do Fazendeiro - Pecuário\n§r§0Efeitos:\nNa mão: Velocidade\nNo ataque: Pode capturar o alvo\nHabilidade: Aplica farinha de osso nas plantações"));
         pages.add(Component.text("§l§6Relíquia do Crossbow - AOE\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Dispara uma rajada de flechas especiais ao redor do atirador\nHabilidade: -Sem habilidade-"));
         pages.add(Component.text("§l§6Relíquia do Crossbow - Focus\n§r§0Efeitos:\nNa mão: Invisibilidade\nNo ataque: Dispara uma rajada de flechas especiais focada\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo\n§r§0Efeitos:\nNa mão: Sorte e tamanho de anão\nNo ataque: Pode transformar os mobs em minérios\nHabilidade: -Sem habilidade-"));
-        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor\n§r§0Efeitos:\nNa mão: Resistência e tamanho de anão\nNo ataque: Pode destruir os mobs\nHabilidade: Pode plantar dinamite na deepslate e quebrar bedrock"));
-        pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos ou rapozas para atacar o seu alvo\nHabilidade: Pode coletar spawner"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Sortudo\n§r§0Efeitos:\nNa mão: Sorte, tamanho de anão e visão noturna\nNo ataque: Pode minerar mobs\nHabilidade: Dispara minerios"));
+        pages.add(Component.text("§l§6Relíquia do Mineiro - Destruidor\n§r§0Efeitos:\nNa mão: Resistência, tamanho de anão e visão noturna\nNo ataque: Pode destruir os mobs\nHabilidade: Dispara explosão que não afeta o mapa"));
+        pages.add(Component.text("§l§6Relíquia do Domador\n§r§0Efeitos:\nNa mão: -Sem efeito-\nNo ataque: Pode convocar lobos para atacar o seu alvo, em animais domaveis o deixam domados na hora\nHabilidade: Pode coletar spawner"));
         pages.add(Component.text("§l§6Relíquia do Mago\n§r§0Efeitos:\nNa mão: Aleatório\nNo ataque: Aleatório\nHabilidade: Pode disparar feitiços"));
         pages.add(Component.text("§l§6Relíquia do Pisante - Caminhar\n§r§0Efeitos:\nVelocidade\nHabilidade: Criar campo de desaceleração"));
         pages.add(Component.text("§l§6Relíquia do Pisante - Rocket\n§r§0Efeitos:\nJump Bost e Levitação\nHabilidade: Durante a queda, ganha efeito de queda lente"));

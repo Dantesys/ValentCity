@@ -1,6 +1,10 @@
 package me.dantesys.valentCity.events;
 
+import com.google.common.util.concurrent.AtomicDouble;
+import me.dantesys.valentCity.Temporizador;
+import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
@@ -14,8 +18,10 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PicaretaEvent implements Listener {
     @EventHandler
@@ -28,11 +34,13 @@ public class PicaretaEvent implements Listener {
             if(item != null && item.isSimilar(Reliquias.picareta_md1)){
                 ReliquiasEvent.limparEfeito(player);
                 Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.5);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
             }else if(item != null && item.isSimilar(Reliquias.picareta_md2)){
                 ReliquiasEvent.limparEfeito(player);
                 Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.5);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
             }else{
                 if(omao.isSimilar(Reliquias.totem)){
                     ReliquiasEvent.limparEfeito(player);
@@ -49,10 +57,12 @@ public class PicaretaEvent implements Listener {
             }else{
                 if(item != null && item.isSimilar(Reliquias.picareta_md1)){
                     Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.5);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, -1, 9));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
                 }else if(item != null && item.isSimilar(Reliquias.picareta_md2)){
                     Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_SCALE)).setBaseValue(0.5);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, -1, 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
                 }else{
                     ReliquiasEvent.limparEfeito(player);
                 }
@@ -69,89 +79,32 @@ public class PicaretaEvent implements Listener {
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.picareta_md1)) {
                 Random rd = new Random();
                 int ver = rd.nextInt(0,100);
-                int qtd = rd.nextInt(1,2);
+                int qtd = rd.nextInt(1,10);
                 Location l = presa.getLocation();
                 World w = presa.getWorld();
-                if(presa instanceof Player){
-                    atacantepl.sendMessage("Você não pode minerar jogadores!");
+                if(ver<=25){
+                    w.dropItemNaturally(l,new ItemStack(Material.COAL,qtd));
+                }else if(ver<=45){
+                    w.dropItemNaturally(l,new ItemStack(Material.RAW_COPPER,qtd));
+                }else if(ver<=65){
+                    w.dropItemNaturally(l,new ItemStack(Material.RAW_IRON,qtd));
+                }else if(ver<=80){
+                    w.dropItemNaturally(l,new ItemStack(Material.RAW_GOLD,qtd));
+                }else if(ver<=90){
+                    w.dropItemNaturally(l,new ItemStack(Material.LAPIS_LAZULI,qtd));
+                }else if(ver<=95){
+                    w.dropItemNaturally(l,new ItemStack(Material.REDSTONE,qtd));
+                }else if(ver<=99){
+                    w.dropItemNaturally(l,new ItemStack(Material.DIAMOND,qtd));
                 }else{
-                    if(presa instanceof LivingEntity vivo){
-                        double hp = Objects.requireNonNull(vivo.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
-                        if(vivo.getHealth()>(hp/2)){
-                            atacantepl.sendMessage("Você ainda não pode minerar!");
-                            atacantepl.sendMessage("Ele tem muita vida ("+((int) vivo.getHealth())+"), deixe ele");
-                            atacantepl.sendMessage("com "+((int) (hp/2))+" de vida");
-                            return;
-                        }
-                        vivo.remove();
-                        atacantepl.sendMessage(presa.getName()+" agora é mineravel!");
-                        if(ver<=25){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.COAL_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_COAL_ORE);
-                            }
-                        }else if(ver<=45){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.COPPER_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_COPPER_ORE);
-                            }
-                        }else if(ver<=65){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.IRON_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_IRON_ORE);
-                            }
-                        }else if(ver<=80){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.GOLD_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_GOLD_ORE);
-                            }
-                        }else if(ver<=90){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.LAPIS_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_LAPIS_ORE);
-                            }
-                        }else if(ver<=95){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.REDSTONE_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_REDSTONE_ORE);
-                            }
-                        }else if(ver<=99){
-                            if(qtd<=1){
-                                w.getBlockAt(l).setType(Material.DIAMOND_ORE);
-                            }else{
-                                w.getBlockAt(l).setType(Material.DEEPSLATE_DIAMOND_ORE);
-                            }
-                        }else{
-                            w.getBlockAt(l).setType(Material.ANCIENT_DEBRIS);
-                        }
-                    }
+                    w.dropItemNaturally(l,new ItemStack(Material.ANCIENT_DEBRIS,qtd));
                 }
             }
             if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.picareta_md2)) {
-                if(presa instanceof Player){
-                    atacantepl.sendMessage("Você não pode destruir jogadores!");
-                }else{
-                    Location l = presa.getLocation();
-                    World w = presa.getWorld();
-                    if(presa instanceof LivingEntity vivo){
-                        double hp = Objects.requireNonNull(vivo.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
-                        if(vivo.getHealth()>(hp/2)){
-                            atacantepl.sendMessage("Você ainda não pode destruir!");
-                            atacantepl.sendMessage("Ele tem muita vida ("+((int) vivo.getHealth())+"), deixe ele");
-                            atacantepl.sendMessage("com "+((int) (hp/2))+" de vida");
-                            return;
-                        }
-                        atacantepl.sendMessage(presa.getName()+" destruido!");
-                        vivo.remove();
-                        w.createExplosion(l,4,false,false);
-                    }
-                }
+                Location l = presa.getLocation();
+                World w = presa.getWorld();
+                event.setDamage(event.getFinalDamage()*5);
+                w.createExplosion(l,1,false,false);
             }
         }
     }
@@ -173,11 +126,184 @@ public class PicaretaEvent implements Listener {
                         player.setCooldown(Reliquias.picareta_md2.getType(),1200);
                         ReliquiasEvent.mina(w,l,player,false);
                     }else if(!player.hasCooldown(Reliquias.picareta_md2.getType())){
-                        player.sendMessage("Só pode colocar dinamite na deepslate");
+                        player.sendActionBar(Component.text("Só pode colocar dinamite na deepslate"));
                     }else{
-                        player.sendMessage("Aguarde a dinamite ser feita!");
+                        player.sendActionBar(Component.text("Aguarde "+(player.getCooldown(Reliquias.picareta_md2.getType())/20)+"s a dinamite ser feita!"));
                     }
                 }
+            }else if(!player.hasCooldown(Reliquias.picareta_md2.getType())){
+                final int finalRange = 50;
+                final double finalDamage = 5;
+                final Location location = player.getLocation();
+                final boolean[] passa = {true};
+                final Vector direction = location.getDirection().normalize();
+                final double[] tp = {0};
+                Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
+                        ()->{
+                        },()->{},(t)->{
+                    tp[0] = tp[0]+3.4;
+                    double x = direction.getX()*tp[0];
+                    double y = direction.getY()*tp[0]+1.4;
+                    double z = direction.getZ()*tp[0];
+                    location.add(x,y,z);
+                    location.getWorld().spawnParticle(Particle.EXPLOSION,location,1,0,0,0,0);
+                    passa[0] = location.getBlock().isPassable();
+                    location.getWorld().playSound(location,Sound.ENTITY_GENERIC_EXPLODE,0.5f,0.7f);
+                    Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,2,2,2);
+                    while(pressf.iterator().hasNext()){
+                        Entity surdo = pressf.iterator().next();
+                        if(surdo instanceof LivingEntity vivo){
+                            vivo.damage(finalDamage);
+                        }
+                        pressf.remove(surdo);
+                    }
+                    location.subtract(x,y,z);
+                    if(t.getSegundosRestantes()>finalRange || !passa[0]){
+                        t.stop();
+                        location.getWorld().createExplosion(location,10,false,false);
+                    }
+                });
+                timer.scheduleTimer(5L);
+                player.setCooldown(Reliquias.picareta_md2.getType(),1200);
+            }
+        }else if(item != null && item.isSimilar(Reliquias.picareta_md1) && !player.hasCooldown(Reliquias.picareta_md1.getType())){
+            AtomicDouble damage = new AtomicDouble(0);
+            boolean atk = false;
+            ItemStack drop = null;
+            AtomicInteger qtd = new AtomicInteger();
+            if(player.getInventory().contains(Material.COAL)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.COAL);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount());
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.COAL, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.RAW_COPPER)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.RAW_COPPER);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*1.25);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.RAW_COPPER, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.RAW_IRON)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.RAW_IRON);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*1.5);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.RAW_IRON, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.RAW_GOLD)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.RAW_GOLD);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*1.75);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.RAW_GOLD, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.LAPIS_LAZULI)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.LAPIS_LAZULI);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*2);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.LAPIS_LAZULI, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.REDSTONE)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.REDSTONE);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*2.25);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.REDSTONE, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.DIAMOND)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.DIAMOND);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*2.5);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.DIAMOND, qtd.get());
+                }
+            }
+            else if(player.getInventory().contains(Material.ANCIENT_DEBRIS)){
+                atk = true;
+                HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.ANCIENT_DEBRIS);
+                if(!map.isEmpty()){
+                    map.forEach((slot,i) -> {
+                        player.getInventory().remove(i);
+                        damage.addAndGet(i.getAmount()*2.75);
+                        qtd.addAndGet(i.getAmount()/2);
+                    });
+                    drop = new ItemStack(Material.ANCIENT_DEBRIS, qtd.get());
+                }
+            }
+            if(atk){
+                final int finalRange = 50;
+                final double finalDamage = damage.get();
+                final Location location = player.getLocation();
+                final boolean[] passa = {true};
+                final Vector direction = location.getDirection().normalize();
+                final double[] tp = {0};
+                final ItemStack finalDrop = drop;
+                Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
+                        ()->{
+                        },()->{},(t)->{
+                    tp[0] = tp[0]+3.4;
+                    double x = direction.getX()*tp[0];
+                    double y = direction.getY()*tp[0]+1.4;
+                    double z = direction.getZ()*tp[0];
+                    location.add(x,y,z);
+                    location.getWorld().spawnParticle(Particle.CRIT,location,1,0,0,0,0);
+                    passa[0] = location.getBlock().isPassable();
+                    location.getWorld().playSound(location,Sound.BLOCK_DEEPSLATE_BREAK,0.5f,0.7f);
+                    Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,2,2,2);
+                    while(pressf.iterator().hasNext()){
+                        Entity surdo = pressf.iterator().next();
+                        if(surdo instanceof LivingEntity vivo){
+                            vivo.damage(finalDamage);
+                        }
+                        pressf.remove(surdo);
+                    }
+                    location.subtract(x,y,z);
+                    if(t.getSegundosRestantes()>finalRange || !passa[0]){
+                        t.stop();
+                        if(finalDrop!=null){
+                            location.getWorld().dropItemNaturally(location, finalDrop);
+                        }
+                    }
+                });
+                timer.scheduleTimer(5L);
+                player.setCooldown(Reliquias.picareta_md2.getType(),1200);
             }
         }
     }
@@ -207,7 +333,7 @@ public class PicaretaEvent implements Listener {
             }else{
                 w.dropItemNaturally(l,new ItemStack(Material.NETHERITE_SCRAP,qtd));
             }
-            player.setCooldown(Reliquias.picareta_md1.getType(),2400);
+            player.setCooldown(Reliquias.picareta_md1.getType(),600);
         }
     }
 }

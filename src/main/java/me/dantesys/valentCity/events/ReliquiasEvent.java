@@ -6,6 +6,7 @@ import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,14 +20,16 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.*;
 
 public class ReliquiasEvent implements Listener {
+    FileConfiguration config = ValentCity.getPlugin(ValentCity.class).getConfig();
     @EventHandler
     public void aumento(PlayerItemConsumeEvent event){
         Player player = event.getPlayer();
         ItemStack is = event.getItem();
         if(is.isSimilar(Reliquias.power)){
             double dano = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).getValue();
-            if(dano+1>100){
-                player.sendMessage("Sem efeito, você atingiu o limite");
+            double limite = config.getDouble("limite_dano");
+            if(dano+1>limite){
+                player.sendActionBar(Component.text("Sem efeito, você atingiu o limite"));
                 return;
             }
             double armor = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR)).getValue();
@@ -37,8 +40,9 @@ public class ReliquiasEvent implements Listener {
             player.sendActionBar(Component.text("Força: "+dano));
         }else if(is.isSimilar(Reliquias.life)){
             double vida = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
-            if(vida+1>200){
-                player.sendMessage("Sem efeito, você atingiu o limite");
+            double limite = config.getDouble("limite_vida");
+            if(vida+1>limite){
+                player.sendActionBar(Component.text("Sem efeito, você atingiu o limite"));
                 return;
             }
             double abs = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_ABSORPTION)).getValue();
@@ -163,7 +167,7 @@ public class ReliquiasEvent implements Listener {
                     tnt.remove();
                 },
                 (t) -> {
-                    player.sendMessage("Falta "+ (t.getSegundosRestantes()) + " Segundo para explosão!");
+                    player.sendActionBar(Component.text("Falta "+ (t.getSegundosRestantes()) + " Segundo para explosão!"));
                     tnt.customName(Component.text((t.getSegundosRestantes())+"s"));
                     tnt.setCustomNameVisible(true);
                 }

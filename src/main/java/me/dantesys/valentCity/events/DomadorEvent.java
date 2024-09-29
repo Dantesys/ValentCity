@@ -10,7 +10,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +18,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -34,8 +32,13 @@ public class DomadorEvent implements Listener {
         Entity atacante = event.getDamager();
         Entity presa = event.getEntity();
         if(atacante instanceof Player atacantepl) {
-            if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.domador)) {
+            if(presa instanceof Tameable domar){
+                event.setCancelled(true);
+                domar.setOwner(atacantepl);
+                domar.setTamed(true);
+            }else if (atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.domador) && !atacantepl.hasCooldown(Reliquias.domador.getType())) {
                 sumonalobo(atacantepl,presa);
+                atacantepl.setCooldown(Reliquias.domador.getType(),600);
             }
         }
     }
@@ -93,78 +96,72 @@ public class DomadorEvent implements Listener {
         creatureSpawner.update();
     }
     public void sumonalobo(Player player,Entity entity) {
-        EntityEquipment equip = player.getEquipment();
-        ItemStack hand = null;
-        boolean main = true;
-        if (equip.getItemInMainHand().getType() == Material.STICK) {
-            hand = equip.getItemInMainHand();
-            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
-                hand = null;
-            }
-        }
-        if (equip.getItemInOffHand().getType() == Material.STICK) {
-            hand = equip.getItemInOffHand();
-            if (!hand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
-                hand = null;
-            }
-            main = false;
-        }
-        if (hand != null) {
-            boolean finalMain = main;
-            ItemStack finalHand = Reliquias.domador;
-            ItemStack armadura = new ItemStack(Material.WOLF_ARMOR);
-            ItemMeta meta = armadura.getItemMeta();
-            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,new AttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE.getKey(),9, AttributeModifier.Operation.ADD_NUMBER));
-            armadura.setItemMeta(meta);
-            Wolf wolf = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
-            wolf.setOwner(player);
-            wolf.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
-            Objects.requireNonNull(wolf.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200);
-            wolf.attack(entity);
-            wolf.setTamed(true);
-            wolf.getEquipment().setChestplate(armadura);
-            Wolf wolf2 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
-            wolf2.setOwner(player);
-            wolf2.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
-            Objects.requireNonNull(wolf2.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
-            wolf2.attack(entity);
-            wolf2.setTamed(true);
-            wolf2.getEquipment().setChestplate(armadura);
-            Wolf wolf3 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
-            wolf3.setOwner(player);
-            wolf3.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
-            Objects.requireNonNull(wolf3.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
-            wolf3.attack(entity);
-            wolf3.setTamed(true);
-            wolf3.getEquipment().setChestplate(armadura);
-            Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 30,
-                    () -> {
-                        player.sendMessage("Lobo Ativado!");
-                        player.getEquipment().setItemInMainHand(null);
-                        wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                        wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                        wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
-                    },() -> {
-                if (finalMain) {
-                    player.getEquipment().setItemInMainHand(finalHand);
-                } else {
-                    player.getEquipment().setItemInOffHand(finalHand);
-                }
+        ItemStack armadura = new ItemStack(Material.WOLF_ARMOR);
+        ItemMeta meta = armadura.getItemMeta();
+        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,new AttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE.getKey(),9, AttributeModifier.Operation.ADD_NUMBER));
+        armadura.setItemMeta(meta);
+        Wolf wolf = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
+        wolf.setOwner(player);
+        wolf.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
+        Objects.requireNonNull(wolf.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200);
+        wolf.attack(entity);
+        wolf.setTamed(true);
+        wolf.getEquipment().setChestplate(armadura);
+        Wolf wolf2 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
+        wolf2.setOwner(player);
+        wolf2.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
+        Objects.requireNonNull(wolf2.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        wolf2.attack(entity);
+        wolf2.setTamed(true);
+        wolf2.getEquipment().setChestplate(armadura);
+        Wolf wolf3 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
+        wolf3.setOwner(player);
+        wolf3.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
+        Objects.requireNonNull(wolf3.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        wolf3.attack(entity);
+        wolf3.setTamed(true);
+        wolf3.getEquipment().setChestplate(armadura);
+        Wolf wolf4 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
+        wolf4.setOwner(player);
+        wolf4.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
+        Objects.requireNonNull(wolf4.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        wolf4.attack(entity);
+        wolf4.setTamed(true);
+        wolf4.getEquipment().setChestplate(armadura);
+        Wolf wolf5 = (Wolf) player.getWorld().spawnEntity(entity.getLocation(), EntityType.WOLF);
+        wolf5.setOwner(player);
+        wolf5.registerAttribute(Attribute.GENERIC_MAX_HEALTH);
+        Objects.requireNonNull(wolf5.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        wolf5.attack(entity);
+        wolf5.setTamed(true);
+        wolf5.getEquipment().setChestplate(armadura);
+        Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 30,
+            () -> {
+                wolf.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                wolf2.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                wolf3.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                wolf4.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+                wolf5.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,-1,1));
+            },() -> {
                 wolf.remove();
                 wolf2.remove();
                 wolf3.remove();
+                wolf4.remove();
+                wolf5.remove();
             },(t) -> {
                 wolf.customName(Component.text("Lider ("+(t.getSegundosRestantes())+"s)"));
                 wolf2.customName(Component.text("Soldado ("+(t.getSegundosRestantes())+"s)"));
                 wolf3.customName(Component.text("Soldado ("+(t.getSegundosRestantes())+"s)"));
+                wolf4.customName(Component.text("Soldado ("+(t.getSegundosRestantes())+"s)"));
+                wolf5.customName(Component.text("Soldado ("+(t.getSegundosRestantes())+"s)"));
                 wolf.setCustomNameVisible(true);
                 wolf2.setCustomNameVisible(true);
                 wolf3.setCustomNameVisible(true);
-                player.sendMessage("Falta "+ (t.getSegundosRestantes()) + " Segundo para reativar o lobo");
-            }
-            );
-            timer.scheduleTimer(20L);
-        }
+                wolf4.setCustomNameVisible(true);
+                wolf5.setCustomNameVisible(true);
+                player.sendActionBar(Component.text("Falta "+ (t.getSegundosRestantes()) + " Segundo para reativar os lobos"));
+            });
+        timer.scheduleTimer(20L);
     }
     private ItemStack makeSpawnerItem(EntityType entityType) {
         final ItemStack itemStack = new ItemStack(Material.SPAWNER, 1);
