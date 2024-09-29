@@ -3,6 +3,7 @@ package me.dantesys.valentCity.events;
 import me.dantesys.valentCity.Temporizador;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -10,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -138,17 +140,29 @@ public class MagoEvent implements Listener {
             if(!player.hasCooldown(Reliquias.mago.getType())){
                 event.setCancelled(true);
                 Vector vec = player.getEyeLocation().getDirection();
-                Random rd = new Random();
-                int ver = rd.nextInt(0, 100);
-                if(ver<=15){
-                    player.sendMessage("Mahō no ya");
+                player.setCooldown(Reliquias.escavacao.getType(),1200);
+                World w = player.getWorld();
+                Location l = player.getLocation();
+                Inventory iv = player.getInventory();
+                ItemStack hb1 = iv.getItem(1);
+                ItemStack hb2 = iv.getItem(1);
+                ItemStack hb3 = iv.getItem(2);
+                ItemStack hb4 = iv.getItem(3);
+                ItemStack hb5 = iv.getItem(4);
+                ItemStack hb6 = iv.getItem(5);
+                ItemStack hb7 = iv.getItem(6);
+                ItemStack hb8 = iv.getItem(7);
+                ItemStack hb9 = iv.getItem(8);
+                if(hb1 != null && hb1.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Mahō no ya"));
                     Arrow arrow = player.launchProjectile(Arrow.class);
                     arrow.setGlowing(true);
                     arrow.setMetadata("magic",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),(double) 10));
                     arrow.setVelocity(vec.multiply(10));
                     player.setCooldown(Reliquias.mago.getType(),100);
-                }else if(ver<=30){
-                    player.sendMessage("Hinotama");
+                }
+                else if(hb2 != null && hb2.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Hinotama"));
                     Fireball fire = player.launchProjectile(Fireball.class);
                     fire.setGlowing(true);
                     fire.setMetadata("fire",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),(double) 10));
@@ -156,15 +170,17 @@ public class MagoEvent implements Listener {
                     fire.setVelocity(vec.multiply(2));
                     fire.setYield(4);
                     player.setCooldown(Reliquias.mago.getType(),200);
-                }else if(ver<=45){
-                    player.sendMessage("Yukidaruma");
+                }
+                else if(hb3 != null && hb3.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Yukidaruma"));
                     Snowball bola = player.launchProjectile(Snowball.class);
                     bola.setGlowing(true);
                     bola.setVelocity(vec.multiply(5));
                     bola.setMetadata("freeze",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class), 10));
                     player.setCooldown(Reliquias.mago.getType(),100);
-                }else if(ver<=60){
-                    player.sendMessage("Bakuhatsu-on");
+                }
+                else if(hb4 != null && hb4.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Bakuhatsu-on"));
                     int range = 50;
                     int damage = 10;
                     final int finalRange = range;
@@ -200,16 +216,18 @@ public class MagoEvent implements Listener {
                     });
                     timer.scheduleTimer(5L);
                     player.setCooldown(Reliquias.mago.getType(),600);
-                }else if(ver<=75){
-                    player.sendMessage("Furainguheddo");
+                }
+                else if(hb5 != null && hb5.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Furainguheddo"));
                     WitherSkull wither = player.launchProjectile(WitherSkull.class);
                     wither.setGlowing(true);
                     wither.setDirection(vec.multiply(2));
                     wither.setVelocity(vec.multiply(2));
                     wither.setCharged(true);
                     player.setCooldown(Reliquias.mago.getType(),300);
-                }else if(ver<=90){
-                    player.sendMessage("Hanabi");
+                }
+                else if(hb6 != null && hb6.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Hanabi"));
                     Firework fw = player.launchProjectile(Firework.class);
                     fw.setGlowing(true);
                     fw.setShotAtAngle(true);
@@ -225,13 +243,32 @@ public class MagoEvent implements Listener {
                             .build());
                     fw.setFireworkMeta(fm);
                     player.setCooldown(Reliquias.mago.getType(),200);
-                }else{
-                    player.sendMessage("Pōshonmikkusu");
+                }
+                else if(hb7 != null && hb7.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Pōshonmikkusu"));
                     ThrownPotion tp = player.launchProjectile(ThrownPotion.class);
                     tp.setMetadata("magia",new FixedMetadataValue(ValentCity.getPlugin(ValentCity.class),true));
                     tp.setVelocity(vec.multiply(5));
                     player.setCooldown(Reliquias.mago.getType(),300);
                 }
+                else if(hb8 != null && hb8.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Damēji no nai saishū-tekina shinju"));
+                    EnderPearl tp = player.launchProjectile(EnderPearl.class);
+                    tp.setVelocity(vec.multiply(10));
+                    player.setCooldown(Reliquias.mago.getType(),100);
+                }
+                else if(hb9 != null && hb9.isSimilar(Reliquias.mago)){
+                    player.sendActionBar(Component.text("Manasukin"));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,200,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,200,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,200,1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,200,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,200,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,200,1));
+                    player.setCooldown(Reliquias.mago.getType(),600);
+                }
+            }else{
+                player.sendActionBar(Component.text("Sua mana está carregando aguarde "+player.getCooldown(Reliquias.mago.getType())+"s"));
             }
         }
     }

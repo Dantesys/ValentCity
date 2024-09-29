@@ -109,7 +109,8 @@ public class EscavacaoEvent implements Listener {
                 ItemStack bussola = new ItemStack(Material.COMPASS);
                 if(hb1 != null && hb1.isSimilar(Reliquias.escavacao)){
                     player.setCooldown(Reliquias.escavacao.getType(),0);
-                }else if(hb2 != null && hb2.isSimilar(Reliquias.escavacao)){
+                }
+                else if(hb2 != null && hb2.isSimilar(Reliquias.escavacao)){
                     ssr = w.locateNearestStructure(l, Structure.MINESHAFT,30000,false);
                     if(ssr!=null){
                         Location ls = ssr.getLocation();

@@ -29,13 +29,11 @@ public class PeitoralEvent implements Listener {
                     if(vivo instanceof Player p2){
                         if(player!=p2){
                             if(p2.getHealth()>=2){
-                                p2.damage(1);
                                 player.heal(1);
                             }
                         }
                     }else{
                         if(vivo.getHealth()>=2){
-                            vivo.damage(1);
                             player.heal(1);
                         }
                     }

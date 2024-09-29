@@ -67,17 +67,34 @@ public class ReliquiasEvent implements Listener {
         }
     }
     @EventHandler
+    public void tpEndeperal(PlayerTeleportEvent event){
+        Player p = event.getPlayer();
+        if(event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL){
+            if(p.getInventory().getItemInMainHand().isSimilar(Reliquias.mago)){
+                event.setCancelled(true);
+                p.setNoDamageTicks(10);
+                p.teleport(event.getTo());
+            }
+        }
+    }
+    @EventHandler
     public void ataque(EntityDamageByEntityEvent event) {
         if(event.getDamager() instanceof Arrow flecha) {
             if(flecha.hasMetadata("magic")) {
                 double damage = flecha.getMetadata("magic").getFirst().asDouble();
-                event.setDamage(damage);
+                event.setDamage(event.getDamage()+damage);
             }
         }
         if(event.getDamager() instanceof Snowball bola) {
             if(bola.hasMetadata("freeze")) {
                 int gelo = bola.getMetadata("freeze").getFirst().asInt();
                 event.getEntity().setFreezeTicks(event.getEntity().getMaxFreezeTicks()*gelo);
+            }
+        }
+        if(event.getDamager() instanceof Fireball fogo) {
+            if(fogo.hasMetadata("fire")) {
+                int tempo = fogo.getMetadata("fire").getFirst().asInt();
+                event.getEntity().setFireTicks(event.getEntity().getMaxFreezeTicks()*tempo);
             }
         }
     }

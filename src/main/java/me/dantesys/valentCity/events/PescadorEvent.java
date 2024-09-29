@@ -4,7 +4,6 @@ import me.dantesys.valentCity.Temporizador;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +18,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Random;
 
 
@@ -69,11 +67,11 @@ public class PescadorEvent implements Listener {
             int ver = rd.nextInt(0,100);
             Location l = player.getLocation();
             World w = player.getWorld();
-            if(ver>=85 &&ver<=90){
+            if(ver>=85 && ver<=90){
                 w.dropItemNaturally(l,new ItemStack(Material.DIAMOND_BLOCK));
-            }else if(ver<=99){
+            }else if(ver > 90 && ver<=99){
                 w.dropItemNaturally(l,new ItemStack(Material.ANCIENT_DEBRIS));
-            }else{
+            }else if(ver==100){
                 w.dropItemNaturally(l,new ItemStack(Material.NETHERITE_INGOT));
             }
         }
@@ -88,31 +86,16 @@ public class PescadorEvent implements Listener {
                 int ver = rd.nextInt(0,100);
                 Location l = presa.getLocation();
                 World w = presa.getWorld();
-                if(presa instanceof Player){
-                    atacantepl.sendMessage("Você não pode pescar jogadores!");
+                if(ver<=25){
+                    w.spawn(l, Cod.class);
+                }else if(ver<=50){
+                    w.spawn(l, Salmon.class);
+                }else if(ver<=75){
+                    w.spawn(l, PufferFish.class);
+                }else if(ver<=99){
+                    w.spawn(l, TropicalFish.class);
                 }else{
-                    if(presa instanceof LivingEntity vivo){
-                        double hp = Objects.requireNonNull(vivo.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
-                        if(vivo.getHealth()>(hp/2)){
-                            atacantepl.sendMessage("Você ainda não pode pesca!");
-                            atacantepl.sendMessage("Ele tem muita vida ("+((int) vivo.getHealth())+"), deixe ele");
-                            atacantepl.sendMessage("com "+((int) (hp/2))+" de vida");
-                            return;
-                        }
-                        vivo.remove();
-                        atacantepl.sendMessage(presa.getName()+" agora é um peixe!");
-                        if(ver<=25){
-                            w.spawn(l, Cod.class);
-                        }else if(ver<=50){
-                            w.spawn(l, Salmon.class);
-                        }else if(ver<=75){
-                            w.spawn(l, PufferFish.class);
-                        }else if(ver<=99){
-                            w.spawn(l, TropicalFish.class);
-                        }else{
-                            w.spawn(l, Axolotl.class);
-                        }
-                    }
+                    w.spawn(l, Axolotl.class);
                 }
             }
         }
@@ -172,7 +155,6 @@ public class PescadorEvent implements Listener {
                             location.subtract(x,y,z);
                             if(t.getSegundosRestantes()>finalRange || !passa[0]){
                                 t.stop();
-                                location.getWorld().createExplosion(location,10,false,false);
                             }
                         });
                         timer.scheduleTimer(5L);

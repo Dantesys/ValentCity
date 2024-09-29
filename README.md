@@ -1,6 +1,6 @@
 <h1>Plugin Valent City</h1>
 <h2>Mudanças - v2.12.0</h2>
-Mudanças nas reliquias do Fazendeiro, Mineiro, Domador
+Adicionado nova reliquia do Hulk e mudanças nas reliquias do Fazendeiro, Mineiro, Domador, Mago, Capacete, Pescador, Peitoral, removido reliquia do alquimista
 <h2>Mudanças - v2.11.0</h2>
 Adicionado segunda forma para reliquia do crossbow e ajustes na reliquia do pescador e guerreiro
 <h2>Mudanças - v2.10.0</h2>
@@ -78,9 +78,9 @@ Ajuste na reliquia do mineiro, crossbow, fazendeiro e domador e finalizado o liv
 <h2>Mudanças - v1.8.0</h2>
 Adinionado nova reliquia domador e um livro
 <h2>Mudanças - v1.7.0</h2>
-Adinionado 2 novas reliquias do crossbow e do arco e feito ajuste na reliquia do fazendeiro
+Adicionado 2 novas reliquias do crossbow e do arco e feito ajuste na reliquia do fazendeiro
 <h2>Mudanças - v1.6.0</h2>
-Adinionado 2 novas reliquias do arco e do fazendeiro, adicionado limitador para a reliquia do guerreiro e da foice
+Adicionado 2 novas reliquias do arco e do fazendeiro, adicionado limitador para a reliquia do guerreiro e da foice
 <h2>Mudanças - v1.5.4</h2>
 Ajuste no countdown da reliquia do vento
 <h2>Mudanças - v1.5.3</h2>
@@ -90,7 +90,7 @@ Ajuste na reliquia do espião
 <h2>Mudanças - v1.5.1</h2>
 Resolver bug dos crafts
 <h2>Mudanças - v1.5.0</h2>
-Adinionado novo modo para reliquia do espião e adicionado nova reliquia vento
+Adicionado novo modo para reliquia do espião e adicionado nova reliquia vento
 <h2>Mudanças - v1.4.3</h2>
 Nova habilidade para reliquia do guerreiro, quando matar um mob do tipo monster aumenta o ataque
 <h2>Mudanças - v1.4.2</h2>

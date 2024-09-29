@@ -1,59 +1,33 @@
 package me.dantesys.valentCity.events;
-
 import me.dantesys.valentCity.Temporizador;
 import me.dantesys.valentCity.ValentCity;
 import me.dantesys.valentCity.items.Reliquias;
 import net.kyori.adventure.text.Component;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 
-public class CalcaEvent implements Listener {
-    @EventHandler
-    public void movimento(PlayerMoveEvent event){
-        Player player = event.getPlayer();
-        Location location = event.getFrom();
-        ItemStack botas = player.getInventory().getChestplate();
-        if(botas != null && botas.isSimilar(Reliquias.peitoral_md1)){
-            Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,3,3,3);
-            while(pressf.iterator().hasNext()){
-                Entity lento = pressf.iterator().next();
-                if(lento instanceof LivingEntity vivo){
-                    if(vivo instanceof Player p2){
-                        if(player!=p2){
-                            if(p2.getHealth()>=2){
-                                p2.damage(1);
-                                player.heal(1);
-                            }
-                        }
-                    }else{
-                        if(vivo.getHealth()>=2){
-                            vivo.damage(1);
-                            player.heal(1);
-                        }
-                    }
-                }
-                pressf.remove(lento);
-            }
-        }
-    }
+public class HulkEvent implements Listener {
     @EventHandler
     public void terremoto(PlayerToggleSneakEvent event) {
         Player player = event.getPlayer();
-        ItemStack calca = player.getInventory().getLeggings();
-        if(calca != null && calca.isSimilar(Reliquias.calca) && !player.hasCooldown(Reliquias.calca.getType())){
+        ItemStack calca = player.getInventory().getChestplate();
+        if(calca != null && calca.isSimilar(Reliquias.hulk) && !player.hasCooldown(Reliquias.hulk.getType())){
             int range = 20;
-            final int finalDamage = 10;
+            final double finalDamage = 2*(41-player.getHealth());
             final Location location = player.getLocation();
             final World world = player.getWorld();
+            player.sendActionBar(Component.text("SMASH!"));
             Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 5,
                     ()->{
                     },()->{},(t)->{
@@ -68,7 +42,7 @@ public class CalcaEvent implements Listener {
                 while(pressf.iterator().hasNext()){
                     Entity surdo = pressf.iterator().next();
                     if(surdo instanceof LivingEntity vivo){
-                        if(!vivo.getEquipment().getLeggings().isSimilar(Reliquias.calca)){
+                        if(!vivo.getEquipment().getChestplate().isSimilar(Reliquias.hulk)){
                             vivo.damage(finalDamage);
                         }
                     }
@@ -76,7 +50,16 @@ public class CalcaEvent implements Listener {
                 }
             });
             timer.scheduleTimer(5L);
-            player.setCooldown(Reliquias.calca.getType(),600);
+            player.setCooldown(Reliquias.hulk.getType(),600);
+        }
+    }
+    @EventHandler
+    public void ataque(EntityDamageByEntityEvent event) {
+        Entity atacante = event.getDamager();
+        if(atacante instanceof Player atacantepl) {
+            if (atacantepl.getInventory().getChestplate() != null && atacantepl.getInventory().getChestplate().isSimilar(Reliquias.hulk)) {
+                event.setDamage(event.getDamage()*(41-atacantepl.getHealth()));
+            }
         }
     }
 }

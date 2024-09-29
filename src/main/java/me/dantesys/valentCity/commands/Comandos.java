@@ -41,8 +41,8 @@ public class Comandos implements CommandExecutor {
                 sender.sendMessage("Calça:"+config.get("calca"));
                 sender.sendMessage("Barbaro:"+config.get("barbaro"));
                 sender.sendMessage("Escavação:"+config.get("escavacao"));
-                sender.sendMessage("Alquimia:"+config.get("alquimia"));
                 sender.sendMessage("Ladrão:"+config.get("ladrao"));
+                sender.sendMessage("Hulk:"+config.get("hulk"));
             }else if(args.equals("registrar")){
                 //TODO
             }
@@ -75,9 +75,9 @@ public class Comandos implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.calca);
                         target.getInventory().addItem(Reliquias.machado);
                         target.getInventory().addItem(Reliquias.escavacao);
-                        target.getInventory().addItem(Reliquias.alquimia);
                         target.getInventory().addItem(Reliquias.ladrao);
                         target.getInventory().addItem(Reliquias.pescador);
+                        target.getInventory().addItem(Reliquias.hulk);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(Reliquias.espadamd1);
                     }else if(args[1].equalsIgnoreCase("spy")){
@@ -118,12 +118,12 @@ public class Comandos implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.machado);
                     }else if(args[1].equalsIgnoreCase("escavacao")){
                         target.getInventory().addItem(Reliquias.escavacao);
-                    }else if(args[1].equalsIgnoreCase("alquimia")){
-                        target.getInventory().addItem(Reliquias.alquimia);
                     }else if(args[1].equalsIgnoreCase("ladrao")){
                         target.getInventory().addItem(Reliquias.ladrao);
                     }else if(args[1].equalsIgnoreCase("pescador")){
                         target.getInventory().addItem(Reliquias.pescador);
+                    }else if(args[1].equalsIgnoreCase("hulk")){
+                        target.getInventory().addItem(Reliquias.hulk);
                     }else{
                         sender.sendMessage("Reliquia não encontrada!");
                     }

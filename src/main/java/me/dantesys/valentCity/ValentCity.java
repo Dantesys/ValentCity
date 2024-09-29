@@ -146,8 +146,8 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new CalcaEvent(), this);
         getServer().getPluginManager().registerEvents(new MachadoEvent(), this);
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
-        getServer().getPluginManager().registerEvents(new AlquimiaEvent(), this);
         getServer().getPluginManager().registerEvents(new LadraoEvent(), this);
+        getServer().getPluginManager().registerEvents(new HulkEvent(), this);
         config.addDefault("dev", "dantesys");
         config.addDefault("limite_vida", 200);
         config.addDefault("limite_dano", 100);
@@ -172,8 +172,8 @@ public final class ValentCity extends JavaPlugin{
         config.addDefault("calca", "");
         config.addDefault("barbaro", "");
         config.addDefault("escavacao", "");
-        config.addDefault("alquimia", "");
         config.addDefault("ladrao", "");
+        config.addDefault("hulk", "");
         config.options().copyDefaults(true);
         saveConfig();
         getServer().getConsoleSender().sendMessage("§2[Valent City]: Plugin Ativado!");
