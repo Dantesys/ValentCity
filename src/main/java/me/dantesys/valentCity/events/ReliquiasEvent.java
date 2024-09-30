@@ -27,7 +27,7 @@ public class ReliquiasEvent implements Listener {
         ItemStack is = event.getItem();
         if(is.isSimilar(Reliquias.power)){
             double dano = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).getValue();
-            double limite = config.getDouble("limite_dano");
+            double limite = config.getDouble("limite.dano");
             if(dano+1>limite){
                 player.sendActionBar(Component.text("Sem efeito, você atingiu o limite"));
                 return;
@@ -40,7 +40,7 @@ public class ReliquiasEvent implements Listener {
             player.sendActionBar(Component.text("Força: "+dano));
         }else if(is.isSimilar(Reliquias.life)){
             double vida = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
-            double limite = config.getDouble("limite_vida");
+            double limite = config.getDouble("limite.vida");
             if(vida+1>limite){
                 player.sendActionBar(Component.text("Sem efeito, você atingiu o limite"));
                 return;
