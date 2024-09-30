@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.13.0</h2>
+Adicionado nova reliquia da Fenix e mudanças na reliquia do Hulk
 <h2>Mudanças - v2.12.0</h2>
 Adicionado nova reliquia do Hulk e mudanças nas reliquias do Fazendeiro, Mineiro, Domador, Mago, Capacete, Pescador, Peitoral, removido reliquia do alquimista
 <h2>Mudanças - v2.11.0</h2>

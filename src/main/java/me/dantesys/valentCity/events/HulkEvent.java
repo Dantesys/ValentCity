@@ -42,7 +42,7 @@ public class HulkEvent implements Listener {
                 while(pressf.iterator().hasNext()){
                     Entity surdo = pressf.iterator().next();
                     if(surdo instanceof LivingEntity vivo){
-                        if(!vivo.getEquipment().getChestplate().isSimilar(Reliquias.hulk)){
+                        if(vivo.getEquipment() == null || vivo.getEquipment().getChestplate() == null || !vivo.getEquipment().getChestplate().isSimilar(Reliquias.hulk)){
                             vivo.damage(finalDamage);
                         }
                     }

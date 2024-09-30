@@ -14,38 +14,31 @@ public class Comandos implements CommandExecutor {
     FileConfiguration config = ValentCity.getPlugin(ValentCity.class).getConfig();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, String label, String[] args) {
-        if (label.equalsIgnoreCase("registro")){
-            if (args.length <= 3) {
-                sender.sendMessage("Tente:");
-                sender.sendMessage("/registro list");
-                sender.sendMessage("/registro registrar");
-            }else if(args.equals("list")){
-                sender.sendMessage("Guerreiro:"+config.get("guerreiro"));
-                sender.sendMessage("Ceifador:"+config.get("ceifador"));
-                sender.sendMessage("Infinidade:"+config.get("infinidade"));
-                sender.sendMessage("Espião:"+config.get("espiao"));
-                sender.sendMessage("Tridente:"+config.get("tridente"));
-                sender.sendMessage("Vento:"+config.get("vento"));
-                sender.sendMessage("Arco:"+config.get("arco"));
-                sender.sendMessage("Fazendeiro:"+config.get("fazendeiro"));
-                sender.sendMessage("Crossbow:"+config.get("crossbow"));
-                sender.sendMessage("Mineiro:"+config.get("mineiro"));
-                sender.sendMessage("Domador:"+config.get("domador"));
-                sender.sendMessage("Mago:"+config.get("mago"));
-                sender.sendMessage("Pisante:"+config.get("pisante"));
-                sender.sendMessage("Escudo:"+config.get("escudo"));
-                sender.sendMessage("Marreta:"+config.get("marreta"));
-                sender.sendMessage("Capacete:"+config.get("capacete"));
-                sender.sendMessage("Pescador:"+config.get("pescador"));
-                sender.sendMessage("Peitoral:"+config.get("peitoral"));
-                sender.sendMessage("Calça:"+config.get("calca"));
-                sender.sendMessage("Barbaro:"+config.get("barbaro"));
-                sender.sendMessage("Escavação:"+config.get("escavacao"));
-                sender.sendMessage("Ladrão:"+config.get("ladrao"));
-                sender.sendMessage("Hulk:"+config.get("hulk"));
-            }else if(args.equals("registrar")){
-                //TODO
-            }
+        if (label.equalsIgnoreCase("rlist")){
+            sender.sendMessage("Guerreiro:"+config.get("registro.guerreiro"));
+            sender.sendMessage("Ceifador:"+config.get("registro.ceifador"));
+            sender.sendMessage("Infinidade:"+config.get("registro.infinidade"));
+            sender.sendMessage("Espião:"+config.get("registro.espiao"));
+            sender.sendMessage("Tridente:"+config.get("registro.tridente"));
+            sender.sendMessage("Vento:"+config.get("registro.vento"));
+            sender.sendMessage("Arco:"+config.get("registro.arco"));
+            sender.sendMessage("Fazendeiro:"+config.get("registro.fazendeiro"));
+            sender.sendMessage("Crossbow:"+config.get("registro.crossbow"));
+            sender.sendMessage("Mineiro:"+config.get("registro.mineiro"));
+            sender.sendMessage("Domador:"+config.get("registro.domador"));
+            sender.sendMessage("Mago:"+config.get("registro.mago"));
+            sender.sendMessage("Pisante:"+config.get("pregistro.isante"));
+            sender.sendMessage("Escudo:"+config.get("registro.escudo"));
+            sender.sendMessage("Marreta:"+config.get("registro.marreta"));
+            sender.sendMessage("Capacete:"+config.get("registro.capacete"));
+            sender.sendMessage("Pescador:"+config.get("registro.pescador"));
+            sender.sendMessage("Peitoral:"+config.get("registro.peitoral"));
+            sender.sendMessage("Calça:"+config.get("registro.calca"));
+            sender.sendMessage("Barbaro:"+config.get("registro.barbaro"));
+            sender.sendMessage("Escavação:"+config.get("registro.escavacao"));
+            sender.sendMessage("Ladrão:"+config.get("registro.ladrao"));
+            sender.sendMessage("Hulk:"+config.get("registro.hulk"));
+            sender.sendMessage("Fenix:"+config.get("registro.fenix"));
         }else if (label.equalsIgnoreCase("reliquia")){
             if (args.length == 0) {
                 sender.sendMessage("Recebedor ou alvo não definido");
@@ -78,6 +71,7 @@ public class Comandos implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.ladrao);
                         target.getInventory().addItem(Reliquias.pescador);
                         target.getInventory().addItem(Reliquias.hulk);
+                        target.getInventory().addItem(Reliquias.fenix1);
                     }else if(args[1].equalsIgnoreCase("espada")){
                         target.getInventory().addItem(Reliquias.espadamd1);
                     }else if(args[1].equalsIgnoreCase("spy")){
@@ -124,6 +118,8 @@ public class Comandos implements CommandExecutor {
                         target.getInventory().addItem(Reliquias.pescador);
                     }else if(args[1].equalsIgnoreCase("hulk")){
                         target.getInventory().addItem(Reliquias.hulk);
+                    }else if(args[1].equalsIgnoreCase("fenix")){
+                        target.getInventory().addItem(Reliquias.fenix1);
                     }else{
                         sender.sendMessage("Reliquia não encontrada!");
                     }

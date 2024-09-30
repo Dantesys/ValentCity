@@ -1,11 +1,11 @@
 name: ValentCity
-version: '2.12.0'
+version: '2.13.0'
 main: me.dantesys.valentCity.ValentCity
 api-version: '1.21.1'
 authors: [ Dantesys ]
 description: Um plugin usando no servidor valent city
 commands:
-  registro:
+  rlist:
     description: Para gerenciar os registros das reliquias
     usage: /<command> [list|registrar]
     permission: reliquas.registro

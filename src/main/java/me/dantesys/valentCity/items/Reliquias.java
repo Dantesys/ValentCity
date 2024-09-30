@@ -59,7 +59,9 @@ public class Reliquias {
     public static ItemStack power;
     public static ItemStack life;
     public static ItemStack hulk;
-    //ninja,hulk,copia (1 - players 2 - mobs), dragão, fenix
+    public static ItemStack fenix1;
+    public static ItemStack fenix2;
+    //ninja,hulk,copia (1 - players 2 - mobs), dragão, fenix 1, 2
     public static void init() {
         createEnxada();
         createEspadamd1();
@@ -97,6 +99,8 @@ public class Reliquias {
         createLadrao();
         createLivro();
         createHulk();
+        createFenix1();
+        createFenix2();
     }
     private static void createEnxada() {
         ItemStack item = new ItemStack(Material.NETHERITE_HOE, 1);
@@ -828,10 +832,50 @@ public class Reliquias {
         meta.addEnchant(Enchantment.BLAST_PROTECTION,5,true);
         meta.addEnchant(Enchantment.PROTECTION,5,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.addAttributeModifier(GENERIC_SCALE, new AttributeModifier(GENERIC_SCALE.getKey(),2, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addAttributeModifier(GENERIC_SCALE, new AttributeModifier(GENERIC_SCALE.getKey(),0.5, AttributeModifier.Operation.ADD_NUMBER));
         meta.addAttributeModifier(GENERIC_MAX_HEALTH, new AttributeModifier(GENERIC_MAX_HEALTH.getKey(),20, AttributeModifier.Operation.ADD_NUMBER));
         item.setItemMeta(meta);
         hulk = item;
+    }
+    private static void createFenix1(){
+        ItemStack item = new ItemStack(Material.FEATHER, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia da Fenix (1)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma pena do passaro"));
+        loreitem.add(Component.text("§7mistico a fenix!"));
+        loreitem.add(Component.text("§7Modelo: Pena"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.FIRE_PROTECTION,100,true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        fenix1 = item;
+    }
+    private static void createFenix2(){
+        ItemStack item = new ItemStack(Material.NETHERITE_SWORD, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("§6Relíquia da Fenix (2)"));
+        List<Component> loreitem = new ArrayList<>();
+        loreitem.add(Component.text("§7Uma das garras do passaro"));
+        loreitem.add(Component.text("§7mistico a fenix!"));
+        loreitem.add(Component.text("§7Modelo: Garra"));
+        meta.lore(loreitem);
+        meta.setRarity(ItemRarity.EPIC);
+        meta.setUnbreakable(true);
+        meta.setFireResistant(true);
+        meta.addEnchant(Enchantment.BANE_OF_ARTHROPODS,5,true);
+        meta.addEnchant(Enchantment.FIRE_ASPECT,50,true);
+        meta.addEnchant(Enchantment.LOOTING,3,true);
+        meta.addEnchant(Enchantment.SHARPNESS,5,true);
+        meta.addEnchant(Enchantment.SMITE,5,true);
+        meta.addEnchant(Enchantment.SWEEPING_EDGE,5,true);
+        meta.addAttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO, new AttributeModifier(PLAYER_SWEEPING_DAMAGE_RATIO.getKey(),5, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        fenix2 = item;
     }
     private static void createLivro() {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK, 1);
@@ -840,7 +884,7 @@ public class Reliquias {
         meta.displayName(Component.text("§6Manual das Reliquias"));
         List<Component> pages = new ArrayList<>();
         pages.add(Component.text("§r§0Reliquias:\n(1) - Ceifador\n(2) - Guerreiro\n(3) - Infinidade\n(4) - Espião\n(5) - Tridente\n(6) - Vento\n(7) - Arco\n(8) - Fazendeiro\n(9) - Crossbow\n(10) - Mineiro\n(11) - Domador\n(12) - Mago"));
-        pages.add(Component.text("§r§0(13) - Pisante\n(14) - Escudo\n(15) - Marreta\n(16) - Capacete\n(17) - Pescador\n(18) - Peitoral\n(19) - Calça\n(20) - Barbaro\n(21) - Escavação\n(22) - Ladrão\n(23) - Hulk"));
+        pages.add(Component.text("§r§0(13) - Pisante\n(14) - Escudo\n(15) - Marreta\n(16) - Capacete\n(17) - Pescador\n(18) - Peitoral\n(19) - Calça\n(20) - Barbaro\n(21) - Escavação\n(22) - Ladrão\n(23) - Hulk\n(24) - Fenix"));
         pages.add(Component.text("§l§6Relíquia do Ceifador\n§r§0Efeitos:\nNa mão: Visão Noturna e aura sombria\nNo ataque: Regeneração, no alvo Escuridão\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta a vida"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro - Combatente\n§r§0Efeitos:\nNa mão: Resistência\nNo ataque: Força e velocidade, no alvo lentidão, naúse e deixa ele brilhando\nHabilidade: Quando mata um mob do tipo Monster dropa uma maçã que aumenta o ataque"));
         pages.add(Component.text("§l§6Relíquia do Guerreiro - Assasino\n§r§0Efeitos:\nNa mão: Regeneração\nNo ataque: Força \nHabilidade: Quando está na hotbar ganha efeito de invisibilidade"));
@@ -874,6 +918,8 @@ public class Reliquias {
         pages.add(Component.text("§l§6Relíquia da Escavação\n§r§0Efeitos:\nVisão noturna e pressa\nHabilidade: Pode localizar estruturas 1 Modo de escavação 2-9 Modo de exploração"));
         pages.add(Component.text("§l§6Relíquia do Ladrão\n§r§0Efeitos:\nNa mão: Invisibilidade e Visão Noturna\nHabilidade: Pode roubar itens!"));
         pages.add(Component.text("§l§6Relíquia do Hulk\n§r§0Efeitos:\n+20 pontos de vida, +altura\nHabilidade: Pode esmagar inimigos e o dano aumenta quanto menos vida tiver!"));
+        pages.add(Component.text("§l§6Relíquia da Fenix - Pena\n§r§0Efeitos:\nPermite voar, resistencia a fogo e visão noturna\nHabilidade: Queima todos os mobs proximos e pode curar feridas!"));
+        pages.add(Component.text("§l§6Relíquia da Fenix - Garra\n§r§0Efeitos:\nResistencia a fogo e visão noturna\nHabilidade: Pode soltar um corte que queima todos na sua frente!"));
         Book bk = meta.pages(pages);
         if(bk.author().examinableName().equals(meta.getAuthor())){
             getServer().getConsoleSender().sendMessage("§6Author: "+meta.getAuthor());
