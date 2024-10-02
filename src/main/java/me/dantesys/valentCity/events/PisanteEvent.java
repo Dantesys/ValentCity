@@ -41,8 +41,10 @@ public class PisanteEvent implements Listener {
                 pressf.remove(lento);
             }
         }else if(botas != null && botas.isSimilar(Reliquias.pisante_md2)){
-            player.setAllowFlight(true);
-            player.setFlying(true);
+            if(!player.getAllowFlight()){
+                player.setAllowFlight(true);
+                player.setFlying(true);
+            }
             if(player.isFlying()){
                 World world = player.getWorld();
                 world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,location,1);
@@ -54,6 +56,7 @@ public class PisanteEvent implements Listener {
             }
         }else{
             player.setAllowFlight(false);
+            player.setFlying(false);
         }
     }
 }

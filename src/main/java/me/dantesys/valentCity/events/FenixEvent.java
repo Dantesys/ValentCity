@@ -32,7 +32,10 @@ public class FenixEvent implements Listener {
         if(player.getInventory().contains(Reliquias.fenix1) || player.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
             World world = player.getWorld();
             world.spawnParticle(Particle.FLAME,location,1);
-            player.setAllowFlight(true);
+            if(!player.getAllowFlight()){
+                player.setAllowFlight(true);
+                player.setFlying(true);
+            }
             Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,5,5,5);
             while(pressf.iterator().hasNext()){
                 Entity lento = pressf.iterator().next();
@@ -49,6 +52,7 @@ public class FenixEvent implements Listener {
             }
         }else{
             player.setAllowFlight(false);
+            player.setFlying(false);
         }
     }
     @EventHandler

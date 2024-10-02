@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class FazendeiroEvent implements Listener {
     @EventHandler
@@ -131,62 +130,49 @@ public class FazendeiroEvent implements Listener {
                 int range = 50;
                 AtomicDouble damage = new AtomicDouble(0);
                 boolean atk = false;
-                ItemStack drop = null;
-                AtomicInteger qtd = new AtomicInteger();
                 if(player.getInventory().contains(Material.WHEAT)){
                     atk = true;
                     HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.WHEAT);
                     if(!map.isEmpty()){
                         map.forEach((slot,i) -> {
-                            player.getInventory().remove(i);
                             damage.addAndGet(i.getAmount());
-                            qtd.addAndGet(i.getAmount()/2);
                         });
-                        drop = new ItemStack(Material.WHEAT, qtd.get());
                     }
-                }else if(player.getInventory().contains(Material.BEETROOTS)){
+                }
+                if(player.getInventory().contains(Material.BEETROOTS)){
                     atk = true;
                     HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.BEETROOTS);
                     if(!map.isEmpty()){
                         map.forEach((slot,i) -> {
-                            player.getInventory().remove(i);
                             damage.addAndGet(i.getAmount()*1.25);
-                            qtd.addAndGet(i.getAmount()/2);
                         });
-                        drop = new ItemStack(Material.BEETROOTS, qtd.get());
                     }
-                }else if(player.getInventory().contains(Material.POTATOES)){
+                }
+                if(player.getInventory().contains(Material.POTATOES)){
                     atk = true;
                     HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.POTATOES);
-                    if(!map.isEmpty()){
-                        map.forEach((slot,i) -> {
-                            player.getInventory().remove(i);
-                            damage.addAndGet(i.getAmount()*1.5);
-                            qtd.addAndGet(i.getAmount()/2);
+                    if(!map.isEmpty()) {
+                        map.forEach((slot, i) -> {
+                            damage.addAndGet(i.getAmount() * 1.5);
                         });
-                        drop = new ItemStack(Material.POTATOES, qtd.get());
                     }
-                }else if(player.getInventory().contains(Material.CARROTS)){
+                }
+                if(player.getInventory().contains(Material.CARROTS)){
                     atk = true;
                     HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.CARROTS);
                     if(!map.isEmpty()){
                         map.forEach((slot,i) -> {
-                            player.getInventory().remove(i);
                             damage.addAndGet(i.getAmount()*1.75);
-                            qtd.addAndGet(i.getAmount()/2);
                         });
-                        drop = new ItemStack(Material.CARROTS, qtd.get());
                     }
-                }else if(player.getInventory().contains(Material.GOLDEN_CARROT)){
+                }
+                if(player.getInventory().contains(Material.GOLDEN_CARROT)){
                     atk = true;
                     HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.GOLDEN_CARROT);
                     if(!map.isEmpty()){
                         map.forEach((slot,i) -> {
-                            player.getInventory().remove(i);
                             damage.addAndGet(i.getAmount()*2);
-                            qtd.addAndGet(i.getAmount()/2);
                         });
-                        drop = new ItemStack(Material.GOLDEN_CARROT, qtd.get());
                     }
                 }
                 if(atk){
@@ -196,7 +182,6 @@ public class FazendeiroEvent implements Listener {
                     final boolean[] passa = {true};
                     final Vector direction = location.getDirection().normalize();
                     final double[] tp = {0};
-                    final ItemStack finalDrop = drop;
                     Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                             ()->{
                             },()->{},(t)->{
@@ -219,9 +204,6 @@ public class FazendeiroEvent implements Listener {
                         location.subtract(x,y,z);
                         if(t.getSegundosRestantes()>finalRange || !passa[0]){
                             t.stop();
-                            if(finalDrop!=null){
-                                location.getWorld().dropItemNaturally(location, finalDrop);
-                            }
                         }
                     });
                     timer.scheduleTimer(5L);

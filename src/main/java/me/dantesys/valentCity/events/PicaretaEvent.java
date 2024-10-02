@@ -21,7 +21,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class PicaretaEvent implements Listener {
     @EventHandler
@@ -160,7 +159,6 @@ public class PicaretaEvent implements Listener {
                     location.subtract(x,y,z);
                     if(t.getSegundosRestantes()>finalRange || !passa[0]){
                         t.stop();
-                        location.getWorld().createExplosion(location,5,false,false);
                     }
                 });
                 timer.scheduleTimer(5L);
@@ -169,102 +167,76 @@ public class PicaretaEvent implements Listener {
         }else if(item != null && item.isSimilar(Reliquias.picareta_md1) && !player.hasCooldown(Reliquias.picareta_md1.getType())){
             AtomicDouble damage = new AtomicDouble(0);
             boolean atk = false;
-            ItemStack drop = null;
-            AtomicInteger qtd = new AtomicInteger();
             if(player.getInventory().contains(Material.COAL)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.COAL);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount());
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.COAL, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.RAW_COPPER)){
+            if(player.getInventory().contains(Material.RAW_COPPER)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.RAW_COPPER);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*1.25);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.RAW_COPPER, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.RAW_IRON)){
+            if(player.getInventory().contains(Material.RAW_IRON)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.RAW_IRON);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*1.5);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.RAW_IRON, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.RAW_GOLD)){
+            if(player.getInventory().contains(Material.RAW_GOLD)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.RAW_GOLD);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*1.75);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.RAW_GOLD, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.LAPIS_LAZULI)){
+            if(player.getInventory().contains(Material.LAPIS_LAZULI)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.LAPIS_LAZULI);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*2);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.LAPIS_LAZULI, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.REDSTONE)){
+            if(player.getInventory().contains(Material.REDSTONE)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.REDSTONE);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*2.25);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.REDSTONE, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.DIAMOND)){
+            if(player.getInventory().contains(Material.DIAMOND)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.DIAMOND);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*2.5);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.DIAMOND, qtd.get());
                 }
             }
-            else if(player.getInventory().contains(Material.ANCIENT_DEBRIS)){
+            if(player.getInventory().contains(Material.ANCIENT_DEBRIS)){
                 atk = true;
                 HashMap<Integer,? extends ItemStack> map = player.getInventory().all(Material.ANCIENT_DEBRIS);
                 if(!map.isEmpty()){
                     map.forEach((slot,i) -> {
-                        player.getInventory().remove(i);
                         damage.addAndGet(i.getAmount()*2.75);
-                        qtd.addAndGet(i.getAmount()/2);
                     });
-                    drop = new ItemStack(Material.ANCIENT_DEBRIS, qtd.get());
                 }
             }
             if(atk){
@@ -274,12 +246,9 @@ public class PicaretaEvent implements Listener {
                 final boolean[] passa = {true};
                 final Vector direction = location.getDirection().normalize();
                 final double[] tp = {0};
-                final ItemStack finalDrop = drop;
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{if(finalDrop!=null){
-                    location.getWorld().dropItemNaturally(location, finalDrop);
-                }},(t)->{
+                        },()->{},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;

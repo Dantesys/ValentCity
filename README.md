@@ -1,4 +1,6 @@
 <h1>Plugin Valent City</h1>
+<h2>Mudanças - v2.14.1</h2>
+Ajuste na reliquia da fenix, pisante, mineiro, pescador e fazendeiro após bug encontrado
 <h2>Mudanças - v2.14.0</h2>
 Ajuste na reliquia da fenix, na pisante e nerf na reliquia do arco, apos alguns teste constatado que o dano era aproximadamente 1500
 <h2>Mudanças - v2.13.0</h2>
