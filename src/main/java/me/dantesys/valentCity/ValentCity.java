@@ -158,6 +158,7 @@ public final class ValentCity extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new EscavacaoEvent(), this);
         getServer().getPluginManager().registerEvents(new LadraoEvent(), this);
         getServer().getPluginManager().registerEvents(new HulkEvent(), this);
+        getServer().getPluginManager().registerEvents(new FenixEvent(), this);
         config.addDefault("dev", "dantesys");
         config.addDefault("limite.vida", 200);
         config.addDefault("limite.dano", 100);

@@ -29,7 +29,7 @@ public class FenixEvent implements Listener {
     public void movimento(PlayerMoveEvent event){
         Player player = event.getPlayer();
         Location location = event.getFrom();
-        if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
+        if(player.getInventory().contains(Reliquias.fenix1) || player.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
             World world = player.getWorld();
             world.spawnParticle(Particle.FLAME,location,1);
             player.setAllowFlight(true);
@@ -101,7 +101,7 @@ public class FenixEvent implements Listener {
     public void ataque(EntityDamageByEntityEvent event) {
         Entity presa = event.getEntity();
         if(presa instanceof Player atacantepl) {
-            if(atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
+            if(atacantepl.getInventory().contains(Reliquias.fenix1) || atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 600, 1));
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 1));
             }
