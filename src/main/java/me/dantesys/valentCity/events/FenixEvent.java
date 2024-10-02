@@ -17,7 +17,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -30,8 +29,7 @@ public class FenixEvent implements Listener {
     public void movimento(PlayerMoveEvent event){
         Player player = event.getPlayer();
         Location location = event.getFrom();
-        Inventory iv = player.getInventory();
-        if(iv.contains(Reliquias.fenix1)){
+        if(player.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
             World world = player.getWorld();
             world.spawnParticle(Particle.FLAME,location,1);
             player.setAllowFlight(true);
@@ -50,6 +48,9 @@ public class FenixEvent implements Listener {
                 }
                 pressf.remove(lento);
             }
+        }else{
+            player.setAllowFlight(false);
+            player.setFlying(false);
         }
     }
     @EventHandler
@@ -100,8 +101,7 @@ public class FenixEvent implements Listener {
     public void ataque(EntityDamageByEntityEvent event) {
         Entity presa = event.getEntity();
         if(presa instanceof Player atacantepl) {
-            Inventory iv = atacantepl.getInventory();
-            if(iv.contains(Reliquias.fenix1)){
+            if(atacantepl.getInventory().getItemInMainHand().isSimilar(Reliquias.fenix1)){
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 600, 1));
                 atacantepl.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 1));
             }

@@ -66,7 +66,7 @@ public class ArcoEvent implements Listener {
                 arrow.setGlowing(true);
                 arrow.setColor(Color.YELLOW);
                 Vector vec = player.getLocation().getDirection();
-                arrow.setVelocity(vec.multiply(100));
+                arrow.setVelocity(vec.multiply(50));
             }
         }
     }
@@ -79,7 +79,7 @@ public class ArcoEvent implements Listener {
                 arrow.setGlowing(true);
                 arrow.setColor(Color.YELLOW);
                 Vector vec = player.getLocation().getDirection();
-                arrow.setVelocity(vec.multiply(100));
+                arrow.setVelocity(vec.multiply(50));
             }
         }
     }

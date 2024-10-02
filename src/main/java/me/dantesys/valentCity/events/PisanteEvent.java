@@ -19,22 +19,6 @@ import java.util.Collection;
 
 public class PisanteEvent implements Listener {
     @EventHandler
-    public void colocou(PlayerArmorChangeEvent event){
-        Player player = event.getPlayer();
-        ItemStack item = event.getNewItem();
-        if(item.isSimilar(Reliquias.pisante_md1) && event.getSlotType().equals(PlayerArmorChangeEvent.SlotType.FEET)){
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,-1,1));
-            player.setAllowFlight(false);
-            player.setFlying(false);
-        }else if(item.isSimilar(Reliquias.pisante_md2) && event.getSlotType().equals(PlayerArmorChangeEvent.SlotType.FEET)){
-            player.setAllowFlight(true);
-            player.setFlying(true);
-        }else{
-            player.setAllowFlight(false);
-            player.setFlying(false);
-        }
-    }
-    @EventHandler
     public void movimento(PlayerMoveEvent event){
         Player player = event.getPlayer();
         Location location = event.getFrom();
@@ -57,6 +41,8 @@ public class PisanteEvent implements Listener {
                 pressf.remove(lento);
             }
         }else if(botas != null && botas.isSimilar(Reliquias.pisante_md2)){
+            player.setAllowFlight(true);
+            player.setFlying(true);
             if(player.isFlying()){
                 World world = player.getWorld();
                 world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,location,1);
@@ -66,6 +52,9 @@ public class PisanteEvent implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,100,1));
                 }
             }
+        }else{
+            player.setAllowFlight(false);
+            player.setFlying(false);
         }
     }
 }
