@@ -49,7 +49,6 @@ public class FenixEvent implements Listener {
             }
         }else{
             player.setAllowFlight(false);
-            player.setFlying(false);
         }
     }
     @EventHandler

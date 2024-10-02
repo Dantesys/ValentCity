@@ -54,7 +54,6 @@ public class PisanteEvent implements Listener {
             }
         }else{
             player.setAllowFlight(false);
-            player.setFlying(false);
         }
     }
 }
