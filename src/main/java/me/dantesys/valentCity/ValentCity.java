@@ -61,9 +61,9 @@ public final class ValentCity extends JavaPlugin{
         NamespacedKey key_pei2 = new NamespacedKey(this, "PEI2");
         ItemStack pei2 = new ItemStack(Reliquias.peitoral_md2);
         NamespacedKey key_fen1 = new NamespacedKey(this, "FEN1");
-        ItemStack fen1 = new ItemStack(Reliquias.peitoral_md1);
+        ItemStack fen1 = new ItemStack(Reliquias.fenix1);
         NamespacedKey key_fen2 = new NamespacedKey(this, "FEN2");
-        ItemStack fen2 = new ItemStack(Reliquias.peitoral_md2);
+        ItemStack fen2 = new ItemStack(Reliquias.fenix2);
         NamespacedKey key_bk = new NamespacedKey(this, "BKINFO");
         ItemStack bk = new ItemStack(Reliquias.livro);
         ShapelessRecipe espa1_recipe = new ShapelessRecipe(key_espa1,espa1);

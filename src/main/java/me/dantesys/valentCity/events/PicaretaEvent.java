@@ -160,7 +160,7 @@ public class PicaretaEvent implements Listener {
                     location.subtract(x,y,z);
                     if(t.getSegundosRestantes()>finalRange || !passa[0]){
                         t.stop();
-                        location.getWorld().createExplosion(location,10,false,false);
+                        location.getWorld().createExplosion(location,5,false,false);
                     }
                 });
                 timer.scheduleTimer(5L);
@@ -277,7 +277,9 @@ public class PicaretaEvent implements Listener {
                 final ItemStack finalDrop = drop;
                 Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                         ()->{
-                        },()->{},(t)->{
+                        },()->{if(finalDrop!=null){
+                    location.getWorld().dropItemNaturally(location, finalDrop);
+                }},(t)->{
                     tp[0] = tp[0]+3.4;
                     double x = direction.getX()*tp[0];
                     double y = direction.getY()*tp[0]+1.4;
@@ -297,9 +299,6 @@ public class PicaretaEvent implements Listener {
                     location.subtract(x,y,z);
                     if(t.getSegundosRestantes()>finalRange || !passa[0]){
                         t.stop();
-                        if(finalDrop!=null){
-                            location.getWorld().dropItemNaturally(location, finalDrop);
-                        }
                     }
                 });
                 timer.scheduleTimer(5L);

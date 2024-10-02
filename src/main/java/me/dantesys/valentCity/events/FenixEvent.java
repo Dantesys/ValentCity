@@ -33,7 +33,6 @@ public class FenixEvent implements Listener {
             World world = player.getWorld();
             world.spawnParticle(Particle.FLAME,location,1);
             player.setAllowFlight(true);
-            player.setFlying(true);
             Collection<Entity> pressf = location.getWorld().getNearbyEntities(location,5,5,5);
             while(pressf.iterator().hasNext()){
                 Entity lento = pressf.iterator().next();

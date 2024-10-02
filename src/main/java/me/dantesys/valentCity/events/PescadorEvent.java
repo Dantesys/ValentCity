@@ -134,7 +134,7 @@ public class PescadorEvent implements Listener {
                         final double[] tp = {0};
                         Temporizador timer = new Temporizador(ValentCity.getPlugin(ValentCity.class), 10,
                                 ()->{
-                                },()->location.getWorld().dropItemNaturally(location,drop),
+                                },()->{location.getWorld().dropItemNaturally(location, drop);},
                                 (t)->{
                             tp[0] = tp[0]+3.4;
                             double x = direction.getX()*tp[0];
