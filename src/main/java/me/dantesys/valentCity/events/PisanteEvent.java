@@ -63,8 +63,6 @@ public class PisanteEvent implements Listener {
                 if(queda>0){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,100,1));
                 }
-                player.setAllowFlight(true);
-                player.setFlying(true);
             }
         }else{
             player.setAllowFlight(false);

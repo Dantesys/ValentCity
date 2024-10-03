@@ -50,7 +50,7 @@ public class FenixEvent implements Listener {
                 }
                 pressf.remove(lento);
             }
-        }else{
+        }else if(player.getInventory().getBoots() == null || !player.getInventory().getBoots().isSimilar(Reliquias.pisante_md2)){
             player.setAllowFlight(false);
             player.setFlying(false);
         }
