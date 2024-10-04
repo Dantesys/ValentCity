@@ -103,7 +103,6 @@ public class PicaretaEvent implements Listener {
                 Location l = presa.getLocation();
                 World w = presa.getWorld();
                 event.setDamage(event.getFinalDamage()*5);
-                w.createExplosion(l,1,false,false);
             }
         }
     }

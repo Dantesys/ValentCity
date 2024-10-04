@@ -141,10 +141,8 @@ public class MagoEvent implements Listener {
                 event.setCancelled(true);
                 Vector vec = player.getEyeLocation().getDirection();
                 player.setCooldown(Reliquias.escavacao.getType(),1200);
-                World w = player.getWorld();
-                Location l = player.getLocation();
                 Inventory iv = player.getInventory();
-                ItemStack hb1 = iv.getItem(1);
+                ItemStack hb1 = iv.getItem(0);
                 ItemStack hb2 = iv.getItem(1);
                 ItemStack hb3 = iv.getItem(2);
                 ItemStack hb4 = iv.getItem(3);
@@ -258,16 +256,16 @@ public class MagoEvent implements Listener {
                 }
                 else if(hb9 != null && hb9.isSimilar(Reliquias.mago)){
                     player.sendActionBar(Component.text("Manasukin"));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,200,4));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,200,4));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,200,1));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,200,4));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,200,4));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,200,1));
-                    player.setCooldown(Reliquias.mago.getType(),600);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,600,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,600,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,600,1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,600,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,600,4));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,600,1));
+                    player.setCooldown(Reliquias.mago.getType(),1200);
                 }
             }else{
-                player.sendActionBar(Component.text("Sua mana está carregando aguarde "+player.getCooldown(Reliquias.mago.getType())+"s"));
+                player.sendActionBar(Component.text("Sua mana está carregando aguarde "+(player.getCooldown(Reliquias.mago.getType())/20)+"s"));
             }
         }
     }

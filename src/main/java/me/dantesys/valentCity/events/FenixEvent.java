@@ -84,10 +84,10 @@ public class FenixEvent implements Listener {
             if(omao.isSimilar(Reliquias.totem)){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, -1, 1));
             }else{
-                if(item != null && item.isSimilar(Reliquias.espadamd1)){
+                if(item != null && item.isSimilar(Reliquias.fenix1)){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, -1, 4));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));
-                }else if(item != null && item.isSimilar(Reliquias.espadamd2)){
+                }else if(item != null && item.isSimilar(Reliquias.fenix2)){
                     ReliquiasEvent.limparEfeito(player);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, -1, 4));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1));

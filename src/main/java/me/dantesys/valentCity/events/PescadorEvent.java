@@ -146,25 +146,25 @@ public class PescadorEvent implements Listener {
                                 Entity surdo = pressf.iterator().next();
                                 if(surdo instanceof LivingEntity vivo){
                                     vivo.damage(finalDamage);
+                                    Random rd = new Random();
+                                    int ver = rd.nextInt(0,100);
+                                    if(ver<=25){
+                                        location.getWorld().spawn(location, Cod.class);
+                                    }else if(ver<=50){
+                                        location.getWorld().spawn(location, Salmon.class);
+                                    }else if(ver<=75){
+                                        location.getWorld().spawn(location, PufferFish.class);
+                                    }else if(ver<=99){
+                                        location.getWorld().spawn(location, TropicalFish.class);
+                                    }else{
+                                        location.getWorld().spawn(location, Axolotl.class);
+                                    }
                                 }
                                 pressf.remove(surdo);
                             }
                             location.subtract(x,y,z);
                             if(t.getSegundosRestantes()>finalRange || !passa[0]){
                                 t.stop();
-                                Random rd = new Random();
-                                int ver = rd.nextInt(0,100);
-                                if(ver<=25){
-                                    location.getWorld().spawn(location, Cod.class);
-                                }else if(ver<=50){
-                                    location.getWorld().spawn(location, Salmon.class);
-                                }else if(ver<=75){
-                                    location.getWorld().spawn(location, PufferFish.class);
-                                }else if(ver<=99){
-                                    location.getWorld().spawn(location, TropicalFish.class);
-                                }else{
-                                    location.getWorld().spawn(location, Axolotl.class);
-                                }
                             }
                         });
                         timer.scheduleTimer(5L);
